@@ -2,21 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PKPJ Inventori</title>
+<title>Inventori PKPJ</title>
 
 <style>
 
-body{font-family:Arial;background:#f4f6f8;padding:20px}
+body{
+  font-family: Arial;
+  background:#f4f6f8;
+  padding:20px;
+  font-size:16px;
+}
 
 .header{
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   gap:10px;
 }
 
-.logo{width:60px}
+.logo{
+  width:70px;
+}
 
+h2{
+  font-size:28px;
+}
+
+/* DASHBOARD */
 .dashboard{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -25,10 +37,12 @@ body{font-family:Arial;background:#f4f6f8;padding:20px}
 }
 
 .card{
-  padding:10px;
+  padding:15px;
   color:white;
-  border-radius:6px;
+  border-radius:10px;
   text-align:center;
+  font-size:18px;
+  font-weight:bold;
 }
 
 .blue{background:#0d6efd}
@@ -36,40 +50,61 @@ body{font-family:Arial;background:#f4f6f8;padding:20px}
 .red{background:#dc3545}
 .orange{background:#fd7e14}
 
+/* FORM */
 .form{
   display:grid;
-  grid-template-columns:180px 1fr;
+  grid-template-columns:200px 1fr;
   gap:10px;
   max-width:900px;
   margin:auto;
 }
 
 input,select,textarea{
-  padding:8px;
-  border:1px solid #ccc;
+  padding:10px;
+  font-size:15px;
 }
 
+/* BUTTON */
 button{
-  padding:10px;
+  padding:10px 15px;
   border:none;
   color:white;
   cursor:pointer;
+  font-size:15px;
+  border-radius:6px;
 }
 
 .save{background:#0d6efd}
 
+/* TABLE */
 table{
   width:100%;
   margin-top:20px;
   border-collapse:collapse;
+  font-size:15px;
 }
 
-td,th{
+th,td{
   border:1px solid #ccc;
-  padding:8px;
+  padding:10px;
+  text-align:center;
 }
 
-th{background:#0d6efd;color:white}
+th{
+  background:#0d6efd;
+  color:white;
+}
+
+/* DELETE */
+.del{
+  background:red;
+  padding:5px 10px;
+}
+
+.edit{
+  background:orange;
+  padding:5px 10px;
+}
 
 </style>
 
@@ -78,17 +113,17 @@ th{background:#0d6efd;color:white}
 <body>
 
 <div class="header">
-  <img src="pkpj.png" class="logo">
-  <h2>Sistem Inventori PKPJ</h2>
+<img src="pkpj.png" class="logo">
+<h2>Sistem Inventori PKPJ</h2>
 </div>
 
 <!-- DASHBOARD -->
 <div class="dashboard">
 
-  <div class="card blue">Total <br><span id="total"></span></div>
-  <div class="card green">Baik <br><span id="baik"></span></div>
-  <div class="card red">Rosak <br><span id="rosak"></span></div>
-  <div class="card orange">Pelupusan <br><span id="pelupusan"></span></div>
+<div class="card blue">Total<br><span id="total">0</span></div>
+<div class="card green">Baik<br><span id="baik">0</span></div>
+<div class="card red">Rosak<br><span id="rosak">0</span></div>
+<div class="card orange">Pelupusan<br><span id="pelupusan">0</span></div>
 
 </div>
 
@@ -106,9 +141,9 @@ th{background:#0d6efd;color:white}
 
 <label>Kategori</label>
 <select id="kategori">
-  <option>ICT</option>
-  <option>Sewaan</option>
-  <option>PKPJ</option>
+<option>ICT</option>
+<option>Sewaan</option>
+<option>PKPJ</option>
 </select>
 
 <label>Jenama</label>
@@ -119,12 +154,12 @@ th{background:#0d6efd;color:white}
 
 <label>Status</label>
 <select id="status">
-  <option>Baik</option>
-  <option>Rosak</option>
-  <option>Pelupusan</option>
+<option>Baik</option>
+<option>Rosak</option>
+<option>Pelupusan</option>
 </select>
 
-<label>Gambar URL</label>
+<label>Gambar</label>
 <input id="gambar">
 
 <label>Catatan</label>
@@ -152,39 +187,38 @@ th{background:#0d6efd;color:white}
 
 <script>
 
-const API="https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
+const API = "PASTE_URL";
 
-let cache=[];
+let editRow = null;
 
-// TAHUN AUTO
-let t=document.getElementById("tahun");
+// YEAR AUTO
 for(let y=2010;y<=2035;y++){
-  t.innerHTML+=`<option>${y}</option>`;
+  tahun.innerHTML += `<option>${y}</option>`;
 }
 
-// LOAD DATA
+// LOAD
 function load(){
 
 fetch(API)
 .then(r=>r.json())
 .then(d=>{
 
-cache=d;
-
 table.innerHTML="";
 
 d.forEach(v=>{
 
-table.innerHTML+=`
+table.innerHTML += `
 <tr>
 <td>${v[2]}</td>
 <td>${v[3]}</td>
 <td>${v[4]}</td>
 <td>${v[11]}</td>
 <td>
-<button onclick="del(${v[16]})">Delete</button>
+<button class="edit" onclick="edit(${v[v.length-1]})">Edit</button>
+<button class="del" onclick="del(${v[v.length-1]})">Delete</button>
 </td>
-</tr>`;
+</tr>
+`;
 
 });
 
@@ -208,13 +242,10 @@ pelupusan.innerText=s.pelupusan;
 
 }
 
-// SIMPAN
+// SAVE
 function simpan(){
 
-fetch(API,{
-method:"POST",
-headers:{"Content-Type":"text/plain"},
-body:JSON.stringify({
+let data={
 action:"simpan",
 tahun:tahun.value,
 noInventori:noInventori.value,
@@ -225,13 +256,16 @@ model:model.value,
 status:status.value,
 gambar:gambar.value,
 catatan:catatan.value
-})
+};
+
+fetch(API,{
+method:"POST",
+body:JSON.stringify(data)
 })
 .then(r=>r.json())
 .then(()=>{
 
 alert("BERJAYA DISIMPAN");
-
 clear();
 load();
 stats();
@@ -240,20 +274,25 @@ stats();
 
 }
 
-// CLEAR
-function clear(){
-document.querySelectorAll("input,textarea").forEach(e=>e.value="");
-}
-
 // DELETE
 function del(id){
+
+if(!confirm("Delete data?")) return;
+
 fetch(API,{
 method:"POST",
 body:JSON.stringify({action:"delete",rowNumber:id})
 })
 .then(()=>{load();stats();});
+
 }
 
+// CLEAR
+function clear(){
+document.querySelectorAll("input,textarea").forEach(e=>e.value="");
+}
+
+// INIT
 window.onload=function(){
 load();
 stats();

@@ -114,10 +114,27 @@
 
 <div class="container">
 
-  <h1>Sistem Inventori Peralatan IT PKPJ</h1>
+  <div class="header">
+  <img src="logo.png" alt="Logo PKPJ" class="logo">
+
+  <div class="header-title">
+    <h1>Sistem Inventori Peralatan IT PKPJ</h1>
+    <p>Stor Peralatan & Perkakasan IT</p>
+  </div>
+</div>
 
   <div class="form-grid">
-    <input type="text" id="tahun" placeholder="Tahun">
+   <select id="tahun"></select>
+
+<script>
+  const selectTahun = document.getElementById("tahun");
+
+  selectTahun.innerHTML = '<option value="">-- Pilih Tahun --</option>';
+
+  for (let tahun = 2010; tahun <= 2030; tahun++) {
+    selectTahun.innerHTML += `<option value="${tahun}">${tahun}</option>`;
+  }
+</script>
     <input type="text" id="noInventori" placeholder="No Inventori">
 
     <input type="text" id="nama" placeholder="Nama Peralatan">
@@ -374,3 +391,31 @@ function uploadImage() {
 
 </body>
 </html>
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.header-title {
+  text-align: center;
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.header-title p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #555;
+}

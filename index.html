@@ -2,27 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sistem Inventori Perkakasan IT PKPJ</title>
+<title>PKPJ INVENTORI PRO</title>
 
 <style>
 
-/* ================= BACKGROUND ================= */
 body{
   font-family: Arial;
-  margin:0;
+  background: linear-gradient(135deg,#e3f2fd,#f5f6fa);
   padding:20px;
-  background: linear-gradient(135deg, #e3f2fd, #f5f6fa);
-  font-size:16px;
 }
 
-/* ================= TITLE ================= */
 h2{
   text-align:center;
   font-size:30px;
-  margin-bottom:10px;
 }
 
-/* ================= DASHBOARD ================= */
+/* DASHBOARD */
 .dashboard{
   display:grid;
   grid-template-columns:repeat(6,1fr);
@@ -36,8 +31,6 @@ h2{
   color:white;
   text-align:center;
   font-weight:bold;
-  font-size:16px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 .blue{background:#0d6efd}
@@ -47,54 +40,41 @@ h2{
 .purple{background:#6f42c1}
 .gray{background:#343a40}
 
-/* ================= FORM ================= */
+/* FORM */
 .form{
   display:grid;
   grid-template-columns:200px 1fr;
-  gap:12px;
+  gap:10px;
   max-width:950px;
   margin:auto;
   background:white;
   padding:20px;
-  border-radius:12px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.1);
-}
-
-label{
-  font-weight:bold;
+  border-radius:10px;
 }
 
 input,select,textarea{
   padding:10px;
   font-size:15px;
-  border:1px solid #ccc;
-  border-radius:6px;
 }
 
-/* ================= BUTTON ================= */
+/* BUTTON */
 button{
   padding:10px 15px;
   border:none;
   border-radius:6px;
   color:white;
   cursor:pointer;
-  font-size:15px;
 }
 
-.save{
-  background:#0d6efd;
-  margin-top:10px;
-}
+.save{background:#0d6efd}
+.upload{background:#198754}
 
-/* ================= TABLE ================= */
+/* TABLE */
 table{
   width:100%;
   margin-top:20px;
   border-collapse:collapse;
   background:white;
-  border-radius:10px;
-  overflow:hidden;
-  box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 th,td{
@@ -111,13 +91,6 @@ th{
 .del{
   background:red;
   padding:5px 10px;
-  font-size:13px;
-}
-
-.edit{
-  background:orange;
-  padding:5px 10px;
-  font-size:13px;
 }
 
 </style>
@@ -126,9 +99,9 @@ th{
 
 <body>
 
-<h2>📦 Sistem Inventori PKPJ PRO</h2>
+<h2>📦 SISTEM INVENTORI PKPJ</h2>
 
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 <div class="dashboard">
 
 <div class="card blue">Total<br><span id="total">0</span></div>
@@ -140,7 +113,7 @@ th{
 
 </div>
 
-<!-- ================= FORM ================= -->
+<!-- FORM -->
 <div class="form">
 
 <label>Tahun</label>
@@ -159,24 +132,6 @@ th{
 <option>PKPJ</option>
 </select>
 
-<label>Jenama</label>
-<input id="jenama">
-
-<label>Model</label>
-<input id="model">
-
-<label>No Siri</label>
-<input id="noSiri">
-
-<label>Tag Aset</label>
-<input id="tagAset">
-
-<label>Kuantiti</label>
-<input id="kuantiti">
-
-<label>Lokasi</label>
-<input id="lokasi">
-
 <label>Status</label>
 <select id="status">
 <option>Baik</option>
@@ -184,14 +139,13 @@ th{
 <option>Pelupusan</option>
 </select>
 
-<label>Tarikh</label>
-<input type="date" id="tarikh">
+<label>Gambar</label>
+<input id="gambar" readonly>
 
-<label>Pembekal</label>
-<input id="pembekal">
+<label>Upload Gambar</label>
+<input type="file" id="imageInput">
 
-<label>Gambar URL</label>
-<input id="gambar">
+<button type="button" class="upload" onclick="uploadImage()">UPLOAD GAMBAR</button>
 
 <label>Catatan</label>
 <textarea id="catatan"></textarea>
@@ -200,12 +154,12 @@ th{
 
 <button class="save" onclick="simpan()">SIMPAN DATA</button>
 
-<!-- ================= TABLE ================= -->
+<!-- TABLE -->
 <table>
 
 <thead>
 <tr>
-<th>No Inventori</th>
+<th>No</th>
 <th>Nama</th>
 <th>Kategori</th>
 <th>Status</th>
@@ -217,17 +171,16 @@ th{
 
 </table>
 
-<!-- ================= SCRIPT ================= -->
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
+const API = "PASTE_URL_HERE";
 
-/* ===== YEAR ===== */
+/* YEAR */
 for(let y=2010;y<=2035;y++){
   tahun.innerHTML += `<option>${y}</option>`;
 }
 
-/* ===== LOAD ===== */
+/* LOAD */
 function load(){
 
 fetch(API)
@@ -246,8 +199,7 @@ table.innerHTML += `
 <td>${v.status}</td>
 
 <td>
-<button class="edit" onclick="edit(${v.row})">Edit</button>
-<button class="del" onclick="del(${v.row})">Delete</button>
+<button class="del" onclick="del(${v.row})">DELETE</button>
 </td>
 
 </tr>
@@ -259,7 +211,7 @@ table.innerHTML += `
 
 }
 
-/* ===== STATS ===== */
+/* STATS */
 function stats(){
 
 fetch(API+"?action=stats")
@@ -277,7 +229,7 @@ sewaan.innerText=s.Sewaan;
 
 }
 
-/* ===== SIMPAN ===== */
+/* SIMPAN */
 function simpan(){
 
 fetch(API,{
@@ -289,15 +241,7 @@ tahun:tahun.value,
 noInventori:noInventori.value,
 nama:nama.value,
 kategori:kategori.value,
-jenama:jenama.value,
-model:model.value,
-noSiri:noSiri.value,
-tagAset:tagAset.value,
-kuantiti:kuantiti.value,
-lokasi:lokasi.value,
 status:status.value,
-tarikh:tarikh.value,
-pembekal:pembekal.value,
 gambar:gambar.value,
 catatan:catatan.value
 })
@@ -306,8 +250,7 @@ catatan:catatan.value
 .then(()=>{
 
 alert("BERJAYA DISIMPAN ✔");
-
-clearForm();
+clear();
 load();
 stats();
 
@@ -315,37 +258,58 @@ stats();
 
 }
 
-/* ===== DELETE ===== */
-function del(id){
+/* UPLOAD */
+function uploadImage(){
 
-if(!confirm("Delete data ini?")) return;
+let file=document.getElementById("imageInput").files[0];
+
+let reader=new FileReader();
+
+reader.onload=function(e){
 
 fetch(API,{
 method:"POST",
+headers:{"Content-Type":"text/plain"},
 body:JSON.stringify({
-action:"delete",
-rowNumber:id
+action:"upload",
+image:e.target.result.split(",")[1],
+mimeType:file.type,
+fileName:file.name
 })
 })
-.then(()=>{
+.then(r=>r.json())
+.then(res=>{
 
-load();
-stats();
+gambar.value=res.url;
+alert("UPLOAD BERJAYA ✔");
 
 });
 
-}
+};
 
-/* ===== CLEAR ===== */
-function clearForm(){
-
-document.querySelectorAll("input,textarea").forEach(e=>{
-e.value="";
-});
+reader.readAsDataURL(file);
 
 }
 
-/* ===== INIT ===== */
+/* DELETE */
+function del(id){
+
+if(!confirm("Delete data?")) return;
+
+fetch(API,{
+method:"POST",
+body:JSON.stringify({action:"delete",row:id})
+})
+.then(()=>{load();stats();});
+
+}
+
+/* CLEAR */
+function clear(){
+document.querySelectorAll("input,textarea").forEach(e=>e.value="");
+}
+
+/* INIT */
 window.onload=function(){
 load();
 stats();

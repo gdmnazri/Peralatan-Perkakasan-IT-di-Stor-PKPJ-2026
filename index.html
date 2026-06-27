@@ -12,9 +12,7 @@ body{
   padding:20px;
 }
 
-h2{
-  text-align:center;
-}
+h2{text-align:center}
 
 /* DASHBOARD */
 .dashboard{
@@ -109,7 +107,7 @@ th{
 <div class="card gray">Sewaan <span id="sewaan">0</span></div>
 </div>
 
-<!-- FORM (IKUT COLUMN EXACT) -->
+<!-- FORM -->
 <div class="form">
 
 <label>Tahun</label>
@@ -159,8 +157,15 @@ th{
 <label>Pembekal</label>
 <input id="pembekal">
 
-<label>Gambar</label>
-<input id="gambar">
+<label>Gambar URL</label>
+<input id="gambar" readonly>
+
+<label>Upload Gambar</label>
+<input type="file" id="imageInput">
+
+<button type="button" class="upload" onclick="uploadImage()">
+UPLOAD GAMBAR
+</button>
 
 <label>Catatan</label>
 <textarea id="catatan"></textarea>
@@ -194,54 +199,38 @@ for(let y=2010;y<=2035;y++){
   tahun.innerHTML += `<option>${y}</option>`;
 }
 
-/* LOAD DATA */
+/* LOAD */
 function load(){
-
 fetch(API)
 .then(r=>r.json())
 .then(d=>{
-
 table.innerHTML="";
-
 d.forEach(v=>{
-
 table.innerHTML += `
 <tr>
-<td>${v.noInventori}</td>
-<td>${v.nama}</td>
-<td>${v.kategori}</td>
-<td>${v.jenama}</td>
-<td>${v.status}</td>
-
-<td>
-<button class="del" onclick="del(${v.row})">Delete</button>
-</td>
-
-</tr>
-`;
-
+<td>${v.noInventori||""}</td>
+<td>${v.nama||""}</td>
+<td>${v.kategori||""}</td>
+<td>${v.jenama||""}</td>
+<td>${v.status||""}</td>
+<td><button class="del" onclick="del(${v.row})">Delete</button></td>
+</tr>`;
 });
-
 });
-
 }
 
 /* STATS */
 function stats(){
-
 fetch(API+"?action=stats")
 .then(r=>r.json())
 .then(s=>{
-
-total.innerText=s.total;
-baik.innerText=s.baik;
-rosak.innerText=s.rosak;
-pelupusan.innerText=s.pelupusan;
-ict.innerText=s.ICT;
-sewaan.innerText=s.Sewaan;
-
+total.innerText=s.total||0;
+baik.innerText=s.baik||0;
+rosak.innerText=s.rosak||0;
+pelupusan.innerText=s.pelupusan||0;
+ict.innerText=s.ICT||0;
+sewaan.innerText=s.Sewaan||0;
 });
-
 }
 
 /* SIMPAN */
@@ -270,22 +259,58 @@ catatan:catatan.value
 })
 })
 .then(r=>r.json())
-.then(()=>{
+.then(res=>{
 
-alert("BERJAYA DISIMPAN");
+alert(res.message || "BERJAYA DISIMPAN ✔");
 
 clearForm();
 load();
 stats();
 
 });
+}
 
+/* UPLOAD GAMBAR */
+function uploadImage(){
+
+let file = document.getElementById("imageInput").files[0];
+
+if(!file){
+alert("Pilih gambar dulu");
+return;
+}
+
+let reader = new FileReader();
+
+reader.onload = function(e){
+
+fetch(API,{
+method:"POST",
+headers:{"Content-Type":"text/plain"},
+body:JSON.stringify({
+action:"upload",
+image:e.target.result.split(",")[1],
+mimeType:file.type,
+fileName:file.name
+})
+})
+.then(r=>r.json())
+.then(res=>{
+
+gambar.value = res.url;
+alert("UPLOAD BERJAYA ✔");
+
+});
+
+};
+
+reader.readAsDataURL(file);
 }
 
 /* DELETE */
 function del(id){
 
-if(!confirm("Delete?")) return;
+if(!confirm("Delete data?")) return;
 
 fetch(API,{
 method:"POST",

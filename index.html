@@ -1,129 +1,260 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Inventory PKPJ</title>
+<meta charset="UTF-8">
+<title>Sistem Inventori PKPJ</title>
 
 <style>
-body{font-family:Arial;background:#f4f6f8;padding:20px}
 
-.header{display:flex;align-items:center;justify-content:center;gap:10px}
-.logo{width:60px;height:60px}
+/* ===== GENERAL ===== */
+body{
+  font-family: Arial;
+  background:#f4f6f8;
+  margin:0;
+  padding:20px;
+}
 
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+h2{
+  text-align:center;
+}
 
-input,select,textarea{padding:8px}
+/* ===== FORM LAYOUT ===== */
+.form-section{
+  max-width:900px;
+  margin:20px auto;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
 
-table{width:100%;margin-top:20px;border-collapse:collapse}
-td,th{border:1px solid #ccc;padding:8px}
+.form-row{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:12px;
+  align-items:center;
+  margin-bottom:12px;
+}
 
-button{padding:8px 10px;margin:3px}
+.form-row label{
+  font-weight:bold;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  width:100%;
+  box-sizing:border-box;
+}
+
+.form-row textarea{
+  min-height:80px;
+}
+
+/* ===== BUTTON ===== */
+.button-row{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:6px;
+  color:white;
+  cursor:pointer;
+}
+
+.btn-save{background:#0d6efd;}
+.btn-upload{background:#198754;}
+
+/* ===== TABLE ===== */
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:8px;
+  text-align:center;
+}
+
+th{
+  background:#0d6efd;
+  color:white;
+}
+
 </style>
-
 </head>
 
 <body>
 
-<div class="header">
-  <img src="pkpj.png" class="logo">
-  <h2>Sistem Inventory PKPJ</h2>
+<h2>Sistem Inventori Peralatan IT PKPJ</h2>
+
+<!-- ===== FORM ===== -->
+<div class="form-section">
+
+  <div class="form-row">
+    <label>Tahun</label>
+    <input id="tahun">
+  </div>
+
+  <div class="form-row">
+    <label>No Inventori</label>
+    <input id="noInventori">
+  </div>
+
+  <div class="form-row">
+    <label>Nama Peralatan</label>
+    <input id="nama">
+  </div>
+
+  <div class="form-row">
+    <label>Kategori</label>
+    <select id="kategori">
+      <option value="">-- Pilih --</option>
+      <option>ICT</option>
+      <option>Sewaan</option>
+      <option>PKPJ</option>
+      <option>Lain-lain</option>
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label>Jenama</label>
+    <input id="jenama">
+  </div>
+
+  <div class="form-row">
+    <label>Model</label>
+    <input id="model">
+  </div>
+
+  <div class="form-row">
+    <label>No Siri</label>
+    <input id="noSiri">
+  </div>
+
+  <div class="form-row">
+    <label>Tag Aset</label>
+    <input id="tagAset">
+  </div>
+
+  <div class="form-row">
+    <label>Kuantiti</label>
+    <input id="kuantiti">
+  </div>
+
+  <div class="form-row">
+    <label>Lokasi</label>
+    <input id="lokasi">
+  </div>
+
+  <div class="form-row">
+    <label>Status</label>
+    <select id="status">
+      <option>Baik</option>
+      <option>Rosak</option>
+      <option>Baik Pulih</option>
+      <option>Dilupuskan</option>
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label>Tarikh Terima</label>
+    <input type="date" id="tarikhTerima">
+  </div>
+
+  <div class="form-row">
+    <label>Pembekal</label>
+    <input id="pembekal">
+  </div>
+
+  <div class="form-row">
+    <label>URL Gambar</label>
+    <input id="gambar">
+  </div>
+
+  <div class="form-row">
+    <label>Upload Gambar</label>
+    <input type="file" id="imageInput">
+  </div>
+
+  <div class="form-row">
+    <label>Catatan</label>
+    <textarea id="catatan"></textarea>
+  </div>
+
+  <div class="button-row">
+    <button class="btn-save" onclick="simpan()">Simpan</button>
+    <button class="btn-upload" onclick="uploadImage()">Upload Gambar</button>
+  </div>
+
 </div>
 
-<div class="grid">
-
-<input id="tahun">
-<input id="noInventori">
-<input id="nama">
-
-<select id="kategori">
-  <option>ICT</option>
-  <option>Sewaan</option>
-  <option>PKPJ</option>
-  <option>Lain-lain</option>
-</select>
-
-<input id="jenama">
-<input id="model">
-
-<input id="noSiri">
-<input id="tagAset">
-
-<input id="kuantiti">
-<input id="lokasi">
-
-<select id="status">
-  <option>Baik</option>
-  <option>Rosak</option>
-</select>
-
-<input id="tarikhTerima">
-<input id="pembekal">
-
-<input id="gambar">
-<input type="file" id="imageInput">
-
-<textarea id="catatan"></textarea>
-
-</div>
-
-<button onclick="simpan()">Simpan</button>
-
-<h3>Dashboard</h3>
-Total: <span id="total"></span>
-Baik: <span id="baik"></span>
-Rosak: <span id="rosak"></span>
-
+<!-- ===== TABLE ===== -->
 <table>
 <thead>
 <tr>
-<th>No</th><th>Nama</th><th>Kategori</th><th>Status</th><th>Action</th>
+<th>No Inventori</th>
+<th>Nama</th>
+<th>Kategori</th>
+<th>Status</th>
 </tr>
 </thead>
 
-<tbody id="dataTable"></tbody>
+<tbody id="dataTable">
+<tr><td colspan="4">Loading...</td></tr>
+</tbody>
 </table>
 
 <script>
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyFwfcC-rVOOc67UPIIjwjAQssTTuC4lFz6L1-FkFqCMwlHWTiFDOxfBArFqRwDr82j/exec";
+const API_URL = "PASTE_URL_HERE";
 
-let cache=[];
+let cache = [];
 
-function load(){
+// LOAD DATA
+function loadData(){
+
 fetch(API_URL)
 .then(r=>r.json())
-.then(d=>{
-cache=d;
-let t=document.getElementById("dataTable");
+.then(data=>{
+
+cache = data;
+
+let t = document.getElementById("dataTable");
 t.innerHTML="";
-d.forEach((v,i)=>{
-t.innerHTML+=`
+
+for(let i=0;i<data.length;i++){
+
+t.innerHTML += `
 <tr>
-<td>${v[2]}</td>
-<td>${v[3]}</td>
-<td>${v[4]}</td>
-<td>${v[11]}</td>
-<td>
-<button onclick="del(${v[16]})">Delete</button>
-</td>
-</tr>`;
-});
-});
+<td>${data[i][2]}</td>
+<td>${data[i][3]}</td>
+<td>${data[i][4]}</td>
+<td>${data[i][11]}</td>
+</tr>
+`;
+
 }
 
-function stats(){
-fetch(API_URL+"?action=stats")
-.then(r=>r.json())
-.then(s=>{
-total.innerText=s.total;
-baik.innerText=s.baik;
-rosak.innerText=s.rosak;
 });
+
 }
 
+// SIMPAN
 function simpan(){
 
 fetch(API_URL,{
 method:"POST",
+headers:{"Content-Type":"text/plain"},
 body:JSON.stringify({
 action:"simpan",
 tahun:tahun.value,
@@ -145,30 +276,22 @@ catatan:catatan.value
 })
 .then(r=>r.json())
 .then(()=>{
-alert("Berjaya disimpan");
-load();
-stats();
-clear();
+alert("Berjaya Disimpan");
+clearForm();
+loadData();
 });
 
 }
 
-function clear(){
+// CLEAR FORM
+function clearForm(){
+
 document.querySelectorAll("input,textarea").forEach(e=>e.value="");
+
 }
 
-function del(id){
-fetch(API_URL,{
-method:"POST",
-body:JSON.stringify({action:"delete",rowNumber:id})
-})
-.then(()=>{load();stats();});
-}
-
-window.onload=function(){
-load();
-stats();
-}
+// INIT
+window.onload = loadData;
 
 </script>
 

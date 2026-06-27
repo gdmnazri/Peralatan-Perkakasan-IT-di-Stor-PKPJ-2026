@@ -114,13 +114,24 @@
 
 <div class="container">
 
-  <div class="header">
-  <img src="./pkpj.png" class="logo">
+ .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
-  <div class="header-title">
-    <h1>Sistem Inventori Peralatan IT PKPJ</h1>
-    <p>Stor Peralatan & Perkakasan IT</p>
-  </div>
+.logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.header h1 {
+  font-size: 22px;
+  margin: 0;
+}
 </div>
 
   <div class="form-grid">
@@ -400,9 +411,10 @@ function uploadImage() {
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
+  display: block;
 }
 
 .header-title {

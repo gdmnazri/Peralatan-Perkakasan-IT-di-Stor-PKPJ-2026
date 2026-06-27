@@ -1,0 +1,148 @@
+<script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbyFwfcC-rVOOc67UPIIjwjAQssTTuC4lFz6L1-FkFqCMwlHWTiFDOxfBArFqRwDr82j/exec";
+
+
+// =========================
+// LOAD DATA
+// =========================
+window.onload = function () {
+  loadData();
+};
+
+function loadData() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+
+      let table = document.getElementById("dataTable");
+      table.innerHTML = "";
+
+      if (!Array.isArray(data)) return;
+
+      for (let i = 0; i < data.length; i++) {
+
+        table.innerHTML += `
+          <tr>
+            <td>${data[i][2] || ""}</td>
+            <td>${data[i][3] || ""}</td>
+            <td>${data[i][5] || ""}</td>
+            <td>${data[i][11] || ""}</td>
+          </tr>
+        `;
+      }
+    })
+    .catch(err => console.log("Error load data:", err));
+}
+
+
+// =========================
+// SIMPAN DATA (FIXED)
+// =========================
+function simpan() {
+
+  let data = {
+    action: "simpan", // ⭐ WAJIB ADA
+    tahun: document.getElementById("tahun").value,
+    noInventori: document.getElementById("noInventori").value,
+    nama: document.getElementById("nama").value,
+    kategori: document.getElementById("kategori").value,
+    jenama: document.getElementById("jenama").value,
+    model: document.getElementById("model").value,
+    noSiri: document.getElementById("noSiri").value,
+    tagAset: document.getElementById("tagAset").value,
+    kuantiti: document.getElementById("kuantiti").value,
+    lokasi: document.getElementById("lokasi").value,
+    status: document.getElementById("status").value,
+    tarikhTerima: document.getElementById("tarikhTerima").value,
+    pembekal: document.getElementById("pembekal").value,
+    gambar: document.getElementById("gambar").value,
+    catatan: document.getElementById("catatan").value
+  };
+
+  fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json()) // ⭐ FIX sini
+  .then(res => {
+
+    alert(res.message || "Data berjaya disimpan!");
+    loadData();
+    clearForm();
+
+  })
+  .catch(err => console.log("Error simpan:", err));
+}
+
+
+// =========================
+// CLEAR FORM
+// =========================
+function clearForm() {
+
+  document.getElementById("tahun").value = "";
+  document.getElementById("noInventori").value = "";
+  document.getElementById("nama").value = "";
+  document.getElementById("kategori").value = "";
+  document.getElementById("jenama").value = "";
+  document.getElementById("model").value = "";
+  document.getElementById("noSiri").value = "";
+  document.getElementById("tagAset").value = "";
+  document.getElementById("kuantiti").value = "";
+  document.getElementById("lokasi").value = "";
+  document.getElementById("status").value = "";
+  document.getElementById("tarikhTerima").value = "";
+  document.getElementById("pembekal").value = "";
+  document.getElementById("gambar").value = "";
+  document.getElementById("catatan").value = "";
+}
+
+
+// =========================
+// UPLOAD IMAGE (FIXED)
+// =========================
+function uploadImage() {
+
+  var file = document.getElementById("imageInput").files[0];
+
+  if (!file) {
+    alert("Sila pilih gambar dulu!");
+    return;
+  }
+
+  var reader = new FileReader();
+
+  reader.onload = function (e) {
+
+    var base64 = e.target.result.split(",")[1];
+
+    fetch("https://script.google.com/macros/s/AKfycbyOBC1XahlWUCmFze5ZF65VYg8Rxvt5uD2xJRx3WAViiFsjfH6WuQbnSHGJiezDUBsi/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain"
+      },
+      body: JSON.stringify({
+        action: "upload",   // ⭐ WAJIB ADD
+        image: base64,
+        mimeType: file.type,
+        fileName: file.name
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+      alert("Upload berjaya!");
+      document.getElementById("gambar").value = data.url;
+
+    })
+    .catch(err => console.log("Upload error:", err));
+  };
+
+  reader.readAsDataURL(file);
+}
+
+</script>

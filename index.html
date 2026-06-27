@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Inventori IT PKPJ</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    input, select, textarea, button {
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      grid-column: span 2;
+      resize: vertical;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #084298;
+    }
+
+    .upload-btn {
+      background: #198754;
+    }
+
+    .upload-btn:hover {
+      background: #146c43;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #0d6efd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    @media (max-width: 700px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      textarea {
+        grid-column: span 1;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Sistem Inventori Peralatan IT PKPJ</h1>
+
+  <div class="form-grid">
+    <input type="text" id="tahun" placeholder="Tahun">
+    <input type="text" id="noInventori" placeholder="No Inventori">
+
+    <input type="text" id="nama" placeholder="Nama Peralatan">
+    <input type="text" id="kategori" placeholder="Kategori">
+
+    <input type="text" id="jenama" placeholder="Jenama">
+    <input type="text" id="model" placeholder="Model">
+
+    <input type="text" id="noSiri" placeholder="No Siri">
+    <input type="text" id="tagAset" placeholder="Tag Aset">
+
+    <input type="number" id="kuantiti" placeholder="Kuantiti">
+    <input type="text" id="lokasi" placeholder="Lokasi">
+
+    <select id="status">
+      <option value="">-- Pilih Status --</option>
+      <option value="Baik">Baik</option>
+      <option value="Rosak">Rosak</option>
+      <option value="Dalam Baik Pulih">Dalam Baik Pulih</option>
+      <option value="Dilupuskan">Dilupuskan</option>
+    </select>
+
+    <input type="date" id="tarikhTerima">
+
+    <input type="text" id="pembekal" placeholder="Pembekal">
+
+    <input type="text" id="gambar" placeholder="URL Gambar" readonly>
+
+    <input type="file" id="imageInput" accept="image/*">
+
+    <textarea id="catatan" placeholder="Catatan"></textarea>
+  </div>
+
+  <div class="button-row">
+    <button onclick="simpan()">Simpan Data</button>
+    <button class="upload-btn" onclick="uploadImage()">Upload Gambar</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>No Inventori</th>
+        <th>Nama</th>
+        <th>Jenama</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="dataTable">
+      <tr>
+        <td colspan="4">Memuatkan data...</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbyFwfcC-rVOOc67UPIIjwjAQssTTuC4lFz6L1-FkFqCMwlHWTiFDOxfBArFqRwDr82j/exec";
+
+
+// =========================
+// LOAD DATA
+// =========================
+window.onload = function () {
+  loadData();
+};
+
+function loadData() {
+  fetch(API_URL)
+    .then(res => res.text())
+    .then(text => {
+
+      console.log("RAW DATA:", text);
+
+      let data = JSON.parse(text);
+
+      let table = document.getElementById("dataTable");
+      table.innerHTML = "";
+
+      if (!Array.isArray(data)) {
+        table.innerHTML = `
+          <tr>
+            <td colspan="4">Tiada data dijumpai.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      if (data.length === 0) {
+        table.innerHTML = `
+          <tr>
+            <td colspan="4">Belum ada rekod inventori.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      for (let i = 0; i < data.length; i++) {
+        table.innerHTML += `
+          <tr>
+            <td>${data[i][2] || ""}</td>
+            <td>${data[i][3] || ""}</td>
+            <td>${data[i][5] || ""}</td>
+            <td>${data[i][11] || ""}</td>
+          </tr>
+        `;
+      }
+    })
+    .catch(err => {
+      console.log("LOAD ERROR:", err);
+      document.getElementById("dataTable").innerHTML = `
+        <tr>
+          <td colspan="4">Ralat load data. Sila check API URL / Apps Script deployment.</td>
+        </tr>
+      `;
+    });
+}
+
+
+// =========================
+// SIMPAN DATA
+// =========================
+function simpan() {
+
+  let data = {
+    action: "simpan",
+    tahun: document.getElementById("tahun").value,
+    noInventori: document.getElementById("noInventori").value,
+    nama: document.getElementById("nama").value,
+    kategori: document.getElementById("kategori").value,
+    jenama: document.getElementById("jenama").value,
+    model: document.getElementById("model").value,
+    noSiri: document.getElementById("noSiri").value,
+    tagAset: document.getElementById("tagAset").value,
+    kuantiti: document.getElementById("kuantiti").value,
+    lokasi: document.getElementById("lokasi").value,
+    status: document.getElementById("status").value,
+    tarikhTerima: document.getElementById("tarikhTerima").value,
+    pembekal: document.getElementById("pembekal").value,
+    gambar: document.getElementById("gambar").value,
+    catatan: document.getElementById("catatan").value
+  };
+
+  fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
+
+    if (res.status === "OK") {
+      alert("Data berjaya disimpan!");
+      loadData();
+      clearForm();
+    } else {
+      alert("Gagal simpan: " + res.message);
+    }
+
+  })
+  .catch(err => {
+    console.log("SAVE ERROR:", err);
+    alert("Ralat simpan data.");
+  });
+}
+
+
+// =========================
+// CLEAR FORM
+// =========================
+function clearForm() {
+
+  let ids = [
+    "tahun",
+    "noInventori",
+    "nama",
+    "kategori",
+    "jenama",
+    "model",
+    "noSiri",
+    "tagAset",
+    "kuantiti",
+    "lokasi",
+    "status",
+    "tarikhTerima",
+    "pembekal",
+    "gambar",
+    "catatan"
+  ];
+
+  ids.forEach(id => {
+    document.getElementById(id).value = "";
+  });
+
+  document.getElementById("imageInput").value = "";
+}
+
+
+// =========================
+// UPLOAD IMAGE
+// =========================
+function uploadImage() {
+
+  let file = document.getElementById("imageInput").files[0];
+
+  if (!file) {
+    alert("Sila pilih gambar dulu.");
+    return;
+  }
+
+  let reader = new FileReader();
+
+  reader.onload = function (e) {
+
+    let base64 = e.target.result.split(",")[1];
+
+    fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain"
+      },
+      body: JSON.stringify({
+        action: "upload",
+        image: base64,
+        mimeType: file.type,
+        fileName: file.name
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+      if (data.status === "OK") {
+        alert("Upload gambar berjaya!");
+        document.getElementById("gambar").value = data.url;
+      } else {
+        alert("Upload gagal: " + data.message);
+      }
+
+    })
+    .catch(err => {
+      console.log("UPLOAD ERROR:", err);
+      alert("Ralat upload gambar.");
+    });
+  };
+
+  reader.readAsDataURL(file);
+}
+
+</script>
+
+</body>
+</html>

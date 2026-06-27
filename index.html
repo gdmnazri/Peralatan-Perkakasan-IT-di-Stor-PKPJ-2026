@@ -2,38 +2,61 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Inventori PKPJ</title>
+<title>PKPJ Inventori</title>
 
 <style>
 
 body{font-family:Arial;background:#f4f6f8;padding:20px}
 
-.header{text-align:center}
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.logo{width:60px}
+
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:20px 0;
+}
+
+.card{
+  padding:10px;
+  color:white;
+  border-radius:6px;
+  text-align:center;
+}
+
+.blue{background:#0d6efd}
+.green{background:#198754}
+.red{background:#dc3545}
+.orange{background:#fd7e14}
 
 .form{
-  max-width:900px;
-  margin:auto;
   display:grid;
   grid-template-columns:180px 1fr;
   gap:10px;
+  max-width:900px;
+  margin:auto;
 }
 
 input,select,textarea{
   padding:8px;
   border:1px solid #ccc;
-  border-radius:6px;
 }
 
 button{
   padding:10px;
-  margin-top:10px;
   border:none;
   color:white;
   cursor:pointer;
 }
 
 .save{background:#0d6efd}
-.upload{background:#198754}
 
 table{
   width:100%;
@@ -41,30 +64,12 @@ table{
   border-collapse:collapse;
 }
 
-th,td{
+td,th{
   border:1px solid #ccc;
   padding:8px;
 }
 
 th{background:#0d6efd;color:white}
-
-.card{
-  display:flex;
-  gap:10px;
-  margin:20px 0;
-}
-
-.box{
-  flex:1;
-  padding:10px;
-  color:white;
-  text-align:center;
-  border-radius:6px;
-}
-
-.blue{background:#0d6efd}
-.green{background:#198754}
-.red{background:#dc3545}
 
 </style>
 
@@ -72,55 +77,64 @@ th{background:#0d6efd;color:white}
 
 <body>
 
-<h2 class="header">Sistem Inventori PKPJ</h2>
+<div class="header">
+  <img src="pkpj.png" class="logo">
+  <h2>Sistem Inventori PKPJ</h2>
+</div>
 
 <!-- DASHBOARD -->
-<div class="card">
-  <div class="box blue">Total<br><span id="total">0</span></div>
-  <div class="box green">Baik<br><span id="baik">0</span></div>
-  <div class="box red">Rosak<br><span id="rosak">0</span></div>
+<div class="dashboard">
+
+  <div class="card blue">Total <br><span id="total"></span></div>
+  <div class="card green">Baik <br><span id="baik"></span></div>
+  <div class="card red">Rosak <br><span id="rosak"></span></div>
+  <div class="card orange">Pelupusan <br><span id="pelupusan"></span></div>
+
 </div>
 
 <!-- FORM -->
 <div class="form">
 
-<label>Tahun</label><input id="tahun">
+<label>Tahun</label>
+<select id="tahun"></select>
 
-<label>No Inventori</label><input id="noInventori">
+<label>No Inventori</label>
+<input id="noInventori">
 
-<label>Nama</label><input id="nama">
+<label>Nama</label>
+<input id="nama">
 
 <label>Kategori</label>
 <select id="kategori">
   <option>ICT</option>
   <option>Sewaan</option>
   <option>PKPJ</option>
-  <option>Lain-lain</option>
 </select>
 
-<label>Jenama</label><input id="jenama">
+<label>Jenama</label>
+<input id="jenama">
 
-<label>Model</label><input id="model">
-
-<label>No Siri</label><input id="noSiri">
+<label>Model</label>
+<input id="model">
 
 <label>Status</label>
 <select id="status">
   <option>Baik</option>
   <option>Rosak</option>
+  <option>Pelupusan</option>
 </select>
 
-<label>Gambar</label><input id="gambar">
+<label>Gambar URL</label>
+<input id="gambar">
 
-<label>Upload</label><input type="file" id="file">
-
-<label>Catatan</label><textarea id="catatan"></textarea>
+<label>Catatan</label>
+<textarea id="catatan"></textarea>
 
 </div>
 
-<button class="save" onclick="simpan()">Simpan</button>
-<button class="upload" onclick="upload()">Upload</button>
+<button class="save" onclick="simpan()">SIMPAN</button>
 
+<!-- TABLE -->
 <table>
 <thead>
 <tr>
@@ -128,6 +142,7 @@ th{background:#0d6efd;color:white}
 <th>Nama</th>
 <th>Kategori</th>
 <th>Status</th>
+<th>Action</th>
 </tr>
 </thead>
 
@@ -137,11 +152,17 @@ th{background:#0d6efd;color:white}
 
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
+const API="PASTE_URL";
 
 let cache=[];
 
-// LOAD
+// TAHUN AUTO
+let t=document.getElementById("tahun");
+for(let y=2010;y<=2035;y++){
+  t.innerHTML+=`<option>${y}</option>`;
+}
+
+// LOAD DATA
 function load(){
 
 fetch(API)
@@ -150,17 +171,19 @@ fetch(API)
 
 cache=d;
 
-let t=document.getElementById("table");
-t.innerHTML="";
+table.innerHTML="";
 
-d.forEach((v,i)=>{
+d.forEach(v=>{
 
-t.innerHTML += `
+table.innerHTML+=`
 <tr>
 <td>${v[2]}</td>
 <td>${v[3]}</td>
 <td>${v[4]}</td>
 <td>${v[11]}</td>
+<td>
+<button onclick="del(${v[16]})">Delete</button>
+</td>
 </tr>`;
 
 });
@@ -179,6 +202,7 @@ fetch(API+"?action=stats")
 total.innerText=s.total;
 baik.innerText=s.baik;
 rosak.innerText=s.rosak;
+pelupusan.innerText=s.pelupusan;
 
 });
 
@@ -198,7 +222,6 @@ nama:nama.value,
 kategori:kategori.value,
 jenama:jenama.value,
 model:model.value,
-noSiri:noSiri.value,
 status:status.value,
 gambar:gambar.value,
 catatan:catatan.value
@@ -208,6 +231,7 @@ catatan:catatan.value
 .then(()=>{
 
 alert("BERJAYA DISIMPAN");
+
 clear();
 load();
 stats();
@@ -216,42 +240,20 @@ stats();
 
 }
 
-// RESET
+// CLEAR
 function clear(){
-
 document.querySelectorAll("input,textarea").forEach(e=>e.value="");
-
 }
 
-// UPLOAD
-function upload(){
-
-let file=document.getElementById("file").files[0];
-let reader=new FileReader();
-
-reader.onload=function(e){
-
+// DELETE
+function del(id){
 fetch(API,{
 method:"POST",
-body:JSON.stringify({
-action:"upload",
-image:e.target.result.split(",")[1],
-mimeType:file.type,
-fileName:file.name
+body:JSON.stringify({action:"delete",rowNumber:id})
 })
-})
-.then(r=>r.json())
-.then(res=>{
-gambar.value=res.url;
-});
-
-};
-
-reader.readAsDataURL(file);
-
+.then(()=>{load();stats();});
 }
 
-// INIT
 window.onload=function(){
 load();
 stats();

@@ -1,292 +1,357 @@
 <!DOCTYPE html>
 <html lang="ms">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Sistem Inventori IT PKPJ</title>
+<meta charset="UTF-8">
+<title>Sistem Inventori IT PKPJ</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-    }
+<style>
+body {
+  font-family: Arial;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+}
 
-    /* ===== HEADER ===== */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 25px;
-    }
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
-    .logo {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-    }
+.logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
 
-    .header h1 {
-      font-size: 22px;
-      margin: 0;
-    }
+.header h1 {
+  font-size: 22px;
+  margin: 0;
+}
 
-    /* ===== CONTAINER ===== */
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
+/* DASHBOARD */
+.dashboard {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
 
-    /* ===== FORM GRID ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
+.card {
+  flex: 1;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+}
 
-    input, select, textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 100%;
-      box-sizing: border-box;
-    }
+.blue { background: #0d6efd; }
+.green { background: #198754; }
+.red { background: #dc3545; }
+.orange { background: #fd7e14; }
 
-    textarea {
-      grid-column: span 2;
-    }
+/* FORM */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
 
-    /* ===== BUTTON ===== */
-    .btn {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: white;
-      font-weight: bold;
-    }
+input, select, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
 
-    .btn-save {
-      background: #0d6efd;
-    }
+textarea { grid-column: span 2; }
 
-    .btn-upload {
-      background: #198754;
-    }
+/* BUTTON */
+.btn {
+  padding: 10px;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
+.save { background: #0d6efd; }
+.upload { background: #198754; }
 
-    /* ===== TABLE ===== */
-    table {
-      width: 100%;
-      margin-top: 25px;
-      border-collapse: collapse;
-    }
+/* TABLE */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
 
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 
-    th {
-      background: #0d6efd;
-      color: white;
-    }
+th {
+  background: #0d6efd;
+  color: white;
+}
 
-  </style>
+.action-btn {
+  padding: 5px 8px;
+  margin: 2px;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit { background: #ffc107; }
+.delete { background: #dc3545; }
+</style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <div class="header">
   <img src="pkpj.png" class="logo">
-  <h1>Sistem Inventori Peralatan IT PKPJ</h1>
+  <h1>Sistem Inventori IT PKPJ</h1>
 </div>
 
-<div class="container">
+<!-- DASHBOARD -->
+<div class="dashboard">
+  <div class="card blue">Total<br><span id="total">0</span></div>
+  <div class="card green">Baik<br><span id="baik">0</span></div>
+  <div class="card red">Rosak<br><span id="rosak">0</span></div>
+  <div class="card orange">Baik Pulih<br><span id="baikPulih">0</span></div>
+</div>
 
-  <!-- ===== FORM ===== -->
-  <div class="grid">
+<!-- FORM -->
+<div class="grid">
 
-    <select id="tahun"></select>
-    <input id="noInventori" placeholder="No Inventori">
+<input id="tahun" placeholder="Tahun">
+<input id="noInventori" placeholder="No Inventori">
 
-    <input id="nama" placeholder="Nama Peralatan">
-    <input id="kategori" placeholder="Kategori">
+<input id="nama" placeholder="Nama">
+<input id="kategori" placeholder="Kategori">
 
-    <input id="jenama" placeholder="Jenama">
-    <input id="model" placeholder="Model">
+<input id="jenama" placeholder="Jenama">
+<input id="model" placeholder="Model">
 
-    <input id="noSiri" placeholder="No Siri">
-    <input id="tagAset" placeholder="Tag Aset">
+<input id="noSiri" placeholder="No Siri">
+<input id="tagAset" placeholder="Tag Aset">
 
-    <input id="kuantiti" placeholder="Kuantiti">
-    <input id="lokasi" placeholder="Lokasi">
+<input id="kuantiti" placeholder="Kuantiti">
+<input id="lokasi" placeholder="Lokasi">
 
-    <select id="status">
-      <option value="">-- Pilih Status --</option>
-      <option>Baik</option>
-      <option>Rosak</option>
-      <option>Baik Pulih</option>
-    </select>
+<select id="status">
+  <option>Baik</option>
+  <option>Rosak</option>
+  <option>Baik Pulih</option>
+  <option>Dilupuskan</option>
+</select>
 
-    <input type="date" id="tarikhTerima">
+<input type="date" id="tarikhTerima">
 
-    <input id="pembekal" placeholder="Pembekal">
+<input id="pembekal" placeholder="Pembekal">
 
-    <input id="gambar" placeholder="URL Gambar" readonly>
-    <input type="file" id="imageInput">
+<input id="gambar" placeholder="URL Gambar">
+<input type="file" id="imageInput">
 
-    <textarea id="catatan" placeholder="Catatan"></textarea>
-
-  </div>
-
-  <!-- ===== BUTTON ===== -->
-  <div class="btn-group">
-    <button class="btn btn-save" onclick="simpan()">Simpan Data</button>
-    <button class="btn btn-upload" onclick="uploadImage()">Upload Gambar</button>
-  </div>
-
-  <!-- ===== TABLE ===== -->
-  <table>
-    <thead>
-      <tr>
-        <th>No Inventori</th>
-        <th>Nama</th>
-        <th>Jenama</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-
-    <tbody id="dataTable">
-      <tr>
-        <td colspan="4">Loading...</td>
-      </tr>
-    </tbody>
-  </table>
+<textarea id="catatan" placeholder="Catatan"></textarea>
 
 </div>
 
-<!-- ===== SCRIPT ===== -->
+<button class="btn save" onclick="simpan()">Simpan</button>
+<button class="btn upload" onclick="uploadImage()">Upload Gambar</button>
+
+<!-- TABLE -->
+<table>
+<thead>
+<tr>
+<th>No Inventori</th>
+<th>Nama</th>
+<th>Jenama</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="dataTable">
+<tr><td colspan="5">Loading...</td></tr>
+</tbody>
+</table>
+
 <script>
 
-const API_URL = "PASTE WEB APP URL KAU";
+const API_URL = "https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
 
+let cachedData = [];
 
-/* ===== AUTO TAHUN ===== */
-const tahunSelect = document.getElementById("tahun");
-const currentYear = new Date().getFullYear();
-
-tahunSelect.innerHTML = '<option value="">-- Pilih Tahun --</option>';
-
-for (let y = 2010; y <= currentYear + 5; y++) {
-  tahunSelect.innerHTML += `<option value="${y}">${y}</option>`;
-}
-
-
-/* ===== LOAD DATA ===== */
-window.onload = loadData;
-
+// LOAD DATA
 function loadData() {
-  fetch(API_URL)
-    .then(r => r.text())
-    .then(t => {
-      let data = JSON.parse(t);
-      let table = document.getElementById("dataTable");
-      table.innerHTML = "";
 
-      if (!Array.isArray(data)) return;
+fetch(API_URL)
+.then(r => r.text())
+.then(t => {
 
-      for (let i = 0; i < data.length; i++) {
-        table.innerHTML += `
-          <tr>
-            <td>${data[i][2] || ""}</td>
-            <td>${data[i][3] || ""}</td>
-            <td>${data[i][5] || ""}</td>
-            <td>${data[i][11] || ""}</td>
-          </tr>
-        `;
-      }
-    });
+let data = JSON.parse(t);
+cachedData = data;
+
+let table = document.getElementById("dataTable");
+table.innerHTML = "";
+
+for (let i = 0; i < data.length; i++) {
+
+table.innerHTML += `
+<tr>
+<td>${data[i][2]}</td>
+<td>${data[i][3]}</td>
+<td>${data[i][5]}</td>
+<td>${data[i][11]}</td>
+<td>
+<button class="action-btn edit" onclick="editData(${i})">Edit</button>
+<button class="action-btn delete" onclick="deleteData(${i})">Delete</button>
+</td>
+</tr>
+`;
+
 }
 
+});
 
-/* ===== SIMPAN ===== */
+}
+
+// DASHBOARD
+function loadStats() {
+
+fetch(API_URL + "?action=stats")
+.then(r => r.json())
+.then(s => {
+
+document.getElementById("total").innerText = s.total;
+document.getElementById("baik").innerText = s.baik;
+document.getElementById("rosak").innerText = s.rosak;
+document.getElementById("baikPulih").innerText = s.baikPulih;
+
+});
+
+}
+
+// SIMPAN
 function simpan() {
 
-  let data = {
-    action: "simpan",
-    tahun: tahunSelect.value,
-    noInventori: noInventori.value,
-    nama: nama.value,
-    kategori: kategori.value,
-    jenama: jenama.value,
-    model: model.value,
-    noSiri: noSiri.value,
-    tagAset: tagAset.value,
-    kuantiti: kuantiti.value,
-    lokasi: lokasi.value,
-    status: status.value,
-    tarikhTerima: tarikhTerima.value,
-    pembekal: pembekal.value,
-    gambar: gambar.value,
-    catatan: catatan.value
-  };
+let data = {
+action: "simpan",
+tahun: tahun.value,
+noInventori: noInventori.value,
+nama: nama.value,
+kategori: kategori.value,
+jenama: jenama.value,
+model: model.value,
+noSiri: noSiri.value,
+tagAset: tagAset.value,
+kuantiti: kuantiti.value,
+lokasi: lokasi.value,
+status: status.value,
+tarikhTerima: tarikhTerima.value,
+pembekal: pembekal.value,
+gambar: gambar.value,
+catatan: catatan.value
+};
 
-  fetch(API_URL, {
-    method: "POST",
-    headers: {"Content-Type":"text/plain"},
-    body: JSON.stringify(data)
-  })
-  .then(r => r.json())
-  .then(res => {
-    alert(res.message);
-    loadData();
-  });
+fetch(API_URL, {
+method: "POST",
+headers: {"Content-Type":"text/plain"},
+body: JSON.stringify(data)
+})
+.then(r => r.json())
+.then(() => {
+loadData();
+loadStats();
+});
+
 }
 
+// DELETE
+function deleteData(i) {
 
-/* ===== UPLOAD IMAGE ===== */
+let row = cachedData[i][16];
+
+fetch(API_URL, {
+method: "POST",
+headers: {"Content-Type":"text/plain"},
+body: JSON.stringify({
+action:"delete",
+rowNumber: row
+})
+})
+.then(r => r.json())
+.then(() => {
+loadData();
+loadStats();
+});
+
+}
+
+// EDIT
+function editData(i) {
+
+let d = cachedData[i];
+
+tahun.value = d[1];
+noInventori.value = d[2];
+nama.value = d[3];
+kategori.value = d[4];
+jenama.value = d[5];
+model.value = d[6];
+noSiri.value = d[7];
+tagAset.value = d[8];
+kuantiti.value = d[9];
+lokasi.value = d[10];
+status.value = d[11];
+tarikhTerima.value = d[12];
+pembekal.value = d[13];
+gambar.value = d[14];
+catatan.value = d[15];
+
+}
+
+// UPLOAD
 function uploadImage() {
 
-  let file = imageInput.files[0];
-  let reader = new FileReader();
+let file = imageInput.files[0];
+let reader = new FileReader();
 
-  reader.onload = function(e) {
+reader.onload = function(e) {
 
-    let base64 = e.target.result.split(",")[1];
+fetch(API_URL, {
+method:"POST",
+headers:{"Content-Type":"text/plain"},
+body: JSON.stringify({
+action:"upload",
+image:e.target.result.split(",")[1],
+mimeType:file.type,
+fileName:file.name
+})
+})
+.then(r=>r.json())
+.then(res=>{
+gambar.value = res.url;
+});
 
-    fetch(API_URL, {
-      method: "POST",
-      headers: {"Content-Type":"text/plain"},
-      body: JSON.stringify({
-        action: "upload",
-        image: base64,
-        mimeType: file.type,
-        fileName: file.name
-      })
-    })
-    .then(r => r.json())
-    .then(res => {
-      gambar.value = res.url;
-      alert("Upload OK");
-    });
+};
 
-  };
+reader.readAsDataURL(file);
 
-  reader.readAsDataURL(file);
 }
+
+// INIT
+window.onload = function(){
+loadData();
+loadStats();
+};
 
 </script>
 

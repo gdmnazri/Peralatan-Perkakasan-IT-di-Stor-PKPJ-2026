@@ -1,387 +1,174 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Sistem Inventori IT PKPJ</title>
+<title>Inventory PKPJ</title>
 
 <style>
-body {
-  font-family: Arial;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 20px;
-}
+body{font-family:Arial;background:#f4f6f8;padding:20px}
 
-/* HEADER */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
+.header{display:flex;align-items:center;justify-content:center;gap:10px}
+.logo{width:60px;height:60px}
 
-.logo {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 
-.header h1 {
-  font-size: 22px;
-  margin: 0;
-}
+input,select,textarea{padding:8px}
 
-/* DASHBOARD */
-.dashboard {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+table{width:100%;margin-top:20px;border-collapse:collapse}
+td,th{border:1px solid #ccc;padding:8px}
 
-.card {
-  flex: 1;
-  padding: 10px;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.blue { background: #0d6efd; }
-.green { background: #198754; }
-.red { background: #dc3545; }
-.orange { background: #fd7e14; }
-
-/* FORM */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-input, select, textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-textarea { grid-column: span 2; }
-
-/* BUTTON */
-.btn {
-  padding: 10px;
-  border: none;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.save { background: #0d6efd; }
-.upload { background: #198754; }
-
-/* TABLE */
-table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-th {
-  background: #0d6efd;
-  color: white;
-}
-
-.action-btn {
-  padding: 5px 8px;
-  margin: 2px;
-  border: none;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.edit { background: #ffc107; }
-.delete { background: #dc3545; }
+button{padding:8px 10px;margin:3px}
 </style>
+
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <img src="pkpj.png" class="logo">
-  <h1>Sistem Inventori IT PKPJ</h1>
+  <h2>Sistem Inventory PKPJ</h2>
 </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard">
-  <div class="card blue">Total<br><span id="total">0</span></div>
-  <div class="card green">Baik<br><span id="baik">0</span></div>
-  <div class="card red">Rosak<br><span id="rosak">0</span></div>
-  <div class="card orange">Baik Pulih<br><span id="baikPulih">0</span></div>
-</div>
-
-<!-- FORM -->
 <div class="grid">
 
-<select id="tahun">
-  <option value="">-- Pilih Tahun --</option>
-  <option value="2010">2010</option>
-  <option value="2011">2011</option>
-  <option value="2012">2012</option>
-  <option value="2013">2013</option>
-  <option value="2014">2014</option>
-  <option value="2015">2015</option>
-  <option value="2016">2016</option>
-  <option value="2017">2017</option>
-  <option value="2018">2018</option>
-  <option value="2019">2019</option>
-  <option value="2020">2020</option>
-  <option value="2021">2021</option>
-  <option value="2022">2022</option>
-  <option value="2023">2023</option>
-  <option value="2024">2024</option>
-  <option value="2025">2025</option>
-  <option value="2026">2026</option>
-  <option value="2027">2027</option>
-  <option value="2028">2028</option>
-  <option value="2029">2029</option>
-  <option value="2030">2030</option>
-</select>
-<input id="noInventori" placeholder="No Inventori">
+<input id="tahun">
+<input id="noInventori">
+<input id="nama">
 
-<input id="nama" placeholder="Nama">
 <select id="kategori">
-  <option value="">-- Pilih Kategori --</option>
-
-  <option value="ICT">ICT</option>
-  <option value="Sewaan">Sewaan</option>
-  <option value="PKPJ">PKPJ</option>
-  <option value="Lain-lain">Lain-lain</option>
+  <option>ICT</option>
+  <option>Sewaan</option>
+  <option>PKPJ</option>
+  <option>Lain-lain</option>
 </select>
 
-<input id="jenama" placeholder="Jenama">
-<input id="model" placeholder="Model">
+<input id="jenama">
+<input id="model">
 
-<input id="noSiri" placeholder="No Siri">
-<input id="tagAset" placeholder="Tag Aset">
+<input id="noSiri">
+<input id="tagAset">
 
-<input id="kuantiti" placeholder="Kuantiti">
-<input id="lokasi" placeholder="Lokasi">
+<input id="kuantiti">
+<input id="lokasi">
 
 <select id="status">
   <option>Baik</option>
   <option>Rosak</option>
-  <option>Baik Pulih</option>
-  <option>Dilupuskan</option>
 </select>
 
-<input type="date" id="tarikhTerima">
+<input id="tarikhTerima">
+<input id="pembekal">
 
-<input id="pembekal" placeholder="Pembekal">
-
-<input id="gambar" placeholder="URL Gambar">
+<input id="gambar">
 <input type="file" id="imageInput">
 
-<textarea id="catatan" placeholder="Catatan"></textarea>
+<textarea id="catatan"></textarea>
 
 </div>
 
-<button class="btn save" onclick="simpan()">Simpan</button>
-<button class="btn upload" onclick="uploadImage()">Upload Gambar</button>
+<button onclick="simpan()">Simpan</button>
 
-<!-- TABLE -->
+<h3>Dashboard</h3>
+Total: <span id="total"></span>
+Baik: <span id="baik"></span>
+Rosak: <span id="rosak"></span>
+
 <table>
 <thead>
 <tr>
-<th>No Inventori</th>
-<th>Nama</th>
-<th>Jenama</th>
-<th>Status</th>
-<th>Action</th>
+<th>No</th><th>Nama</th><th>Kategori</th><th>Status</th><th>Action</th>
 </tr>
 </thead>
 
-<tbody id="dataTable">
-<tr><td colspan="5">Loading...</td></tr>
-</tbody>
+<tbody id="dataTable"></tbody>
 </table>
 
 <script>
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
+const API_URL = "PASTE_URL";
 
-let cachedData = [];
+let cache=[];
 
-// LOAD DATA
-function loadData() {
-
+function load(){
 fetch(API_URL)
-.then(r => r.text())
-.then(t => {
-
-let data = JSON.parse(t);
-cachedData = data;
-
-let table = document.getElementById("dataTable");
-table.innerHTML = "";
-
-for (let i = 0; i < data.length; i++) {
-
-table.innerHTML += `
+.then(r=>r.json())
+.then(d=>{
+cache=d;
+let t=document.getElementById("dataTable");
+t.innerHTML="";
+d.forEach((v,i)=>{
+t.innerHTML+=`
 <tr>
-<td>${data[i][2]}</td>
-<td>${data[i][3]}</td>
-<td>${data[i][5]}</td>
-<td>${data[i][11]}</td>
+<td>${v[2]}</td>
+<td>${v[3]}</td>
+<td>${v[4]}</td>
+<td>${v[11]}</td>
 <td>
-<button class="action-btn edit" onclick="editData(${i})">Edit</button>
-<button class="action-btn delete" onclick="deleteData(${i})">Delete</button>
+<button onclick="del(${v[16]})">Delete</button>
 </td>
-</tr>
-`;
-
-}
-
+</tr>`;
 });
-
-}
-
-// DASHBOARD
-function loadStats() {
-
-fetch(API_URL + "?action=stats")
-.then(r => r.json())
-.then(s => {
-
-document.getElementById("total").innerText = s.total;
-document.getElementById("baik").innerText = s.baik;
-document.getElementById("rosak").innerText = s.rosak;
-document.getElementById("baikPulih").innerText = s.baikPulih;
-
 });
-
 }
 
-// SIMPAN
-function simpan() {
-
-let data = {
-action: "simpan",
-tahun: tahun.value,
-noInventori: noInventori.value,
-nama: nama.value,
-kategori: kategori.value,
-jenama: jenama.value,
-model: model.value,
-noSiri: noSiri.value,
-tagAset: tagAset.value,
-kuantiti: kuantiti.value,
-lokasi: lokasi.value,
-status: status.value,
-tarikhTerima: tarikhTerima.value,
-pembekal: pembekal.value,
-gambar: gambar.value,
-catatan: catatan.value
-};
-
-fetch(API_URL, {
-method: "POST",
-headers: {"Content-Type":"text/plain"},
-body: JSON.stringify(data)
-})
-.then(r => r.json())
-.then(() => {
-loadData();
-loadStats();
+function stats(){
+fetch(API_URL+"?action=stats")
+.then(r=>r.json())
+.then(s=>{
+total.innerText=s.total;
+baik.innerText=s.baik;
+rosak.innerText=s.rosak;
 });
-
 }
 
-// DELETE
-function deleteData(i) {
+function simpan(){
 
-let row = cachedData[i][16];
-
-fetch(API_URL, {
-method: "POST",
-headers: {"Content-Type":"text/plain"},
-body: JSON.stringify({
-action:"delete",
-rowNumber: row
-})
-})
-.then(r => r.json())
-.then(() => {
-loadData();
-loadStats();
-});
-
-}
-
-// EDIT
-function editData(i) {
-
-let d = cachedData[i];
-
-tahun.value = d[1];
-noInventori.value = d[2];
-nama.value = d[3];
-kategori.value = d[4];
-jenama.value = d[5];
-model.value = d[6];
-noSiri.value = d[7];
-tagAset.value = d[8];
-kuantiti.value = d[9];
-lokasi.value = d[10];
-status.value = d[11];
-tarikhTerima.value = d[12];
-pembekal.value = d[13];
-gambar.value = d[14];
-catatan.value = d[15];
-
-}
-
-// UPLOAD
-function uploadImage() {
-
-let file = imageInput.files[0];
-let reader = new FileReader();
-
-reader.onload = function(e) {
-
-fetch(API_URL, {
+fetch(API_URL,{
 method:"POST",
-headers:{"Content-Type":"text/plain"},
-body: JSON.stringify({
-action:"upload",
-image:e.target.result.split(",")[1],
-mimeType:file.type,
-fileName:file.name
+body:JSON.stringify({
+action:"simpan",
+tahun:tahun.value,
+noInventori:noInventori.value,
+nama:nama.value,
+kategori:kategori.value,
+jenama:jenama.value,
+model:model.value,
+noSiri:noSiri.value,
+tagAset:tagAset.value,
+kuantiti:kuantiti.value,
+lokasi:lokasi.value,
+status:status.value,
+tarikhTerima:tarikhTerima.value,
+pembekal:pembekal.value,
+gambar:gambar.value,
+catatan:catatan.value
 })
 })
 .then(r=>r.json())
-.then(res=>{
-gambar.value = res.url;
+.then(()=>{
+alert("Berjaya disimpan");
+load();
+stats();
+clear();
 });
-
-};
-
-reader.readAsDataURL(file);
 
 }
 
-// INIT
-window.onload = function(){
-loadData();
-loadStats();
-};
+function clear(){
+document.querySelectorAll("input,textarea").forEach(e=>e.value="");
+}
+
+function del(id){
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({action:"delete",rowNumber:id})
+})
+.then(()=>{load();stats();});
+}
+
+window.onload=function(){
+load();
+stats();
+}
 
 </script>
 

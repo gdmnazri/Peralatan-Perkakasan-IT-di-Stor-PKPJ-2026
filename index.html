@@ -1,0 +1,144 @@
+<script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
+
+
+// =========================
+// LOAD DATA (FIX STABLE)
+// =========================
+window.onload = function () {
+  loadData();
+};
+
+function loadData() {
+  fetch(API_URL)
+    .then(res => res.text())
+    .then(text => {
+
+      let data = JSON.parse(text);
+
+      let table = document.getElementById("dataTable");
+      table.innerHTML = "";
+
+      if (!Array.isArray(data)) return;
+
+      for (let i = 0; i < data.length; i++) {
+
+        table.innerHTML += `
+          <tr>
+            <td>${data[i][2] || ""}</td>
+            <td>${data[i][3] || ""}</td>
+            <td>${data[i][5] || ""}</td>
+            <td>${data[i][11] || ""}</td>
+          </tr>
+        `;
+      }
+    })
+    .catch(err => console.log("LOAD ERROR:", err));
+}
+
+
+// =========================
+// SIMPAN DATA (FIXED)
+// =========================
+function simpan() {
+
+  let data = {
+    action: "simpan",
+    tahun: document.getElementById("tahun").value,
+    noInventori: document.getElementById("noInventori").value,
+    nama: document.getElementById("nama").value,
+    kategori: document.getElementById("kategori").value,
+    jenama: document.getElementById("jenama").value,
+    model: document.getElementById("model").value,
+    noSiri: document.getElementById("noSiri").value,
+    tagAset: document.getElementById("tagAset").value,
+    kuantiti: document.getElementById("kuantiti").value,
+    lokasi: document.getElementById("lokasi").value,
+    status: document.getElementById("status").value,
+    tarikhTerima: document.getElementById("tarikhTerima").value,
+    pembekal: document.getElementById("pembekal").value,
+    gambar: document.getElementById("gambar").value,
+    catatan: document.getElementById("catatan").value
+  };
+
+  fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
+
+    alert(res.message || "Saved!");
+    loadData();
+    clearForm();
+
+  })
+  .catch(err => console.log("SAVE ERROR:", err));
+}
+
+
+// =========================
+// CLEAR FORM
+// =========================
+function clearForm() {
+
+  let ids = [
+    "tahun","noInventori","nama","kategori","jenama","model",
+    "noSiri","tagAset","kuantiti","lokasi","status",
+    "tarikhTerima","pembekal","gambar","catatan"
+  ];
+
+  ids.forEach(id => {
+    document.getElementById(id).value = "";
+  });
+}
+
+
+// =========================
+// UPLOAD IMAGE (FIXED)
+// =========================
+function uploadImage() {
+
+  let file = document.getElementById("imageInput").files[0];
+
+  if (!file) {
+    alert("Pilih gambar dulu!");
+    return;
+  }
+
+  let reader = new FileReader();
+
+  reader.onload = function (e) {
+
+    let base64 = e.target.result.split(",")[1];
+
+    fetch("PASTE UPLOAD SCRIPT URL", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain"
+      },
+      body: JSON.stringify({
+        action: "upload",
+        image: base64,
+        mimeType: file.type,
+        fileName: file.name
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+      alert("Upload success!");
+      document.getElementById("gambar").value = data.url;
+
+    })
+    .catch(err => console.log("UPLOAD ERROR:", err));
+  };
+
+  reader.readAsDataURL(file);
+}
+
+</script>

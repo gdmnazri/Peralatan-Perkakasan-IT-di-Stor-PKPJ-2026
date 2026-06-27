@@ -12,7 +12,9 @@ body{
   padding:20px;
 }
 
-h2{text-align:center}
+h2{
+  text-align:center;
+}
 
 /* DASHBOARD */
 .dashboard{
@@ -37,20 +39,28 @@ h2{text-align:center}
 .purple{background:#6f42c1}
 .gray{background:#343a40}
 
-/* FORM */
+/* FORM - LEFT RIGHT BALANCE */
 .form{
   display:grid;
-  grid-template-columns:200px 1fr;
+  grid-template-columns:180px 1fr 180px 1fr;
   gap:10px;
-  max-width:900px;
+  max-width:1100px;
   margin:auto;
   background:white;
   padding:20px;
   border-radius:10px;
 }
 
+/* CATATAN FULL ROW CENTER */
+.full-row{
+  grid-column: 1 / span 4;
+}
+
+/* INPUT STYLE */
 input,select,textarea{
   padding:10px;
+  width:100%;
+  box-sizing:border-box;
 }
 
 /* BUTTON */
@@ -157,6 +167,7 @@ th{
 <label>Pembekal</label>
 <input id="pembekal">
 
+<!-- GAMBAR -->
 <label>Gambar URL</label>
 <input id="gambar" readonly>
 
@@ -167,8 +178,11 @@ th{
 UPLOAD GAMBAR
 </button>
 
+<!-- CATATAN FULL CENTER -->
+<div class="full-row">
 <label>Catatan</label>
 <textarea id="catatan"></textarea>
+</div>
 
 </div>
 
@@ -201,11 +215,15 @@ for(let y=2010;y<=2035;y++){
 
 /* LOAD */
 function load(){
+
 fetch(API)
 .then(r=>r.json())
 .then(d=>{
+
 table.innerHTML="";
+
 d.forEach(v=>{
+
 table.innerHTML += `
 <tr>
 <td>${v.noInventori||""}</td>
@@ -214,23 +232,31 @@ table.innerHTML += `
 <td>${v.jenama||""}</td>
 <td>${v.status||""}</td>
 <td><button class="del" onclick="del(${v.row})">Delete</button></td>
-</tr>`;
+</tr>
+`;
+
 });
+
 });
+
 }
 
 /* STATS */
 function stats(){
+
 fetch(API+"?action=stats")
 .then(r=>r.json())
 .then(s=>{
+
 total.innerText=s.total||0;
 baik.innerText=s.baik||0;
 rosak.innerText=s.rosak||0;
 pelupusan.innerText=s.pelupusan||0;
 ict.innerText=s.ICT||0;
 sewaan.innerText=s.Sewaan||0;
+
 });
+
 }
 
 /* SIMPAN */
@@ -268,21 +294,22 @@ load();
 stats();
 
 });
+
 }
 
 /* UPLOAD GAMBAR */
 function uploadImage(){
 
-let file = document.getElementById("imageInput").files[0];
+let file=document.getElementById("imageInput").files[0];
 
 if(!file){
 alert("Pilih gambar dulu");
 return;
 }
 
-let reader = new FileReader();
+let reader=new FileReader();
 
-reader.onload = function(e){
+reader.onload=function(e){
 
 fetch(API,{
 method:"POST",
@@ -297,7 +324,7 @@ fileName:file.name
 .then(r=>r.json())
 .then(res=>{
 
-gambar.value = res.url;
+gambar.value=res.url;
 alert("UPLOAD BERJAYA ✔");
 
 });
@@ -305,12 +332,13 @@ alert("UPLOAD BERJAYA ✔");
 };
 
 reader.readAsDataURL(file);
+
 }
 
 /* DELETE */
 function del(id){
 
-if(!confirm("Delete data?")) return;
+if(!confirm("Delete?")) return;
 
 fetch(API,{
 method:"POST",

@@ -5,108 +5,78 @@
 <title>Sistem Inventori PKPJ</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Arial, sans-serif;
   background:#f4f8fc;
+  padding:18px 24px;
   color:#071b3a;
   font-size:14px;
-  padding:18px 28px;
 }
 
-h2{
-  text-align:center;
+.header{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.header img{
+  width:60px;
+  height:auto;
+}
+
+.header h2{
+  margin:0;
   font-size:30px;
-  margin:0 0 22px;
   font-weight:900;
-  letter-spacing:1px;
 }
 
-/* DASHBOARD */
 .dashboard{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:18px;
+  grid-template-columns:repeat(7,1fr);
+  gap:16px;
   margin-bottom:24px;
 }
 
 .card{
-  height:88px;
-  border-radius:8px;
+  height:80px;
+  border-radius:6px;
   color:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:18px;
+  gap:14px;
   font-weight:bold;
-  box-shadow:0 4px 12px rgba(0,0,0,.12);
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-.card .icon{
-  font-size:38px;
-}
+.icon{font-size:34px}
+.card span{display:block;font-size:28px;text-align:center}
 
-.card .text{
-  text-align:center;
-  font-size:14px;
-}
+.blue{background:#0d6efd}
+.green{background:#198754}
+.red{background:#dc3545}
+.orange{background:#fd7e14}
+.purple{background:#6f42c1}
+.gray{background:#263342}
+.yellow{background:#ffc107;color:white}
 
-.card span{
-  display:block;
-  font-size:32px;
-  margin-top:4px;
-}
-
-.blue{background:linear-gradient(135deg,#0069ff,#0d6efd);}
-.green{background:linear-gradient(135deg,#087d35,#198754);}
-.red{background:linear-gradient(135deg,#e51b2b,#dc3545);}
-.orange{background:linear-gradient(135deg,#ff7900,#fd7e14);}
-.purple{background:linear-gradient(135deg,#5630b8,#6f42c1);}
-.gray{background:linear-gradient(135deg,#1d2939,#343a40);}
-
-/* FORM WRAPPER */
 .form-box{
   background:white;
   border-radius:10px;
-  padding:24px 52px 12px;
+  padding:26px 52px 16px;
   box-shadow:0 2px 14px rgba(0,0,0,.12);
-  position:relative;
-  margin-bottom:12px;
+  margin-bottom:16px;
 }
 
-.form-box::before{
-  content:"";
-  position:absolute;
-  left:-28px;
-  top:42%;
-  width:32px;
-  height:32px;
-  border-left:7px solid #ffc107;
-  border-bottom:7px solid #ffc107;
-  transform:rotate(45deg);
-}
-
-.form-box::after{
-  content:"";
-  position:absolute;
-  right:-28px;
-  top:42%;
-  width:32px;
-  height:32px;
-  border-right:7px solid #ffc107;
-  border-top:7px solid #ffc107;
-  transform:rotate(45deg);
-}
-
-/* FORM GRID */
 .form{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  gap:16px 28px;
+  gap:16px 36px;
 }
 
 .field{
@@ -126,30 +96,18 @@ input,select,textarea{
   border:1px solid #cbd5e1;
   border-radius:4px;
   font-size:14px;
-  background:white;
 }
 
 textarea{
-  height:50px;
+  height:58px;
   resize:vertical;
 }
 
 .catatan-row{
   grid-column:1 / span 3;
   display:grid;
-  grid-template-columns:260px 1fr;
-  gap:28px;
-}
-
-.upload-btn{
-  background:#198754;
-  width:160px;
-  margin-top:6px;
-}
-
-.save-wrap{
-  text-align:center;
-  margin-top:14px;
+  grid-template-columns:240px 1fr;
+  gap:36px;
 }
 
 button{
@@ -162,24 +120,24 @@ button{
   padding:9px 16px;
 }
 
-.save{
-  background:#0d6efd;
-  min-width:150px;
+.upload-btn{background:#198754;width:160px;margin-top:6px}
+.save{background:#0d6efd;min-width:150px}
+
+.save-wrap{
+  text-align:center;
+  margin-top:16px;
 }
 
-/* TABLE */
 table{
   width:100%;
   border-collapse:collapse;
   background:white;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 
 th,td{
   border:1px solid #dbe2ea;
-  padding:8px 10px;
+  padding:9px;
   text-align:center;
-  font-size:14px;
 }
 
 th{
@@ -187,23 +145,9 @@ th{
   color:white;
 }
 
-td:nth-child(1),
-td:nth-child(2){
+td:nth-child(1),td:nth-child(2){
   text-align:left;
 }
-
-.badge{
-  display:inline-block;
-  padding:4px 12px;
-  color:white;
-  border-radius:6px;
-  font-weight:bold;
-  font-size:12px;
-}
-
-.badge-baik{background:#198754;}
-.badge-rosak{background:#dc3545;}
-.badge-pelupusan{background:#fd7e14;}
 
 .del{
   background:#dc3545;
@@ -211,48 +155,33 @@ td:nth-child(2){
   font-size:12px;
 }
 
-/* RESPONSIVE */
-@media(max-width:1000px){
-  .dashboard{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form{
-    grid-template-columns:1fr;
-  }
-
-  .catatan-row{
-    grid-column:auto;
-    grid-template-columns:1fr;
-  }
-
-  .form-box{
-    padding:20px;
-  }
-
-  .form-box::before,
-  .form-box::after{
-    display:none;
-  }
+@media(max-width:1100px){
+  .dashboard{grid-template-columns:repeat(2,1fr)}
+  .form{grid-template-columns:1fr}
+  .catatan-row{grid-column:auto;grid-template-columns:1fr}
+  .form-box{padding:20px}
 }
 </style>
 </head>
 
 <body>
 
-<h2>SISTEM INVENTORI PKPJ</h2>
+<div class="header">
+  <img src="https://via.placeholder.com/80x80.png?text=PKPJ" alt="Logo PKPJ">
+  <h2>SISTEM INVENTORI PKPJ</h2>
+</div>
 
 <div class="dashboard">
-  <div class="card blue"><div class="icon">▣</div><div class="text">Total <span id="total">0</span></div></div>
-  <div class="card green"><div class="icon">✓</div><div class="text">Baik <span id="baik">0</span></div></div>
-  <div class="card red"><div class="icon">⚒</div><div class="text">Rosak <span id="rosak">0</span></div></div>
-  <div class="card orange"><div class="icon">⌫</div><div class="text">Pelupusan <span id="pelupusan">0</span></div></div>
-  <div class="card purple"><div class="icon">▭</div><div class="text">ICT <span id="ict">0</span></div></div>
-  <div class="card gray"><div class="icon">▥</div><div class="text">Sewaan <span id="sewaan">0</span></div></div>
+  <div class="card blue"><div class="icon">▢</div><div>Total <span id="total">0</span></div></div>
+  <div class="card green"><div class="icon">✓</div><div>Baik <span id="baik">0</span></div></div>
+  <div class="card red"><div class="icon">🛠</div><div>Rosak <span id="rosak">0</span></div></div>
+  <div class="card orange"><div class="icon">▧</div><div>Pelupusan <span id="pelupusan">0</span></div></div>
+  <div class="card purple"><div class="icon">▭</div><div>ICT <span id="ict">0</span></div></div>
+  <div class="card gray"><div class="icon">▥</div><div>Sewaan <span id="sewaan">0</span></div></div>
+  <div class="card yellow"><div class="icon">⬢</div><div>PKPJ <span id="pkpj">0</span></div></div>
 </div>
 
 <div class="form-box">
-
   <div class="form">
 
     <div class="field">
@@ -359,7 +288,6 @@ td:nth-child(2){
   <div class="save-wrap">
     <button class="save" onclick="simpan()">💾 SIMPAN DATA</button>
   </div>
-
 </div>
 
 <table>
@@ -369,7 +297,7 @@ td:nth-child(2){
   <th>Nama</th>
   <th>Kategori</th>
   <th>Jenama</th>
-  <th>Status</th>
+  <th>Lokasi</th>
   <th>Action</th>
 </tr>
 </thead>
@@ -379,12 +307,10 @@ td:nth-child(2){
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
-/* YEAR */
 for(let y=2010; y<=2035; y++){
   tahun.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
-/* LOAD */
 function load(){
   fetch(API)
   .then(r => r.json())
@@ -392,29 +318,19 @@ function load(){
     table.innerHTML = "";
 
     d.forEach(v => {
-      let statusClass = "";
-      if(v.status === "Baik") statusClass = "badge-baik";
-      if(v.status === "Rosak") statusClass = "badge-rosak";
-      if(v.status === "Pelupusan") statusClass = "badge-pelupusan";
-
       table.innerHTML += `
       <tr>
         <td>${v.noInventori || ""}</td>
         <td>${v.nama || ""}</td>
         <td>${v.kategori || ""}</td>
         <td>${v.jenama || ""}</td>
-        <td><span class="badge ${statusClass}">${v.status || ""}</span></td>
+        <td>${v.lokasi || ""}</td>
         <td><button class="del" onclick="del(${v.row})">Delete</button></td>
       </tr>`;
     });
-  })
-  .catch(err => {
-    alert("Gagal load data");
-    console.error(err);
   });
 }
 
-/* STATS */
 function stats(){
   fetch(API + "?action=stats")
   .then(r => r.json())
@@ -425,17 +341,11 @@ function stats(){
     pelupusan.innerText = s.pelupusan || 0;
     ict.innerText = s.ICT || 0;
     sewaan.innerText = s.Sewaan || 0;
-  })
-  .catch(err => console.error(err));
+    pkpj.innerText = s.PKPJ || 0;
+  });
 }
 
-/* SIMPAN */
 function simpan(){
-  if(!noInventori.value || !nama.value){
-    alert("Sila isi No Inventori dan Nama");
-    return;
-  }
-
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
@@ -464,16 +374,11 @@ function simpan(){
     clearForm();
     load();
     stats();
-  })
-  .catch(err => {
-    alert("Gagal simpan data");
-    console.error(err);
   });
 }
 
-/* UPLOAD */
 function uploadImage(){
-  let file = document.getElementById("imageInput").files[0];
+  let file = imageInput.files[0];
 
   if(!file){
     alert("Pilih gambar");
@@ -497,17 +402,12 @@ function uploadImage(){
     .then(res => {
       gambar.value = res.url;
       alert("UPLOAD OK");
-    })
-    .catch(err => {
-      alert("Gagal upload gambar");
-      console.error(err);
     });
   };
 
   reader.readAsDataURL(file);
 }
 
-/* DELETE */
 function del(id){
   if(!confirm("Delete data ini?")) return;
 
@@ -522,20 +422,14 @@ function del(id){
   .then(() => {
     load();
     stats();
-  })
-  .catch(err => {
-    alert("Gagal delete data");
-    console.error(err);
   });
 }
 
-/* CLEAR */
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
   tahun.value = new Date().getFullYear();
 }
 
-/* INIT */
 window.onload = function(){
   load();
   stats();

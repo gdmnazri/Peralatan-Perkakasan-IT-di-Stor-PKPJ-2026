@@ -5,363 +5,541 @@
 <title>Sistem Inventori PKPJ</title>
 
 <style>
+*{
+  box-sizing:border-box;
+}
 
 body{
-  font-family: Arial;
-  background:#f4f6f8;
-  padding:20px;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f8fc;
+  color:#071b3a;
   font-size:14px;
+  padding:18px 28px;
 }
 
 h2{
   text-align:center;
+  font-size:30px;
+  margin:0 0 22px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
 /* DASHBOARD */
 .dashboard{
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  gap:10px;
-  margin:20px 0;
+  gap:18px;
+  margin-bottom:24px;
 }
 
 .card{
-  padding:15px;
-  border-radius:10px;
+  height:88px;
+  border-radius:8px;
   color:white;
-  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
   font-weight:bold;
+  box-shadow:0 4px 12px rgba(0,0,0,.12);
 }
 
-.blue{background:#0d6efd}
-.green{background:#198754}
-.red{background:#dc3545}
-.orange{background:#fd7e14}
-.purple{background:#6f42c1}
-.gray{background:#343a40}
+.card .icon{
+  font-size:38px;
+}
 
-/* FORM */
+.card .text{
+  text-align:center;
+  font-size:14px;
+}
+
+.card span{
+  display:block;
+  font-size:32px;
+  margin-top:4px;
+}
+
+.blue{background:linear-gradient(135deg,#0069ff,#0d6efd);}
+.green{background:linear-gradient(135deg,#087d35,#198754);}
+.red{background:linear-gradient(135deg,#e51b2b,#dc3545);}
+.orange{background:linear-gradient(135deg,#ff7900,#fd7e14);}
+.purple{background:linear-gradient(135deg,#5630b8,#6f42c1);}
+.gray{background:linear-gradient(135deg,#1d2939,#343a40);}
+
+/* FORM WRAPPER */
+.form-box{
+  background:white;
+  border-radius:10px;
+  padding:24px 52px 12px;
+  box-shadow:0 2px 14px rgba(0,0,0,.12);
+  position:relative;
+  margin-bottom:12px;
+}
+
+.form-box::before{
+  content:"";
+  position:absolute;
+  left:-28px;
+  top:42%;
+  width:32px;
+  height:32px;
+  border-left:7px solid #ffc107;
+  border-bottom:7px solid #ffc107;
+  transform:rotate(45deg);
+}
+
+.form-box::after{
+  content:"";
+  position:absolute;
+  right:-28px;
+  top:42%;
+  width:32px;
+  height:32px;
+  border-right:7px solid #ffc107;
+  border-top:7px solid #ffc107;
+  transform:rotate(45deg);
+}
+
+/* FORM GRID */
 .form{
   display:grid;
-  grid-template-columns:200px 1fr 200px 1fr;
-  gap:12px;
-  max-width:1200px;
-  margin:auto;
-  background:white;
-  padding:25px;
-  border-radius:12px;
-  position:relative;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px 28px;
 }
 
-/* ARROW LEFT RIGHT VISUAL */
-.form::before{
-  content:"";
-  position:absolute;
-  left:-35px;
-  top:50%;
-  width:25px;
-  height:25px;
-  border-left:5px solid #f1c40f;
-  border-bottom:5px solid #f1c40f;
-  transform:rotate(45deg);
-}
-
-.form::after{
-  content:"";
-  position:absolute;
-  right:-35px;
-  top:50%;
-  width:25px;
-  height:25px;
-  border-right:5px solid #f1c40f;
-  border-top:5px solid #f1c40f;
-  transform:rotate(45deg);
-}
-
-.full-row{
-  grid-column: 1 / span 4;
-}
-
-input,select,textarea{
-  padding:10px;
-  width:100%;
-  box-sizing:border-box;
-  font-size:14px;
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
 }
 
 label{
+  font-weight:700;
   font-size:14px;
-  font-weight:600;
 }
 
-/* BUTTON */
+input,select,textarea{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #cbd5e1;
+  border-radius:4px;
+  font-size:14px;
+  background:white;
+}
+
+textarea{
+  height:50px;
+  resize:vertical;
+}
+
+.catatan-row{
+  grid-column:1 / span 3;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:28px;
+}
+
+.upload-btn{
+  background:#198754;
+  width:160px;
+  margin-top:6px;
+}
+
+.save-wrap{
+  text-align:center;
+  margin-top:14px;
+}
+
 button{
-  padding:10px;
   border:none;
   color:white;
   cursor:pointer;
-  border-radius:6px;
+  border-radius:4px;
   font-size:14px;
+  font-weight:bold;
+  padding:9px 16px;
 }
 
-.save{background:#0d6efd}
-.upload{background:#198754}
+.save{
+  background:#0d6efd;
+  min-width:150px;
+}
 
 /* TABLE */
 table{
   width:100%;
-  margin-top:20px;
   border-collapse:collapse;
   background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 
 th,td{
-  border:1px solid #ddd;
-  padding:10px;
+  border:1px solid #dbe2ea;
+  padding:8px 10px;
   text-align:center;
   font-size:14px;
 }
 
 th{
-  background:#0d6efd;
+  background:#0069e6;
   color:white;
 }
+
+td:nth-child(1),
+td:nth-child(2){
+  text-align:left;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 12px;
+  color:white;
+  border-radius:6px;
+  font-weight:bold;
+  font-size:12px;
+}
+
+.badge-baik{background:#198754;}
+.badge-rosak{background:#dc3545;}
+.badge-pelupusan{background:#fd7e14;}
 
 .del{
-  background:red;
-  padding:5px 10px;
-  color:white;
+  background:#dc3545;
+  padding:5px 12px;
+  font-size:12px;
 }
 
-</style>
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .dashboard{
+    grid-template-columns:repeat(2,1fr);
+  }
 
+  .form{
+    grid-template-columns:1fr;
+  }
+
+  .catatan-row{
+    grid-column:auto;
+    grid-template-columns:1fr;
+  }
+
+  .form-box{
+    padding:20px;
+  }
+
+  .form-box::before,
+  .form-box::after{
+    display:none;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <h2>SISTEM INVENTORI PKPJ</h2>
 
-<!-- DASHBOARD -->
 <div class="dashboard">
-<div class="card blue">Total <span id="total">0</span></div>
-<div class="card green">Baik <span id="baik">0</span></div>
-<div class="card red">Rosak <span id="rosak">0</span></div>
-<div class="card orange">Pelupusan <span id="pelupusan">0</span></div>
-<div class="card purple">ICT <span id="ict">0</span></div>
-<div class="card gray">Sewaan <span id="sewaan">0</span></div>
+  <div class="card blue"><div class="icon">▣</div><div class="text">Total <span id="total">0</span></div></div>
+  <div class="card green"><div class="icon">✓</div><div class="text">Baik <span id="baik">0</span></div></div>
+  <div class="card red"><div class="icon">⚒</div><div class="text">Rosak <span id="rosak">0</span></div></div>
+  <div class="card orange"><div class="icon">⌫</div><div class="text">Pelupusan <span id="pelupusan">0</span></div></div>
+  <div class="card purple"><div class="icon">▭</div><div class="text">ICT <span id="ict">0</span></div></div>
+  <div class="card gray"><div class="icon">▥</div><div class="text">Sewaan <span id="sewaan">0</span></div></div>
 </div>
 
-<!-- FORM -->
-<div class="form">
+<div class="form-box">
 
-<label>Tahun</label>
-<select id="tahun"></select>
+  <div class="form">
 
-<label>No Inventori</label>
-<input id="noInventori">
+    <div class="field">
+      <label>Tahun</label>
+      <select id="tahun"></select>
+    </div>
 
-<label>Nama</label>
-<input id="nama">
+    <div class="field">
+      <label>No Inventori</label>
+      <input id="noInventori">
+    </div>
 
-<label>Kategori</label>
-<select id="kategori">
-<option>ICT</option>
-<option>Sewaan</option>
-<option>PKPJ</option>
-</select>
+    <div class="field">
+      <label>Gambar URL</label>
+      <input id="gambar" readonly>
+    </div>
 
-<label>Jenama</label>
-<input id="jenama">
+    <div class="field">
+      <label>Nama</label>
+      <input id="nama">
+    </div>
 
-<label>Model</label>
-<input id="model">
+    <div class="field">
+      <label>Kategori</label>
+      <select id="kategori">
+        <option>ICT</option>
+        <option>Sewaan</option>
+        <option>PKPJ</option>
+      </select>
+    </div>
 
-<label>No Siri</label>
-<input id="noSiri">
+    <div class="field">
+      <label>Upload Gambar</label>
+      <input type="file" id="imageInput">
+      <button type="button" class="upload-btn" onclick="uploadImage()">UPLOAD GAMBAR</button>
+    </div>
 
-<label>Tag Aset</label>
-<input id="tagAset">
+    <div class="field">
+      <label>Jenama</label>
+      <input id="jenama">
+    </div>
 
-<label>Kuantiti</label>
-<input id="kuantiti">
+    <div class="field">
+      <label>Model</label>
+      <input id="model">
+    </div>
 
-<label>Lokasi</label>
-<input id="lokasi">
+    <div></div>
 
-<label>Status</label>
-<select id="status">
-<option>Baik</option>
-<option>Rosak</option>
-<option>Pelupusan</option>
-</select>
+    <div class="field">
+      <label>No Siri</label>
+      <input id="noSiri">
+    </div>
 
-<label>Tarikh</label>
-<input type="date" id="tarikh">
+    <div class="field">
+      <label>Tag Aset</label>
+      <input id="tagAset">
+    </div>
 
-<label>Pembekal</label>
-<input id="pembekal">
+    <div></div>
 
-<!-- GAMBAR -->
-<label>Gambar URL</label>
-<input id="gambar" readonly>
+    <div class="field">
+      <label>Kuantiti</label>
+      <input id="kuantiti" type="number" min="1">
+    </div>
 
-<label>Upload Gambar</label>
-<input type="file" id="imageInput">
+    <div class="field">
+      <label>Status</label>
+      <select id="status">
+        <option>Baik</option>
+        <option>Rosak</option>
+        <option>Pelupusan</option>
+      </select>
+    </div>
 
-<button type="button" class="upload" onclick="uploadImage()">
-UPLOAD GAMBAR
-</button>
+    <div></div>
 
-<div class="full-row">
-<label>Catatan</label>
-<textarea id="catatan"></textarea>
+    <div class="field">
+      <label>Lokasi</label>
+      <input id="lokasi">
+    </div>
+
+    <div class="field">
+      <label>Pembekal</label>
+      <input id="pembekal">
+    </div>
+
+    <div></div>
+
+    <div class="catatan-row">
+      <div class="field">
+        <label>Tarikh</label>
+        <input type="date" id="tarikh">
+      </div>
+
+      <div class="field">
+        <label>Catatan</label>
+        <textarea id="catatan"></textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="save-wrap">
+    <button class="save" onclick="simpan()">💾 SIMPAN DATA</button>
+  </div>
+
 </div>
 
-</div>
-
-<button class="save" onclick="simpan()">SIMPAN DATA</button>
-
-<!-- TABLE -->
 <table>
 <thead>
 <tr>
-<th>No Inventori</th>
-<th>Nama</th>
-<th>Kategori</th>
-<th>Jenama</th>
-<th>Status</th>
-<th>Action</th>
+  <th>No Inventori</th>
+  <th>Nama</th>
+  <th>Kategori</th>
+  <th>Jenama</th>
+  <th>Status</th>
+  <th>Action</th>
 </tr>
 </thead>
 <tbody id="table"></tbody>
 </table>
 
 <script>
-
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
 /* YEAR */
-for(let y=2010;y<=2035;y++){
-  tahun.innerHTML += `<option>${y}</option>`;
+for(let y=2010; y<=2035; y++){
+  tahun.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
 /* LOAD */
 function load(){
-fetch(API)
-.then(r=>r.json())
-.then(d=>{
-table.innerHTML="";
-d.forEach(v=>{
-table.innerHTML += `
-<tr>
-<td>${v.noInventori||""}</td>
-<td>${v.nama||""}</td>
-<td>${v.kategori||""}</td>
-<td>${v.jenama||""}</td>
-<td>${v.status||""}</td>
-<td><button class="del" onclick="del(${v.row})">Delete</button></td>
-</tr>`;
-});
-});
+  fetch(API)
+  .then(r => r.json())
+  .then(d => {
+    table.innerHTML = "";
+
+    d.forEach(v => {
+      let statusClass = "";
+      if(v.status === "Baik") statusClass = "badge-baik";
+      if(v.status === "Rosak") statusClass = "badge-rosak";
+      if(v.status === "Pelupusan") statusClass = "badge-pelupusan";
+
+      table.innerHTML += `
+      <tr>
+        <td>${v.noInventori || ""}</td>
+        <td>${v.nama || ""}</td>
+        <td>${v.kategori || ""}</td>
+        <td>${v.jenama || ""}</td>
+        <td><span class="badge ${statusClass}">${v.status || ""}</span></td>
+        <td><button class="del" onclick="del(${v.row})">Delete</button></td>
+      </tr>`;
+    });
+  })
+  .catch(err => {
+    alert("Gagal load data");
+    console.error(err);
+  });
 }
 
 /* STATS */
 function stats(){
-fetch(API+"?action=stats")
-.then(r=>r.json())
-.then(s=>{
-total.innerText=s.total||0;
-baik.innerText=s.baik||0;
-rosak.innerText=s.rosak||0;
-pelupusan.innerText=s.pelupusan||0;
-ict.innerText=s.ICT||0;
-sewaan.innerText=s.Sewaan||0;
-});
+  fetch(API + "?action=stats")
+  .then(r => r.json())
+  .then(s => {
+    total.innerText = s.total || 0;
+    baik.innerText = s.baik || 0;
+    rosak.innerText = s.rosak || 0;
+    pelupusan.innerText = s.pelupusan || 0;
+    ict.innerText = s.ICT || 0;
+    sewaan.innerText = s.Sewaan || 0;
+  })
+  .catch(err => console.error(err));
 }
 
 /* SIMPAN */
 function simpan(){
-fetch(API,{
-method:"POST",
-headers:{"Content-Type":"text/plain"},
-body:JSON.stringify({
-action:"simpan",
-tahun:tahun.value,
-noInventori:noInventori.value,
-nama:nama.value,
-kategori:kategori.value,
-jenama:jenama.value,
-model:model.value,
-noSiri:noSiri.value,
-tagAset:tagAset.value,
-kuantiti:kuantiti.value,
-lokasi:lokasi.value,
-status:status.value,
-tarikh:tarikh.value,
-pembekal:pembekal.value,
-gambar:gambar.value,
-catatan:catatan.value
-})
-})
-.then(r=>r.json())
-.then(res=>{
-alert(res.message||"OK");
-clearForm();
-load();
-stats();
-});
+  if(!noInventori.value || !nama.value){
+    alert("Sila isi No Inventori dan Nama");
+    return;
+  }
+
+  fetch(API,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain"},
+    body:JSON.stringify({
+      action:"simpan",
+      tahun:tahun.value,
+      noInventori:noInventori.value,
+      nama:nama.value,
+      kategori:kategori.value,
+      jenama:jenama.value,
+      model:model.value,
+      noSiri:noSiri.value,
+      tagAset:tagAset.value,
+      kuantiti:kuantiti.value,
+      lokasi:lokasi.value,
+      status:status.value,
+      tarikh:tarikh.value,
+      pembekal:pembekal.value,
+      gambar:gambar.value,
+      catatan:catatan.value
+    })
+  })
+  .then(r => r.json())
+  .then(res => {
+    alert(res.message || "OK");
+    clearForm();
+    load();
+    stats();
+  })
+  .catch(err => {
+    alert("Gagal simpan data");
+    console.error(err);
+  });
 }
 
 /* UPLOAD */
 function uploadImage(){
+  let file = document.getElementById("imageInput").files[0];
 
-let file=document.getElementById("imageInput").files[0];
-if(!file){alert("Pilih gambar");return;}
+  if(!file){
+    alert("Pilih gambar");
+    return;
+  }
 
-let reader=new FileReader();
+  let reader = new FileReader();
 
-reader.onload=function(e){
+  reader.onload = function(e){
+    fetch(API,{
+      method:"POST",
+      headers:{"Content-Type":"text/plain"},
+      body:JSON.stringify({
+        action:"upload",
+        image:e.target.result.split(",")[1],
+        mimeType:file.type,
+        fileName:file.name
+      })
+    })
+    .then(r => r.json())
+    .then(res => {
+      gambar.value = res.url;
+      alert("UPLOAD OK");
+    })
+    .catch(err => {
+      alert("Gagal upload gambar");
+      console.error(err);
+    });
+  };
 
-fetch(API,{
-method:"POST",
-headers:{"Content-Type":"text/plain"},
-body:JSON.stringify({
-action:"upload",
-image:e.target.result.split(",")[1],
-mimeType:file.type,
-fileName:file.name
-})
-})
-.then(r=>r.json())
-.then(res=>{
-gambar.value=res.url;
-alert("UPLOAD OK");
-});
-};
-
-reader.readAsDataURL(file);
+  reader.readAsDataURL(file);
 }
 
 /* DELETE */
 function del(id){
-if(!confirm("Delete?")) return;
-fetch(API,{
-method:"POST",
-body:JSON.stringify({action:"delete",row:id})
-}).then(()=>{load();stats();});
+  if(!confirm("Delete data ini?")) return;
+
+  fetch(API,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain"},
+    body:JSON.stringify({
+      action:"delete",
+      row:id
+    })
+  })
+  .then(() => {
+    load();
+    stats();
+  })
+  .catch(err => {
+    alert("Gagal delete data");
+    console.error(err);
+  });
 }
 
 /* CLEAR */
 function clearForm(){
-document.querySelectorAll("input,textarea").forEach(e=>e.value="");
+  document.querySelectorAll("input, textarea").forEach(e => e.value = "");
+  tahun.value = new Date().getFullYear();
 }
 
 /* INIT */
-window.onload=function(){
-load();
-stats();
-}
-
+window.onload = function(){
+  load();
+  stats();
+};
 </script>
 
 </body>

@@ -704,9 +704,12 @@ function renderTable(data){
     if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
 
     let gambarButton = "-";
-    if(v.gambar){
-      gambarButton = `<button class="btn-image" onclick="openImageModal('${v.gambar}')"><i class="fa-solid fa-eye"></i></button>`;
-    }
+if(v.gambar){
+  gambarButton = `
+    <a href="${v.gambar}" target="_blank" class="btn-image" style="text-decoration:none;display:inline-block;">
+      <i class="fa-solid fa-link"></i> Link
+    </a>`;
+}
 
     tableEl.innerHTML += `
     <tr>

@@ -17,7 +17,6 @@ body{
   font-size:18px;
 }
 
-/* HEADER */
 .top-header{
   background:white;
   padding:24px 35px;
@@ -28,9 +27,7 @@ body{
   box-shadow:0 2px 10px rgba(0,0,0,.10);
 }
 
-.top-header img{
-  width:90px;
-}
+.top-header img{width:90px}
 
 .top-header h1{
   margin:0;
@@ -39,7 +36,6 @@ body{
   letter-spacing:1px;
 }
 
-/* MENU */
 .nav-menu{
   background:#0b1f3a;
   display:flex;
@@ -62,20 +58,11 @@ body{
   min-width:230px;
 }
 
-.nav-menu button i{
-  margin-right:8px;
-}
-
 .nav-menu button.active{
   background:#ffc107;
   color:#111;
 }
 
-.nav-menu button:hover{
-  transform:translateY(-2px);
-}
-
-/* MAIN */
 .container{
   width:100%;
   max-width:100%;
@@ -86,12 +73,10 @@ body{
 .page{display:none}
 .page.active{display:block}
 
-/* DASHBOARD */
 .dashboard-title{
   font-size:24px;
   font-weight:900;
   margin:24px 0 18px;
-  letter-spacing:.5px;
 }
 
 .dashboard-grid{
@@ -100,13 +85,8 @@ body{
   margin-bottom:30px;
 }
 
-.status-grid{
-  grid-template-columns:repeat(3,1fr);
-}
-
-.kategori-grid{
-  grid-template-columns:repeat(4,1fr);
-}
+.status-grid{grid-template-columns:repeat(3,1fr)}
+.kategori-grid{grid-template-columns:repeat(5,1fr)}
 
 .info-card{
   min-height:190px;
@@ -126,13 +106,7 @@ body{
 .info-number{
   font-size:68px;
   font-weight:900;
-  margin-bottom:18px;
   line-height:1;
-}
-
-.info-label{
-  font-size:25px;
-  font-weight:900;
 }
 
 .info-icon{
@@ -155,10 +129,6 @@ body{
   cursor:pointer;
 }
 
-.info-card-footer:hover{
-  background:rgba(0,0,0,.30);
-}
-
 .pk-logo-card{
   position:absolute;
   right:32px;
@@ -174,8 +144,8 @@ body{
 .bg-purple{background:#6f42c1}
 .bg-dark{background:#263342}
 .bg-yellow{background:#ffc107}
+.bg-teal{background:#20c997}
 
-/* SECTION */
 .section-box{
   background:white;
   border-radius:10px;
@@ -196,10 +166,7 @@ body{
   gap:14px;
 }
 
-/* FORM */
-.form-area{
-  padding:36px;
-}
+.form-area{padding:36px}
 
 .form-grid{
   display:grid;
@@ -227,22 +194,12 @@ input,select,textarea{
   background:white;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-  outline:none;
-  border-color:#0d6efd;
-  box-shadow:0 0 0 3px rgba(13,110,253,.15);
-}
-
 textarea{
   height:125px;
   resize:vertical;
 }
 
-.full-width{
-  grid-column:1 / span 3;
-}
+.full-width{grid-column:1 / span 3}
 
 .form-buttons{
   text-align:center;
@@ -283,7 +240,11 @@ button{
   display:none;
 }
 
-/* TABLE */
+.btn-excel{
+  background:#198754;
+  color:white;
+}
+
 .table-toolbar{
   padding:26px;
   display:flex;
@@ -316,9 +277,7 @@ button{
   font-weight:900;
 }
 
-.table-wrap{
-  overflow-x:auto;
-}
+.table-wrap{overflow-x:auto}
 
 table{
   width:100%;
@@ -344,10 +303,6 @@ td{
 td:nth-child(2){
   text-align:left;
   font-weight:800;
-}
-
-tr:hover{
-  background:#f8fbff;
 }
 
 .badge{
@@ -389,73 +344,20 @@ tr:hover{
   border-radius:6px;
 }
 
-/* RESPONSIVE */
 @media(max-width:1200px){
-  .top-header h1{font-size:34px}
-  .top-header img{width:72px}
-
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .full-width{
-    grid-column:1 / span 2;
-  }
+  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+  .full-width{grid-column:1 / span 2}
 }
 
 @media(max-width:700px){
-  .top-header{
-    padding:16px;
-  }
-
-  .top-header h1{
-    font-size:22px;
-  }
-
-  .top-header img{
-    width:55px;
-  }
-
-  .nav-menu button{
-    width:100%;
-    min-width:0;
-    font-size:17px;
-  }
-
-  .container{
-    padding:16px;
-  }
-
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full-width{
-    grid-column:1;
-  }
-
-  .info-number{
-    font-size:50px;
-  }
-
-  .info-label{
-    font-size:19px;
-  }
-
-  td,th{
-    font-size:15px;
-    padding:12px;
-  }
+  .top-header h1{font-size:22px}
+  .top-header img{width:55px}
+  .nav-menu button{width:100%;min-width:0;font-size:17px}
+  .container{padding:16px}
+  .status-grid,.kategori-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
 }
 </style>
 </head>
@@ -463,7 +365,7 @@ tr:hover{
 <body>
 
 <header class="top-header">
-  <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="Logo PKPJ">
+  <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
   <h1>SISTEM INVENTORI IT PKPJ</h1>
 </header>
 
@@ -483,267 +385,255 @@ tr:hover{
 
 <div class="container">
 
-  <!-- PAGE 1 DASHBOARD -->
-  <div id="dashboardPage" class="page active">
+<div id="dashboardPage" class="page active">
 
-    <div class="dashboard-title">STATUS INVENTORI</div>
+  <div class="dashboard-title">STATUS INVENTORI</div>
 
-    <div class="dashboard-grid status-grid">
+  <div class="dashboard-grid status-grid">
 
-      <div class="info-card bg-green">
-        <div class="info-card-content">
-          <div class="info-number" id="baik">0</div>
-          <div class="info-label">Status Baik</div>
-        </div>
-        <i class="fa-solid fa-circle-check info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('status','Baik')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+    <div class="info-card bg-green">
+      <div class="info-card-content">
+        <div class="info-number" id="baik">0</div>
       </div>
-
-      <div class="info-card bg-red">
-        <div class="info-card-content">
-          <div class="info-number" id="rosak">0</div>
-          <div class="info-label">Status Rosak</div>
-        </div>
-        <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
-      </div>
-
-      <div class="info-card bg-orange">
-        <div class="info-card-content">
-          <div class="info-number" id="pelupusan">0</div>
-          <div class="info-label">Status Pelupusan</div>
-        </div>
-        <i class="fa-solid fa-trash info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
-      </div>
-
+      <i class="fa-solid fa-circle-check info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
-    <div class="dashboard-title">KATEGORI INVENTORI</div>
-
-    <div class="dashboard-grid kategori-grid">
-
-      <div class="info-card bg-blue">
-        <div class="info-card-content">
-          <div class="info-number" id="total">0</div>
-          <div class="info-label">Jumlah Inventori</div>
-        </div>
-        <i class="fa-solid fa-boxes-stacked info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('all','')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+    <div class="info-card bg-red">
+      <div class="info-card-content">
+        <div class="info-number" id="rosak">0</div>
       </div>
-
-      <div class="info-card bg-purple">
-        <div class="info-card-content">
-          <div class="info-number" id="ict">0</div>
-          <div class="info-label">Kategori ICT</div>
-        </div>
-        <i class="fa-solid fa-computer info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
-      </div>
-
-      <div class="info-card bg-dark">
-        <div class="info-card-content">
-          <div class="info-number" id="sewaan">0</div>
-          <div class="info-label">Kategori Sewaan</div>
-        </div>
-        <i class="fa-solid fa-building info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
-      </div>
-
-      <div class="info-card bg-yellow">
-        <div class="info-card-content">
-          <div class="info-number" id="pkpj">0</div>
-          <div class="info-label">Kategori PKPJ</div>
-        </div>
-        <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="PKPJ">
-        <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
-      </div>
-
+      <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
+
+    <div class="info-card bg-orange">
+      <div class="info-card-content">
+        <div class="info-number" id="pelupusan">0</div>
+      </div>
+      <i class="fa-solid fa-trash info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
   </div>
 
-  <!-- PAGE 2 FORM -->
-  <div id="formPage" class="page">
+  <div class="dashboard-title">KATEGORI INVENTORI</div>
 
-    <div class="section-box">
-      <div class="section-title">
-        <i class="fa-solid fa-clipboard-list"></i> MAKLUMAT INVENTORI
+  <div class="dashboard-grid kategori-grid">
+
+    <div class="info-card bg-blue">
+      <div class="info-card-content">
+        <div class="info-number" id="total">0</div>
       </div>
+      <i class="fa-solid fa-boxes-stacked info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
 
-      <div class="form-area">
-        <input type="hidden" id="editingRow">
+    <div class="info-card bg-purple">
+      <div class="info-card-content">
+        <div class="info-number" id="ict">0</div>
+      </div>
+      <i class="fa-solid fa-computer info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
 
-        <div class="form-grid">
+    <div class="info-card bg-dark">
+      <div class="info-card-content">
+        <div class="info-number" id="sewaan">0</div>
+      </div>
+      <i class="fa-solid fa-building info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
 
-          <div class="field">
-            <label>Tahun</label>
-            <select id="tahun"></select>
-          </div>
+    <div class="info-card bg-yellow">
+      <div class="info-card-content">
+        <div class="info-number" id="pkpj">0</div>
+      </div>
+      <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
+      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
 
-          <div class="field">
-            <label>No Inventori</label>
-            <input id="noInventori">
-          </div>
+    <div class="info-card bg-teal">
+      <div class="info-card-content">
+        <div class="info-number" id="prosesICT">0</div>
+      </div>
+      <i class="fa-solid fa-rotate-left info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
 
-          <div class="field">
-            <label>Gambar URL</label>
-            <input id="gambar" readonly>
-          </div>
+  </div>
+</div>
 
-          <div class="field">
-            <label>Nama</label>
-            <input id="nama">
-          </div>
+<div id="formPage" class="page">
 
-          <div class="field">
-            <label>Kategori</label>
-            <select id="kategori">
-              <option value="ICT">ICT</option>
-              <option value="Sewaan">Sewaan</option>
-              <option value="PKPJ">PKPJ</option>
-            </select>
-          </div>
+  <div class="section-box">
+    <div class="section-title">
+      <i class="fa-solid fa-clipboard-list"></i> MAKLUMAT INVENTORI
+    </div>
 
-          <div class="field">
-            <label>Upload Gambar</label>
-            <input type="file" id="imageInput">
-            <button type="button" class="btn-upload" onclick="uploadImage()">
-              <i class="fa-solid fa-upload"></i> UPLOAD GAMBAR
-            </button>
-          </div>
+    <div class="form-area">
+      <input type="hidden" id="editingRow">
 
-          <div class="field">
-            <label>Jenama</label>
-            <input id="jenama">
-          </div>
+      <div class="form-grid">
 
-          <div class="field">
-            <label>Model</label>
-            <input id="model">
-          </div>
-
-          <div class="field">
-            <label>No Siri</label>
-            <input id="noSiri">
-          </div>
-
-          <div class="field">
-            <label>Tag Aset</label>
-            <input id="tagAset">
-          </div>
-
-          <div class="field">
-            <label>Kuantiti</label>
-            <input id="kuantiti" type="number" min="1">
-          </div>
-
-          <div class="field">
-            <label>Status</label>
-            <select id="status">
-              <option value="Baik">Baik</option>
-              <option value="Rosak">Rosak</option>
-              <option value="Pelupusan">Pelupusan</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Lokasi</label>
-            <select id="lokasi" onchange="checkLokasi()">
-              <option value="">-- Pilih Lokasi --</option>
-              <option value="Stor PKPJ">Stor PKPJ</option>
-              <option value="Pejabat PKPJ">Pejabat PKPJ</option>
-              <option value="Lain-lain">Lain-lain</option>
-            </select>
-
-            <input type="text" id="lokasiLain" placeholder="Masukkan lokasi..." style="display:none;margin-top:8px;">
-          </div>
-
-          <div class="field">
-            <label>Tarikh</label>
-            <input type="date" id="tarikh">
-          </div>
-
-          <div class="field">
-            <label>Pembekal</label>
-            <input id="pembekal">
-          </div>
-
-          <div class="field full-width">
-            <label>Catatan</label>
-            <textarea id="catatan"></textarea>
-          </div>
-
+        <div class="field">
+          <label>Tahun</label>
+          <select id="tahun"></select>
         </div>
 
-        <div class="form-buttons">
-          <button id="saveBtn" class="btn-save" onclick="simpan()">
-            <i class="fa-solid fa-floppy-disk"></i>
-            <span id="saveText">SIMPAN DATA</span>
-          </button>
+        <div class="field">
+          <label>No Inventori</label>
+          <input id="noInventori">
+        </div>
 
-          <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">
-            <i class="fa-solid fa-xmark"></i> BATAL EDIT
+        <div class="field">
+          <label>Gambar URL</label>
+          <input id="gambar" readonly>
+        </div>
+
+        <div class="field">
+          <label>Nama</label>
+          <input id="nama">
+        </div>
+
+        <div class="field">
+          <label>Kategori</label>
+          <select id="kategori">
+            <option value="ICT">ICT</option>
+            <option value="Sewaan">Sewaan</option>
+            <option value="PKPJ">PKPJ</option>
+            <option value="Dalam Proses Pemulangan ke ICT">Dalam Proses Pemulangan ke ICT</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Upload Gambar</label>
+          <input type="file" id="imageInput">
+          <button type="button" class="btn-upload" onclick="uploadImage()">
+            <i class="fa-solid fa-upload"></i> UPLOAD GAMBAR
           </button>
         </div>
 
-      </div>
-    </div>
-
-  </div>
-
-  <!-- PAGE 3 TABLE -->
-  <div id="tablePage" class="page">
-
-    <div class="section-box">
-      <div class="section-title">
-        <i class="fa-solid fa-table"></i> SENARAI INVENTORI
-      </div>
-
-      <div class="table-toolbar">
-        <div class="search-box">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="searchInput" placeholder="Cari nama, kategori, jenama, status atau lokasi..." onkeyup="searchTable()">
+        <div class="field">
+          <label>Jenama</label>
+          <input id="jenama">
         </div>
 
-        <div class="table-count">
-          Jumlah Rekod: <span id="recordCount">0</span>
+        <div class="field">
+          <label>Model</label>
+          <input id="model">
         </div>
+
+        <div class="field">
+          <label>No Siri</label>
+          <input id="noSiri">
+        </div>
+
+        <div class="field">
+          <label>Tag Aset</label>
+          <input id="tagAset">
+        </div>
+
+        <div class="field">
+          <label>Kuantiti</label>
+          <input id="kuantiti" type="number" min="1">
+        </div>
+
+        <div class="field">
+          <label>Status</label>
+          <select id="status">
+            <option value="Baik">Baik</option>
+            <option value="Rosak">Rosak</option>
+            <option value="Pelupusan">Pelupusan</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Lokasi</label>
+          <select id="lokasi" onchange="checkLokasi()">
+            <option value="">-- Pilih Lokasi --</option>
+            <option value="Stor PKPJ">Stor PKPJ</option>
+            <option value="Pejabat PKPJ">Pejabat PKPJ</option>
+            <option value="Lain-lain">Lain-lain</option>
+          </select>
+
+          <input type="text" id="lokasiLain" placeholder="Masukkan lokasi..." style="display:none;margin-top:8px;">
+        </div>
+
+        <div class="field">
+          <label>Tarikh</label>
+          <input type="date" id="tarikh">
+        </div>
+
+        <div class="field">
+          <label>Pembekal</label>
+          <input id="pembekal">
+        </div>
+
+        <div class="field full-width">
+          <label>Catatan</label>
+          <textarea id="catatan"></textarea>
+        </div>
+
       </div>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Kategori</th>
-              <th>Jenama</th>
-              <th>Status</th>
-              <th>Lokasi</th>
-              <th>Gambar</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="table"></tbody>
-        </table>
+      <div class="form-buttons">
+        <button id="saveBtn" class="btn-save" onclick="simpan()">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span id="saveText">SIMPAN DATA</span>
+        </button>
+
+        <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">
+          <i class="fa-solid fa-xmark"></i> BATAL EDIT
+        </button>
       </div>
     </div>
-
   </div>
+
+</div>
+
+<div id="tablePage" class="page">
+
+  <div class="section-box">
+    <div class="section-title">
+      <i class="fa-solid fa-table"></i> SENARAI INVENTORI
+    </div>
+
+    <div class="table-toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Cari nama, kategori, jenama, status atau lokasi..." onkeyup="searchTable()">
+      </div>
+
+      <div class="table-count">
+        Jumlah Rekod: <span id="recordCount">0</span>
+      </div>
+
+      <button class="btn-excel" onclick="exportExcel()">
+        <i class="fa-solid fa-file-excel"></i> Export Excel
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Kategori</th>
+            <th>Jenama</th>
+            <th>Status</th>
+            <th>Lokasi</th>
+            <th>Gambar</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
 
 </div>
 
@@ -782,11 +672,8 @@ for(let y=2010; y<=2035; y++){
 function showPage(pageId, btn){
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.querySelectorAll(".nav-menu button").forEach(b => b.classList.remove("active"));
-
   document.getElementById(pageId).classList.add("active");
   btn.classList.add("active");
-
-  window.scrollTo({top:0, behavior:"smooth"});
 }
 
 function goPage(pageId){
@@ -795,7 +682,6 @@ function goPage(pageId){
     formPage:document.getElementById("btnForm"),
     tablePage:document.getElementById("btnTable")
   };
-
   showPage(pageId, btnMap[pageId]);
 }
 
@@ -871,20 +757,14 @@ function filterDashboard(type, value){
   renderTable(filtered);
   document.getElementById("recordCount").innerText = filtered.length;
   document.getElementById("searchInput").value = "";
-
   goPage("tablePage");
 }
 
 function editData(row){
   const data = allData.find(x => x.row == row);
-
-  if(!data){
-    alert("Data tidak dijumpai");
-    return;
-  }
+  if(!data){ alert("Data tidak dijumpai"); return; }
 
   editingRowEl.value = data.row || "";
-
   tahunEl.value = data.tahun || new Date().getFullYear();
   noInventoriEl.value = data.noInventori || "";
   namaEl.value = data.nama || "";
@@ -913,23 +793,16 @@ function editData(row){
   saveBtn.classList.add("btn-update");
   saveText.innerText = "KEMASKINI DATA";
   cancelBtn.style.display = "inline-block";
-
   goPage("formPage");
 }
 
 function formatDateForInput(value){
   if(!value) return "";
-
-  if(String(value).includes("T")){
-    return String(value).split("T")[0];
-  }
+  if(String(value).includes("T")) return String(value).split("T")[0];
 
   const d = new Date(value);
   if(!isNaN(d)){
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2,"0");
-    const day = String(d.getDate()).padStart(2,"0");
-    return `${year}-${month}-${day}`;
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   }
 
   return value;
@@ -938,18 +811,16 @@ function formatDateForInput(value){
 function searchTable(){
   const keyword = document.getElementById("searchInput").value.toLowerCase();
 
-  const filtered = allData.filter(v => {
-    return (
-      String(v.nama || "").toLowerCase().includes(keyword) ||
-      String(v.kategori || "").toLowerCase().includes(keyword) ||
-      String(v.jenama || "").toLowerCase().includes(keyword) ||
-      String(v.status || "").toLowerCase().includes(keyword) ||
-      String(v.lokasi || "").toLowerCase().includes(keyword) ||
-      String(v.noSiri || "").toLowerCase().includes(keyword) ||
-      String(v.tagAset || "").toLowerCase().includes(keyword) ||
-      String(v.pembekal || "").toLowerCase().includes(keyword)
-    );
-  });
+  const filtered = allData.filter(v =>
+    String(v.nama || "").toLowerCase().includes(keyword) ||
+    String(v.kategori || "").toLowerCase().includes(keyword) ||
+    String(v.jenama || "").toLowerCase().includes(keyword) ||
+    String(v.status || "").toLowerCase().includes(keyword) ||
+    String(v.lokasi || "").toLowerCase().includes(keyword) ||
+    String(v.noSiri || "").toLowerCase().includes(keyword) ||
+    String(v.tagAset || "").toLowerCase().includes(keyword) ||
+    String(v.pembekal || "").toLowerCase().includes(keyword)
+  );
 
   renderTable(filtered);
   document.getElementById("recordCount").innerText = filtered.length;
@@ -966,6 +837,7 @@ function stats(){
     document.getElementById("ict").innerText = s.ICT || 0;
     document.getElementById("sewaan").innerText = s.Sewaan || 0;
     document.getElementById("pkpj").innerText = s.PKPJ || 0;
+    document.getElementById("prosesICT").innerText = s.ProsesICT || 0;
   });
 }
 
@@ -978,36 +850,33 @@ function simpan(){
       lokasiLainEl.focus();
       return;
     }
-
     lokasiFinal = lokasiLainEl.value.trim();
   }
 
   const isEdit = editingRowEl.value !== "";
 
-  const data = {
-    action:isEdit ? "update" : "simpan",
-    row:editingRowEl.value,
-    tahun:tahunEl.value,
-    noInventori:noInventoriEl.value,
-    nama:namaEl.value,
-    kategori:kategoriEl.value,
-    jenama:jenamaEl.value,
-    model:modelEl.value,
-    noSiri:noSiriEl.value,
-    tagAset:tagAsetEl.value,
-    kuantiti:kuantitiEl.value,
-    lokasi:lokasiFinal,
-    status:statusEl.value,
-    tarikh:tarikhEl.value,
-    pembekal:pembekalEl.value,
-    gambar:gambarEl.value,
-    catatan:catatanEl.value
-  };
-
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify(data)
+    body:JSON.stringify({
+      action:isEdit ? "update" : "simpan",
+      row:editingRowEl.value,
+      tahun:tahunEl.value,
+      noInventori:noInventoriEl.value,
+      nama:namaEl.value,
+      kategori:kategoriEl.value,
+      jenama:jenamaEl.value,
+      model:modelEl.value,
+      noSiri:noSiriEl.value,
+      tagAset:tagAsetEl.value,
+      kuantiti:kuantitiEl.value,
+      lokasi:lokasiFinal,
+      status:statusEl.value,
+      tarikh:tarikhEl.value,
+      pembekal:pembekalEl.value,
+      gambar:gambarEl.value,
+      catatan:catatanEl.value
+    })
   })
   .then(r => r.json())
   .then(res => {
@@ -1021,11 +890,7 @@ function simpan(){
 
 function uploadImage(){
   const file = imageInputEl.files[0];
-
-  if(!file){
-    alert("Pilih gambar");
-    return;
-  }
+  if(!file){ alert("Pilih gambar"); return; }
 
   const reader = new FileReader();
 
@@ -1056,15 +921,37 @@ function del(id){
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify({
-      action:"delete",
-      row:id
-    })
+    body:JSON.stringify({action:"delete",row:id})
   })
   .then(() => {
     load();
     stats();
   });
+}
+
+function exportExcel(){
+  let csv = "No,Nama,Kategori,Jenama,Status,Lokasi\n";
+
+  allData.forEach((v,index)=>{
+    csv += [
+      index + 1,
+      v.nama || "",
+      v.kategori || "",
+      v.jenama || "",
+      v.status || "",
+      v.lokasi || ""
+    ].map(x => `"${String(x).replace(/"/g,'""')}"`).join(",") + "\n";
+  });
+
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "Senarai_Inventori_PKPJ.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
 }
 
 function cancelEdit(){

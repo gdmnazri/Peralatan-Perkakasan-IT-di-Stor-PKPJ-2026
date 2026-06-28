@@ -10,6 +10,7 @@ body{
   font-family: Arial;
   background:#f4f6f8;
   padding:20px;
+  font-size:14px;
 }
 
 h2{
@@ -39,28 +40,58 @@ h2{
 .purple{background:#6f42c1}
 .gray{background:#343a40}
 
-/* FORM - LEFT RIGHT BALANCE */
+/* FORM */
 .form{
   display:grid;
-  grid-template-columns:180px 1fr 180px 1fr;
-  gap:10px;
-  max-width:1100px;
+  grid-template-columns:200px 1fr 200px 1fr;
+  gap:12px;
+  max-width:1200px;
   margin:auto;
   background:white;
-  padding:20px;
-  border-radius:10px;
+  padding:25px;
+  border-radius:12px;
+  position:relative;
 }
 
-/* CATATAN FULL ROW CENTER */
+/* ARROW LEFT RIGHT VISUAL */
+.form::before{
+  content:"";
+  position:absolute;
+  left:-35px;
+  top:50%;
+  width:25px;
+  height:25px;
+  border-left:5px solid #f1c40f;
+  border-bottom:5px solid #f1c40f;
+  transform:rotate(45deg);
+}
+
+.form::after{
+  content:"";
+  position:absolute;
+  right:-35px;
+  top:50%;
+  width:25px;
+  height:25px;
+  border-right:5px solid #f1c40f;
+  border-top:5px solid #f1c40f;
+  transform:rotate(45deg);
+}
+
 .full-row{
   grid-column: 1 / span 4;
 }
 
-/* INPUT STYLE */
 input,select,textarea{
   padding:10px;
   width:100%;
   box-sizing:border-box;
+  font-size:14px;
+}
+
+label{
+  font-size:14px;
+  font-weight:600;
 }
 
 /* BUTTON */
@@ -70,6 +101,7 @@ button{
   color:white;
   cursor:pointer;
   border-radius:6px;
+  font-size:14px;
 }
 
 .save{background:#0d6efd}
@@ -87,6 +119,7 @@ th,td{
   border:1px solid #ddd;
   padding:10px;
   text-align:center;
+  font-size:14px;
 }
 
 th{
@@ -97,6 +130,7 @@ th{
 .del{
   background:red;
   padding:5px 10px;
+  color:white;
 }
 
 </style>
@@ -178,7 +212,6 @@ th{
 UPLOAD GAMBAR
 </button>
 
-<!-- CATATAN FULL CENTER -->
 <div class="full-row">
 <label>Catatan</label>
 <textarea id="catatan"></textarea>
@@ -200,13 +233,12 @@ UPLOAD GAMBAR
 <th>Action</th>
 </tr>
 </thead>
-
 <tbody id="table"></tbody>
 </table>
 
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbwVrSxZMipC72LokF6ojNd08bTlX5zTHxnjKUKNChZBE8nC5FaQooJR6D9DtgZCSiP2/exec";
+const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
 /* YEAR */
 for(let y=2010;y<=2035;y++){
@@ -215,15 +247,11 @@ for(let y=2010;y<=2035;y++){
 
 /* LOAD */
 function load(){
-
 fetch(API)
 .then(r=>r.json())
 .then(d=>{
-
 table.innerHTML="";
-
 d.forEach(v=>{
-
 table.innerHTML += `
 <tr>
 <td>${v.noInventori||""}</td>
@@ -232,36 +260,27 @@ table.innerHTML += `
 <td>${v.jenama||""}</td>
 <td>${v.status||""}</td>
 <td><button class="del" onclick="del(${v.row})">Delete</button></td>
-</tr>
-`;
-
+</tr>`;
 });
-
 });
-
 }
 
 /* STATS */
 function stats(){
-
 fetch(API+"?action=stats")
 .then(r=>r.json())
 .then(s=>{
-
 total.innerText=s.total||0;
 baik.innerText=s.baik||0;
 rosak.innerText=s.rosak||0;
 pelupusan.innerText=s.pelupusan||0;
 ict.innerText=s.ICT||0;
 sewaan.innerText=s.Sewaan||0;
-
 });
-
 }
 
 /* SIMPAN */
 function simpan(){
-
 fetch(API,{
 method:"POST",
 headers:{"Content-Type":"text/plain"},
@@ -286,26 +305,18 @@ catatan:catatan.value
 })
 .then(r=>r.json())
 .then(res=>{
-
-alert(res.message || "BERJAYA DISIMPAN ✔");
-
+alert(res.message||"OK");
 clearForm();
 load();
 stats();
-
 });
-
 }
 
-/* UPLOAD GAMBAR */
+/* UPLOAD */
 function uploadImage(){
 
 let file=document.getElementById("imageInput").files[0];
-
-if(!file){
-alert("Pilih gambar dulu");
-return;
-}
+if(!file){alert("Pilih gambar");return;}
 
 let reader=new FileReader();
 
@@ -323,41 +334,26 @@ fileName:file.name
 })
 .then(r=>r.json())
 .then(res=>{
-
 gambar.value=res.url;
-alert("UPLOAD BERJAYA ✔");
-
+alert("UPLOAD OK");
 });
-
 };
 
 reader.readAsDataURL(file);
-
 }
 
 /* DELETE */
 function del(id){
-
 if(!confirm("Delete?")) return;
-
 fetch(API,{
 method:"POST",
-body:JSON.stringify({
-action:"delete",
-row:id
-})
-})
-.then(()=>{load();stats();});
-
+body:JSON.stringify({action:"delete",row:id})
+}).then(()=>{load();stats();});
 }
 
 /* CLEAR */
 function clearForm(){
-
-document.querySelectorAll("input,textarea").forEach(e=>{
-e.value="";
-});
-
+document.querySelectorAll("input,textarea").forEach(e=>e.value="");
 }
 
 /* INIT */

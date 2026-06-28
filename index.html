@@ -1,3 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sistem Inventori IT PKPJ</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#eef3f8;
+  color:#0b1f3a;
+  font-size:18px;
+}
+
+.top-header{
+  background:white;
+  padding:24px 35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  box-shadow:0 2px 10px rgba(0,0,0,.10);
+}
+
+.top-header img{width:90px}
+
+.top-header h1{
+  margin:0;
+  font-size:46px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.nav-menu{
+  background:#0b1f3a;
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  padding:22px;
+  flex-wrap:wrap;
+}
+
+.nav-menu button{
+  background:#0d6efd;
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:18px 36px;
+  font-size:21px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+  min-width:230px;
+}
+
+.nav-menu button.active{
+  background:#ffc107;
+  color:#111;
+}
+
+.container{
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:34px 45px;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.dashboard-title{
+  font-size:24px;
+  font-weight:900;
+  margin:24px 0 18px;
+}
+
+.dashboard-grid{
+  display:grid;
+  gap:28px;
+  margin-bottom:30px;
+}
+
+.status-grid{grid-template-columns:repeat(3,1fr)}
+.kategori-grid{grid-template-columns:repeat(5,1fr)}
+
+.info-card{
+  min-height:190px;
+  color:white;
+  border-radius:8px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 6px 16px rgba(0,0,0,.24);
+}
+
+.info-card-content{
+  padding:28px;
+  position:relative;
+  z-index:2;
+}
+
+.info-number{
+  font-size:68px;
+  font-weight:900;
+  line-height:1;
+  margin-bottom:14px;
+}
+
+.info-label{
+  font-size:25px;
+  font-weight:900;
+}
+
+.info-icon{
+  position:absolute;
+  right:28px;
+  top:30px;
+  font-size:115px;
+  opacity:.23;
+}
+
+.info-card-footer{
+  background:rgba(0,0,0,.16);
+  text-align:center;
+  padding:15px;
+  font-size:19px;
+  font-weight:900;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  cursor:pointer;
+}
+
+.pk-logo-card{
+  position:absolute;
+  right:32px;
+  top:32px;
+  width:110px;
+  opacity:.30;
+}
+
+.bg-blue{background:#17a2d4}
+.bg-green{background:#28a745}
+.bg-red{background:#dc3545}
+.bg-orange{background:#fd7e14}
+.bg-purple{background:#6f42c1}
+.bg-dark{background:#263342}
+.bg-yellow{background:#ffc107}
+.bg-teal{background:#20c997}
+
+.section-box{
+  background:white;
+  border-radius:10px;
+  box-shadow:0 5px 18px rgba(0,0,0,.16);
+  margin-bottom:34px;
+  overflow:hidden;
+  width:100%;
+}
+
+.section-title{
+  background:#0d6efd;
+  color:white;
+  padding:22px 30px;
+  font-size:25px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.form-area{padding:36px}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:30px 42px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+label{
+  font-weight:900;
+  font-size:19px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:18px;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  font-size:18px;
+  background:white;
+}
+
+textarea{
+  height:125px;
+  resize:vertical;
+}
+
+.full-width{grid-column:1 / span 3}
+
+.form-buttons{
+  text-align:center;
+  margin-top:34px;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  border-radius:6px;
+  padding:14px 24px;
+  font-size:18px;
+  font-weight:900;
+}
+
+.btn-save{
+  background:#0d6efd;
+  color:white;
+  min-width:240px;
+}
+
+.btn-update{
+  background:#ffc107;
+  color:#111;
+}
+
+.btn-upload{
+  background:#198754;
+  color:white;
+  width:240px;
+  margin-top:10px;
+}
+
+.btn-cancel{
+  background:#6c757d;
+  color:white;
+  margin-left:12px;
+  display:none;
+}
+
+.btn-excel{
+  background:#198754;
+  color:white;
+}
+
+.table-toolbar{
+  padding:26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.search-box{
+  position:relative;
+  width:560px;
+  max-width:100%;
+}
+
+.search-box i{
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#6c757d;
+}
+
+.search-box input{
+  padding-left:52px;
+}
+
+.table-count{
+  font-size:20px;
+  font-weight:900;
+}
+
+.table-wrap{overflow-x:auto}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+}
+
+th{
+  background:#0d6efd;
+  color:white;
+  padding:16px;
+  border:1px solid #0b5ed7;
+  font-size:16px;
+}
+
+td{
+  padding:15px;
+  border:1px solid #dbe2ea;
+  text-align:center;
+  font-size:16px;
+}
+
+td:nth-child(2){
+  text-align:left;
+  font-weight:800;
+}
+
+.badge{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:22px;
+  font-size:15px;
+  color:white;
+  font-weight:900;
+}
+
+.badge-baik{background:#198754}
+.badge-rosak{background:#dc3545}
+.badge-pelupusan{background:#fd7e14}
+
+.btn-delete{
+  background:#dc3545;
+  color:white;
+  font-size:15px;
+  padding:9px 13px;
+}
+
+.btn-edit{
+  background:#ffc107;
+  color:#111;
+  font-size:15px;
+  padding:9px 13px;
+  margin-right:6px;
+}
+
+.btn-image{
+  background:#0d6efd;
+  color:white;
+  font-size:15px;
+  padding:9px 13px;
+  margin-right:6px;
+  text-decoration:none;
+  display:inline-block;
+  border-radius:6px;
+}
+
+@media(max-width:1200px){
+  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+  .full-width{grid-column:1 / span 2}
+}
+
+@media(max-width:700px){
+  .top-header h1{font-size:22px}
+  .top-header img{width:55px}
+  .nav-menu button{width:100%;min-width:0;font-size:17px}
+  .container{padding:16px}
+  .status-grid,.kategori-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-header">
+  <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
+  <h1>SISTEM INVENTORI IT PKPJ</h1>
+</header>
+
+<div class="nav-menu">
+  <button id="btnDashboard" class="active" onclick="showPage('dashboardPage', this)">
+    <i class="fa-solid fa-chart-pie"></i> Dashboard
+  </button>
+
+  <button id="btnForm" onclick="showPage('formPage', this)">
+    <i class="fa-solid fa-clipboard-list"></i> Maklumat Inventori
+  </button>
+
+  <button id="btnTable" onclick="showPage('tablePage', this)">
+    <i class="fa-solid fa-table"></i> Senarai Inventori
+  </button>
+</div>
+
+<div class="container">
+
+<div id="dashboardPage" class="page active">
+
+  <div class="dashboard-title">STATUS INVENTORI</div>
+
+  <div class="dashboard-grid status-grid">
+
+    <div class="info-card bg-green">
+      <div class="info-card-content">
+        <div class="info-number" id="baik">0</div>
+        <div class="info-label">Baik</div>
+      </div>
+      <i class="fa-solid fa-circle-check info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+    <div class="info-card bg-red">
+      <div class="info-card-content">
+        <div class="info-number" id="rosak">0</div>
+        <div class="info-label">Rosak</div>
+      </div>
+      <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+    <div class="info-card bg-orange">
+      <div class="info-card-content">
+        <div class="info-number" id="pelupusan">0</div>
+        <div class="info-label">Pelupusan</div>
+      </div>
+      <i class="fa-solid fa-trash info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <div class="dashboard-title">KATEGORI INVENTORI</div>
+
+  <div class="dashboard-grid kategori-grid">
+
+    <div class="info-card bg-blue">
+      <div class="info-card-content">
+        <div class="info-number" id="total">0</div>
+        <div class="info-label">Jumlah Inventori</div>
+      </div>
+      <i class="fa-solid fa-boxes-stacked info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+    <div class="info-card bg-purple">
+      <div class="info-card-content">
+        <div class="info-number" id="ict">0</div>
+        <div class="info-label">ICT</div>
+      </div>
+      <i class="fa-solid fa-computer info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+    <div class="info-card bg-dark">
+      <div class="info-card-content">
+        <div class="info-number" id="sewaan">0</div>
+        <div class="info-label">Sewaan</div>
+      </div>
+      <i class="fa-solid fa-building info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+    <div class="info-card bg-yellow">
+      <div class="info-card-content">
+        <div class="info-number" id="pkpj">0</div>
+        <div class="info-label">PKPJ</div>
+      </div>
+      <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
+      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+    <div class="info-card bg-teal">
+      <div class="info-card-content">
+        <div class="info-number" id="prosesICT">0</div>
+        <div class="info-label">Proses Pemulangan ke ICT</div>
+      </div>
+      <i class="fa-solid fa-rotate-left info-icon"></i>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="formPage" class="page">
+
+  <div class="section-box">
+    <div class="section-title">
+      <i class="fa-solid fa-clipboard-list"></i> MAKLUMAT INVENTORI
+    </div>
+
+    <div class="form-area">
+      <input type="hidden" id="editingRow">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Tahun</label>
+          <select id="tahun"></select>
+        </div>
+
+        <div class="field">
+          <label>No Inventori</label>
+          <input id="noInventori">
+        </div>
+
+        <div class="field">
+          <label>Gambar URL</label>
+          <input id="gambar" readonly>
+        </div>
+
+        <div class="field">
+          <label>Nama</label>
+          <input id="nama">
+        </div>
+
+        <div class="field">
+          <label>Kategori</label>
+          <select id="kategori">
+            <option value="ICT">ICT</option>
+            <option value="Sewaan">Sewaan</option>
+            <option value="PKPJ">PKPJ</option>
+            <option value="Dalam Proses Pemulangan ke ICT">Dalam Proses Pemulangan ke ICT</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Upload Gambar</label>
+          <input type="file" id="imageInput">
+          <button type="button" class="btn-upload" onclick="uploadImage()">
+            <i class="fa-solid fa-upload"></i> UPLOAD GAMBAR
+          </button>
+        </div>
+
+        <div class="field">
+          <label>Jenama</label>
+          <input id="jenama">
+        </div>
+
+        <div class="field">
+          <label>Model</label>
+          <input id="model">
+        </div>
+
+        <div class="field">
+          <label>No Siri</label>
+          <input id="noSiri">
+        </div>
+
+        <div class="field">
+          <label>Tag Aset</label>
+          <input id="tagAset">
+        </div>
+
+        <div class="field">
+          <label>Kuantiti</label>
+          <input id="kuantiti" type="number" min="1">
+        </div>
+
+        <div class="field">
+          <label>Status</label>
+          <select id="status">
+            <option value="Baik">Baik</option>
+            <option value="Rosak">Rosak</option>
+            <option value="Pelupusan">Pelupusan</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Lokasi</label>
+          <select id="lokasi" onchange="checkLokasi()">
+            <option value="">-- Pilih Lokasi --</option>
+            <option value="Stor PKPJ">Stor PKPJ</option>
+            <option value="Pejabat PKPJ">Pejabat PKPJ</option>
+            <option value="Lain-lain">Lain-lain</option>
+          </select>
+
+          <input type="text" id="lokasiLain" placeholder="Masukkan lokasi..." style="display:none;margin-top:8px;">
+        </div>
+
+        <div class="field">
+          <label>Tarikh</label>
+          <input type="date" id="tarikh">
+        </div>
+
+        <div class="field">
+          <label>Pembekal</label>
+          <input id="pembekal">
+        </div>
+
+        <div class="field full-width">
+          <label>Catatan</label>
+          <textarea id="catatan"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-buttons">
+        <button id="saveBtn" class="btn-save" onclick="simpan()">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span id="saveText">SIMPAN DATA</span>
+        </button>
+
+        <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">
+          <i class="fa-solid fa-xmark"></i> BATAL EDIT
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="tablePage" class="page">
+
+  <div class="section-box">
+    <div class="section-title">
+      <i class="fa-solid fa-table"></i> SENARAI INVENTORI
+    </div>
+
+    <div class="table-toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Cari nama, kategori, jenama, status atau lokasi..." onkeyup="searchTable()">
+      </div>
+
+      <div class="table-count">
+        Jumlah Rekod: <span id="recordCount">0</span>
+      </div>
+
+      <button class="btn-excel" onclick="exportExcel()">
+        <i class="fa-solid fa-file-excel"></i> Export Excel
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Kategori</th>
+            <th>Jenama</th>
+            <th>Model</th>
+            <th>No Siri</th>
+            <th>Status</th>
+            <th>Lokasi</th>
+            <th>Catatan</th>
+            <th>Gambar</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
@@ -33,18 +689,16 @@ for(let y=2010; y<=2035; y++){
 function showPage(pageId, btn){
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.querySelectorAll(".nav-menu button").forEach(b => b.classList.remove("active"));
-
   document.getElementById(pageId).classList.add("active");
   btn.classList.add("active");
 }
 
 function goPage(pageId){
   const btnMap = {
-    dashboardPage: document.getElementById("btnDashboard"),
-    formPage: document.getElementById("btnForm"),
-    tablePage: document.getElementById("btnTable")
+    dashboardPage:document.getElementById("btnDashboard"),
+    formPage:document.getElementById("btnForm"),
+    tablePage:document.getElementById("btnTable")
   };
-
   showPage(pageId, btnMap[pageId]);
 }
 
@@ -74,18 +728,16 @@ function renderTable(data){
 
   data.forEach((v,index) => {
     let badgeClass = "";
-
     if(v.status === "Baik") badgeClass = "badge-baik";
     if(v.status === "Rosak") badgeClass = "badge-rosak";
     if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
 
     let gambarButton = "-";
-
     if(v.gambar){
       gambarButton = `
-        <a href="${v.gambar}" target="_blank" class="btn-image">
-          <i class="fa-solid fa-link"></i> Link
-        </a>`;
+      <a href="${v.gambar}" target="_blank" class="btn-image">
+        <i class="fa-solid fa-link"></i> Link
+      </a>`;
     }
 
     tableEl.innerHTML += `
@@ -101,20 +753,14 @@ function renderTable(data){
       <td>${v.catatan || ""}</td>
       <td>${gambarButton}</td>
       <td>
-        <button class="btn-edit" onclick="editData(${v.row})">
-          <i class="fa-solid fa-pen"></i>
-        </button>
-
-        <button class="btn-delete" onclick="del(${v.row})">
-          <i class="fa-solid fa-trash"></i>
-        </button>
+        <button class="btn-edit" onclick="editData(${v.row})"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn-delete" onclick="del(${v.row})"><i class="fa-solid fa-trash"></i></button>
       </td>
     </tr>`;
   });
 }
 
 function stats(){
-
   let total = allData.length;
   let baik = 0;
   let rosak = 0;
@@ -125,16 +771,8 @@ function stats(){
   let prosesICT = 0;
 
   allData.forEach(v => {
-
-    let status = String(v.status || "")
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g," ");
-
-    let kategori = String(v.kategori || "")
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g," ");
+    let status = String(v.status || "").trim().toLowerCase().replace(/\s+/g," ");
+    let kategori = String(v.kategori || "").trim().toLowerCase().replace(/\s+/g," ");
 
     if(status === "baik") baik++;
     if(status === "rosak") rosak++;
@@ -142,14 +780,11 @@ function stats(){
 
     if(kategori === "ict"){
       ict++;
-    }
-    else if(kategori === "sewaan"){
+    }else if(kategori === "sewaan"){
       sewaan++;
-    }
-    else if(kategori === "pkpj"){
+    }else if(kategori === "pkpj"){
       pkpj++;
-    }
-    else if(
+    }else if(
       kategori === "dalam proses pemulangan ke ict" ||
       kategori === "proses pemulangan ke ict" ||
       kategori.includes("proses") ||
@@ -157,7 +792,6 @@ function stats(){
     ){
       prosesICT++;
     }
-
   });
 
   document.getElementById("total").innerText = total;
@@ -178,7 +812,16 @@ function filterDashboard(type, value){
   }
 
   if(type === "kategori"){
-    filtered = allData.filter(v => String(v.kategori || "").trim() === value);
+    filtered = allData.filter(v => {
+      let kategori = String(v.kategori || "").trim().toLowerCase();
+      let target = String(value || "").trim().toLowerCase();
+
+      if(target === "dalam proses pemulangan ke ict"){
+        return kategori.includes("proses") || kategori.includes("pemulangan");
+      }
+
+      return kategori === target;
+    });
   }
 
   if(type === "all"){
@@ -188,7 +831,6 @@ function filterDashboard(type, value){
   renderTable(filtered);
   document.getElementById("recordCount").innerText = filtered.length;
   document.getElementById("searchInput").value = "";
-
   goPage("tablePage");
 }
 
@@ -201,7 +843,6 @@ function editData(row){
   }
 
   editingRowEl.value = data.row || "";
-
   tahunEl.value = data.tahun || new Date().getFullYear();
   noInventoriEl.value = data.noInventori || "";
   namaEl.value = data.nama || "";
@@ -230,7 +871,6 @@ function editData(row){
   saveBtn.classList.add("btn-update");
   saveText.innerText = "KEMASKINI DATA";
   cancelBtn.style.display = "inline-block";
-
   goPage("formPage");
 }
 
@@ -279,7 +919,6 @@ function simpan(){
       lokasiLainEl.focus();
       return;
     }
-
     lokasiFinal = lokasiLainEl.value.trim();
   }
 
@@ -381,10 +1020,7 @@ function exportExcel(){
     ].map(x => `"${String(x).replace(/"/g,'""')}"`).join(",") + "\n";
   });
 
-  const blob = new Blob([csv], {
-    type:"text/csv;charset=utf-8;"
-  });
-
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
@@ -420,3 +1056,6 @@ window.onload = function(){
   load();
 };
 </script>
+
+</body>
+</html>

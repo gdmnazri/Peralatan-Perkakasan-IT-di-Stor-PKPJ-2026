@@ -12,118 +12,153 @@
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:#f4f8fc;
-  padding:18px 24px;
-  color:#071b3a;
+  background:#eef3f8;
+  color:#0b1f3a;
   font-size:14px;
 }
 
-.header{
+.top-header{
+  background:white;
+  padding:18px 25px;
   display:flex;
-  justify-content:center;
   align-items:center;
-  gap:14px;
-  margin-bottom:20px;
+  justify-content:center;
+  gap:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-.header img{
-  width:60px;
-  height:auto;
+.top-header img{
+  width:58px;
 }
 
-.header h2{
+.top-header h1{
   margin:0;
-  font-size:30px;
+  font-size:28px;
   font-weight:900;
+}
+
+.container{
+  max-width:1500px;
+  margin:auto;
+  padding:24px;
 }
 
 /* DASHBOARD */
-.dashboard-section{
-  display:grid;
-  grid-template-columns:4fr 3fr;
-  gap:16px;
-  margin-bottom:24px;
+.dashboard-area{
+  margin-bottom:25px;
 }
 
-.dash-group{
-  background:white;
-  border-radius:8px;
-  padding:12px;
-  box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-
-.dash-title{
-  text-align:center;
-  font-size:13px;
+.dashboard-title{
+  font-size:15px;
   font-weight:900;
-  letter-spacing:1px;
-  margin-bottom:10px;
+  color:#0b1f3a;
+  margin:18px 0 12px;
+  letter-spacing:.5px;
 }
 
-.dashboard{
+.dashboard-grid{
   display:grid;
-  gap:12px;
+  gap:22px;
+  margin-bottom:20px;
 }
 
-.status-dashboard{
-  grid-template-columns:repeat(4,1fr);
-}
-
-.kategori-dashboard{
+.status-grid{
   grid-template-columns:repeat(3,1fr);
 }
 
-.card{
-  height:82px;
-  border-radius:8px;
+.kategori-grid{
+  grid-template-columns:repeat(4,1fr);
+}
+
+.info-card{
+  min-height:135px;
   color:white;
+  border-radius:4px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 4px 12px rgba(0,0,0,.18);
+}
+
+.info-card-content{
+  padding:18px;
+  position:relative;
+  z-index:2;
+}
+
+.info-number{
+  font-size:38px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+.info-label{
+  font-size:16px;
+  font-weight:700;
+}
+
+.info-icon{
+  position:absolute;
+  right:18px;
+  top:20px;
+  font-size:70px;
+  opacity:.22;
+}
+
+.info-card-footer{
+  background:rgba(0,0,0,.14);
+  text-align:center;
+  padding:8px;
+  font-weight:700;
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
+.pk-logo-card{
+  position:absolute;
+  right:22px;
+  top:25px;
+  width:70px;
+  opacity:.28;
+}
+
+.bg-blue{background:#17a2d4;}
+.bg-green{background:#28a745;}
+.bg-red{background:#dc3545;}
+.bg-orange{background:#fd7e14;}
+.bg-purple{background:#6f42c1;}
+.bg-dark{background:#263342;}
+.bg-yellow{background:#ffc107;}
+
+/* SECTION */
+.section-box{
+  background:white;
+  border-radius:6px;
+  box-shadow:0 3px 14px rgba(0,0,0,.12);
+  margin-bottom:25px;
+  overflow:hidden;
+}
+
+.section-title{
+  background:#0d6efd;
+  color:white;
+  padding:13px 18px;
+  font-size:15px;
+  font-weight:900;
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap:14px;
-  font-weight:bold;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  gap:10px;
 }
-
-.card i{
-  font-size:34px;
-}
-
-.dashboard-logo{
-  width:40px;
-  height:40px;
-  object-fit:contain;
-}
-
-.card span{
-  display:block;
-  font-size:30px;
-  text-align:center;
-  line-height:1;
-  margin-top:3px;
-}
-
-.blue{background:linear-gradient(135deg,#0069ff,#0d6efd)}
-.green{background:linear-gradient(135deg,#0b7d3b,#198754)}
-.red{background:linear-gradient(135deg,#d91f35,#dc3545)}
-.orange{background:linear-gradient(135deg,#ff7300,#fd7e14)}
-.purple{background:linear-gradient(135deg,#5426b5,#6f42c1)}
-.gray{background:linear-gradient(135deg,#1d2939,#263342)}
-.yellow{background:linear-gradient(135deg,#ffb300,#ffc107)}
 
 /* FORM */
-.form-box{
-  background:white;
-  border-radius:10px;
-  padding:26px 52px 16px;
-  box-shadow:0 2px 14px rgba(0,0,0,.12);
-  margin-bottom:16px;
+.form-area{
+  padding:24px;
 }
 
-.form{
+.form-grid{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:16px 36px;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px 28px;
 }
 
 .field{
@@ -134,7 +169,7 @@ body{
 
 label{
   font-weight:700;
-  font-size:14px;
+  font-size:13px;
 }
 
 input,select,textarea{
@@ -146,93 +181,202 @@ input,select,textarea{
 }
 
 textarea{
-  height:58px;
+  height:75px;
   resize:vertical;
 }
 
-.catatan-row{
+.full-width{
   grid-column:1 / span 3;
-  display:grid;
-  grid-template-columns:240px 1fr;
-  gap:36px;
+}
+
+.form-buttons{
+  text-align:center;
+  margin-top:22px;
 }
 
 button{
   border:none;
-  color:white;
   cursor:pointer;
   border-radius:4px;
-  font-size:14px;
-  font-weight:bold;
   padding:9px 16px;
+  font-size:14px;
+  font-weight:700;
 }
 
-.upload-btn{
+.btn-save{
+  background:#0d6efd;
+  color:white;
+  min-width:160px;
+}
+
+.btn-upload{
   background:#198754;
-  width:160px;
+  color:white;
+  width:165px;
   margin-top:6px;
 }
 
-.save{
-  background:#0d6efd;
-  min-width:150px;
-}
-
-.save-wrap{
-  text-align:center;
-  margin-top:16px;
-}
-
 /* TABLE */
+.table-toolbar{
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.search-box{
+  position:relative;
+  width:320px;
+  max-width:100%;
+}
+
+.search-box i{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#6c757d;
+}
+
+.search-box input{
+  padding-left:38px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
 table{
   width:100%;
   border-collapse:collapse;
   background:white;
 }
 
-th,td{
-  border:1px solid #dbe2ea;
-  padding:9px;
-  text-align:center;
+th{
+  background:#0d6efd;
+  color:white;
+  padding:11px;
+  border:1px solid #0b5ed7;
 }
 
-th{
-  background:#0069e6;
-  color:white;
+td{
+  padding:10px;
+  border:1px solid #dbe2ea;
+  text-align:center;
 }
 
 td:nth-child(2){
   text-align:left;
+  font-weight:600;
 }
 
-.del{
-  background:#dc3545;
+tr:hover{
+  background:#f8fbff;
+}
+
+.badge{
+  display:inline-block;
   padding:5px 12px;
+  border-radius:20px;
   font-size:12px;
+  color:white;
+  font-weight:800;
 }
 
-/* RESPONSIVE */
-@media(max-width:1100px){
-  .dashboard-section{
-    grid-template-columns:1fr;
-  }
+.badge-baik{background:#198754;}
+.badge-rosak{background:#dc3545;}
+.badge-pelupusan{background:#fd7e14;}
 
-  .status-dashboard,
-  .kategori-dashboard{
+.btn-delete{
+  background:#dc3545;
+  color:white;
+  font-size:12px;
+  padding:6px 10px;
+}
+
+.btn-image{
+  background:#0d6efd;
+  color:white;
+  font-size:12px;
+  padding:6px 10px;
+  margin-right:4px;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:99;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.modal-content{
+  background:white;
+  border-radius:8px;
+  max-width:700px;
+  width:100%;
+  padding:18px;
+  position:relative;
+}
+
+.modal-content img{
+  width:100%;
+  max-height:500px;
+  object-fit:contain;
+}
+
+.modal-close{
+  position:absolute;
+  top:-14px;
+  right:-14px;
+  background:#dc3545;
+  color:white;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+}
+
+@media(max-width:1200px){
+  .status-grid,
+  .kategori-grid{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .form{
+  .form-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .full-width{
+    grid-column:1 / span 2;
+  }
+}
+
+@media(max-width:700px){
+  .top-header h1{
+    font-size:20px;
+  }
+
+  .status-grid,
+  .kategori-grid{
     grid-template-columns:1fr;
   }
 
-  .catatan-row{
-    grid-column:auto;
+  .form-grid{
     grid-template-columns:1fr;
   }
 
-  .form-box{
-    padding:20px;
+  .full-width{
+    grid-column:1;
+  }
+
+  .container{
+    padding:14px;
   }
 }
 </style>
@@ -240,203 +384,252 @@ td:nth-child(2){
 
 <body>
 
-<div class="header">
+<header class="top-header">
   <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="Logo PKPJ">
-  <h2>SISTEM INVENTORI IT PKPJ</h2>
+  <h1>SISTEM INVENTORI IT PKPJ</h1>
+</header>
+
+<div class="container">
+
+  <div class="dashboard-area">
+
+    <div class="dashboard-title">STATUS INVENTORI</div>
+
+    <div class="dashboard-grid status-grid">
+      <div class="info-card bg-green">
+        <div class="info-card-content">
+          <div class="info-number" id="baik">0</div>
+          <div class="info-label">Status Baik</div>
+        </div>
+        <i class="fa-solid fa-circle-check info-icon"></i>
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+
+      <div class="info-card bg-red">
+        <div class="info-card-content">
+          <div class="info-number" id="rosak">0</div>
+          <div class="info-label">Status Rosak</div>
+        </div>
+        <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+
+      <div class="info-card bg-orange">
+        <div class="info-card-content">
+          <div class="info-number" id="pelupusan">0</div>
+          <div class="info-label">Status Pelupusan</div>
+        </div>
+        <i class="fa-solid fa-trash info-icon"></i>
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+    </div>
+
+    <div class="dashboard-title">KATEGORI INVENTORI</div>
+
+    <div class="dashboard-grid kategori-grid">
+      <div class="info-card bg-blue">
+        <div class="info-card-content">
+          <div class="info-number" id="total">0</div>
+          <div class="info-label">Jumlah Inventori</div>
+        </div>
+        <i class="fa-solid fa-boxes-stacked info-icon"></i>
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+
+      <div class="info-card bg-purple">
+        <div class="info-card-content">
+          <div class="info-number" id="ict">0</div>
+          <div class="info-label">Kategori ICT</div>
+        </div>
+        <i class="fa-solid fa-computer info-icon"></i>
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+
+      <div class="info-card bg-dark">
+        <div class="info-card-content">
+          <div class="info-number" id="sewaan">0</div>
+          <div class="info-label">Kategori Sewaan</div>
+        </div>
+        <i class="fa-solid fa-building info-icon"></i>
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+
+      <div class="info-card bg-yellow">
+        <div class="info-card-content">
+          <div class="info-number" id="pkpj">0</div>
+          <div class="info-label">Kategori PKPJ</div>
+        </div>
+        <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="PKPJ">
+        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-box">
+    <div class="section-title">
+      <i class="fa-solid fa-clipboard-list"></i> MAKLUMAT INVENTORI
+    </div>
+
+    <div class="form-area">
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Tahun</label>
+          <select id="tahun"></select>
+        </div>
+
+        <div class="field">
+          <label>No Inventori</label>
+          <input id="noInventori">
+        </div>
+
+        <div class="field">
+          <label>Gambar URL</label>
+          <input id="gambar" readonly>
+        </div>
+
+        <div class="field">
+          <label>Nama</label>
+          <input id="nama">
+        </div>
+
+        <div class="field">
+          <label>Kategori</label>
+          <select id="kategori">
+            <option value="ICT">ICT</option>
+            <option value="Sewaan">Sewaan</option>
+            <option value="PKPJ">PKPJ</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Upload Gambar</label>
+          <input type="file" id="imageInput">
+          <button type="button" class="btn-upload" onclick="uploadImage()">
+            <i class="fa-solid fa-upload"></i> UPLOAD GAMBAR
+          </button>
+        </div>
+
+        <div class="field">
+          <label>Jenama</label>
+          <input id="jenama">
+        </div>
+
+        <div class="field">
+          <label>Model</label>
+          <input id="model">
+        </div>
+
+        <div class="field">
+          <label>No Siri</label>
+          <input id="noSiri">
+        </div>
+
+        <div class="field">
+          <label>Tag Aset</label>
+          <input id="tagAset">
+        </div>
+
+        <div class="field">
+          <label>Kuantiti</label>
+          <input id="kuantiti" type="number" min="1">
+        </div>
+
+        <div class="field">
+          <label>Status</label>
+          <select id="status">
+            <option value="Baik">Baik</option>
+            <option value="Rosak">Rosak</option>
+            <option value="Pelupusan">Pelupusan</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Lokasi</label>
+          <select id="lokasi" onchange="checkLokasi()">
+            <option value="">-- Pilih Lokasi --</option>
+            <option value="Stor PKPJ">Stor PKPJ</option>
+            <option value="Pejabat PKPJ">Pejabat PKPJ</option>
+            <option value="Lain-lain">Lain-lain</option>
+          </select>
+
+          <input type="text" id="lokasiLain" placeholder="Masukkan lokasi..." style="display:none;margin-top:8px;">
+        </div>
+
+        <div class="field">
+          <label>Tarikh</label>
+          <input type="date" id="tarikh">
+        </div>
+
+        <div class="field">
+          <label>Pembekal</label>
+          <input id="pembekal">
+        </div>
+
+        <div class="field full-width">
+          <label>Catatan</label>
+          <textarea id="catatan"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-buttons">
+        <button class="btn-save" onclick="simpan()">
+          <i class="fa-solid fa-floppy-disk"></i> SIMPAN DATA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-box">
+    <div class="section-title">
+      <i class="fa-solid fa-table"></i> SENARAI INVENTORI
+    </div>
+
+    <div class="table-toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Cari nama, kategori, jenama, status atau lokasi..." onkeyup="searchTable()">
+      </div>
+
+      <div class="table-count">
+        Jumlah Rekod: <span id="recordCount">0</span>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Kategori</th>
+            <th>Jenama</th>
+            <th>Status</th>
+            <th>Lokasi</th>
+            <th>Gambar</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table"></tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard-section">
-
-  <div class="dash-group">
-    <div class="dash-title">JUMLAH MENGIKUT STATUS</div>
-
-    <div class="dashboard status-dashboard">
-      <div class="card blue">
-        <i class="fa-solid fa-boxes-stacked"></i>
-        <div>Total <span id="total">0</span></div>
-      </div>
-
-      <div class="card green">
-        <i class="fa-solid fa-circle-check"></i>
-        <div>Baik <span id="baik">0</span></div>
-      </div>
-
-      <div class="card red">
-        <i class="fa-solid fa-screwdriver-wrench"></i>
-        <div>Rosak <span id="rosak">0</span></div>
-      </div>
-
-      <div class="card orange">
-        <i class="fa-solid fa-trash"></i>
-        <div>Pelupusan <span id="pelupusan">0</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="dash-group">
-    <div class="dash-title">JUMLAH MENGIKUT KATEGORI</div>
-
-    <div class="dashboard kategori-dashboard">
-      <div class="card purple">
-        <i class="fa-solid fa-computer"></i>
-        <div>ICT <span id="ict">0</span></div>
-      </div>
-
-      <div class="card gray">
-        <i class="fa-solid fa-building"></i>
-        <div>Sewaan <span id="sewaan">0</span></div>
-      </div>
-
-      <div class="card yellow">
-        <img class="dashboard-logo" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="PKPJ">
-        <div>PKPJ <span id="pkpj">0</span></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- FORM -->
-<div class="form-box">
-  <div class="form">
-
-    <div class="field">
-      <label>Tahun</label>
-      <select id="tahun"></select>
-    </div>
-
-    <div class="field">
-      <label>No Inventori</label>
-      <input id="noInventori">
-    </div>
-
-    <div class="field">
-      <label>Gambar URL</label>
-      <input id="gambar" readonly>
-    </div>
-
-    <div class="field">
-      <label>Nama</label>
-      <input id="nama">
-    </div>
-
-    <div class="field">
-      <label>Kategori</label>
-      <select id="kategori">
-        <option value="ICT">ICT</option>
-        <option value="Sewaan">Sewaan</option>
-        <option value="PKPJ">PKPJ</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Upload Gambar</label>
-      <input type="file" id="imageInput">
-      <button type="button" class="upload-btn" onclick="uploadImage()">UPLOAD GAMBAR</button>
-    </div>
-
-    <div class="field">
-      <label>Jenama</label>
-      <input id="jenama">
-    </div>
-
-    <div class="field">
-      <label>Model</label>
-      <input id="model">
-    </div>
-
-    <div></div>
-
-    <div class="field">
-      <label>No Siri</label>
-      <input id="noSiri">
-    </div>
-
-    <div class="field">
-      <label>Tag Aset</label>
-      <input id="tagAset">
-    </div>
-
-    <div></div>
-
-    <div class="field">
-      <label>Kuantiti</label>
-      <input id="kuantiti" type="number" min="1">
-    </div>
-
-    <div class="field">
-      <label>Status</label>
-      <select id="status">
-        <option value="Baik">Baik</option>
-        <option value="Rosak">Rosak</option>
-        <option value="Pelupusan">Pelupusan</option>
-      </select>
-    </div>
-
-    <div></div>
-
-    <div class="field">
-      <label>Lokasi</label>
-      <select id="lokasi" onchange="checkLokasi()">
-        <option value="">-- Pilih Lokasi --</option>
-        <option value="Stor PKPJ">Stor PKPJ</option>
-        <option value="Pejabat PKPJ">Pejabat PKPJ</option>
-        <option value="Lain-lain">Lain-lain</option>
-      </select>
-
-      <input type="text"
-             id="lokasiLain"
-             placeholder="Masukkan lokasi..."
-             style="display:none;margin-top:8px;">
-    </div>
-
-    <div class="field">
-      <label>Pembekal</label>
-      <input id="pembekal">
-    </div>
-
-    <div></div>
-
-    <div class="catatan-row">
-      <div class="field">
-        <label>Tarikh</label>
-        <input type="date" id="tarikh">
-      </div>
-
-      <div class="field">
-        <label>Catatan</label>
-        <textarea id="catatan"></textarea>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="save-wrap">
-    <button class="save" onclick="simpan()">
-      <i class="fa-solid fa-floppy-disk"></i> SIMPAN DATA
-    </button>
+<div class="modal" id="imageModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeImageModal()">×</button>
+    <img id="modalImage" src="">
   </div>
 </div>
-
-<!-- TABLE -->
-<table>
-<thead>
-<tr>
-  <th>No</th>
-  <th>Nama</th>
-  <th>Kategori</th>
-  <th>Jenama</th>
-  <th>Status</th>
-  <th>Lokasi</th>
-  <th>Action</th>
-</tr>
-</thead>
-<tbody id="table"></tbody>
-</table>
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
+
+let allData = [];
 
 const tahunEl = document.getElementById("tahun");
 const noInventoriEl = document.getElementById("noInventori");
@@ -457,12 +650,10 @@ const catatanEl = document.getElementById("catatan");
 const imageInputEl = document.getElementById("imageInput");
 const tableEl = document.getElementById("table");
 
-/* TAHUN */
 for(let y=2010; y<=2035; y++){
   tahunEl.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
-/* LOKASI LAIN-LAIN */
 function checkLokasi(){
   if(lokasiEl.value === "Lain-lain"){
     lokasiLainEl.style.display = "block";
@@ -473,29 +664,61 @@ function checkLokasi(){
   }
 }
 
-/* LOAD DATA */
 function load(){
   fetch(API)
   .then(r => r.json())
   .then(d => {
-    tableEl.innerHTML = "";
-
-    d.forEach((v, index) => {
-      tableEl.innerHTML += `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${v.nama || ""}</td>
-        <td>${v.kategori || ""}</td>
-        <td>${v.jenama || ""}</td>
-        <td>${v.status || ""}</td>
-        <td>${v.lokasi || ""}</td>
-        <td><button class="del" onclick="del(${v.row})">Delete</button></td>
-      </tr>`;
-    });
+    allData = d;
+    renderTable(allData);
+    document.getElementById("recordCount").innerText = allData.length;
   });
 }
 
-/* DASHBOARD STATS */
+function renderTable(data){
+  tableEl.innerHTML = "";
+
+  data.forEach((v,index) => {
+    let badgeClass = "";
+    if(v.status === "Baik") badgeClass = "badge-baik";
+    if(v.status === "Rosak") badgeClass = "badge-rosak";
+    if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
+
+    let gambarButton = "-";
+    if(v.gambar){
+      gambarButton = `<button class="btn-image" onclick="openImageModal('${v.gambar}')"><i class="fa-solid fa-eye"></i> Lihat</button>`;
+    }
+
+    tableEl.innerHTML += `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${v.nama || ""}</td>
+      <td>${v.kategori || ""}</td>
+      <td>${v.jenama || ""}</td>
+      <td><span class="badge ${badgeClass}">${v.status || ""}</span></td>
+      <td>${v.lokasi || ""}</td>
+      <td>${gambarButton}</td>
+      <td><button class="btn-delete" onclick="del(${v.row})"><i class="fa-solid fa-trash"></i> Delete</button></td>
+    </tr>`;
+  });
+}
+
+function searchTable(){
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered = allData.filter(v => {
+    return (
+      String(v.nama || "").toLowerCase().includes(keyword) ||
+      String(v.kategori || "").toLowerCase().includes(keyword) ||
+      String(v.jenama || "").toLowerCase().includes(keyword) ||
+      String(v.status || "").toLowerCase().includes(keyword) ||
+      String(v.lokasi || "").toLowerCase().includes(keyword)
+    );
+  });
+
+  renderTable(filtered);
+  document.getElementById("recordCount").innerText = filtered.length;
+}
+
 function stats(){
   fetch(API + "?action=stats")
   .then(r => r.json())
@@ -510,9 +733,7 @@ function stats(){
   });
 }
 
-/* SIMPAN DATA */
 function simpan(){
-
   let lokasiFinal = lokasiEl.value;
 
   if(lokasiEl.value === "Lain-lain"){
@@ -521,33 +742,30 @@ function simpan(){
       lokasiLainEl.focus();
       return;
     }
-
     lokasiFinal = lokasiLainEl.value.trim();
   }
-
-  const data = {
-    action:"simpan",
-    tahun:tahunEl.value,
-    noInventori:noInventoriEl.value,
-    nama:namaEl.value,
-    kategori:kategoriEl.value,
-    jenama:jenamaEl.value,
-    model:modelEl.value,
-    noSiri:noSiriEl.value,
-    tagAset:tagAsetEl.value,
-    kuantiti:kuantitiEl.value,
-    lokasi:lokasiFinal,
-    status:statusEl.value,
-    tarikh:tarikhEl.value,
-    pembekal:pembekalEl.value,
-    gambar:gambarEl.value,
-    catatan:catatanEl.value
-  };
 
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify(data)
+    body:JSON.stringify({
+      action:"simpan",
+      tahun:tahunEl.value,
+      noInventori:noInventoriEl.value,
+      nama:namaEl.value,
+      kategori:kategoriEl.value,
+      jenama:jenamaEl.value,
+      model:modelEl.value,
+      noSiri:noSiriEl.value,
+      tagAset:tagAsetEl.value,
+      kuantiti:kuantitiEl.value,
+      lokasi:lokasiFinal,
+      status:statusEl.value,
+      tarikh:tarikhEl.value,
+      pembekal:pembekalEl.value,
+      gambar:gambarEl.value,
+      catatan:catatanEl.value
+    })
   })
   .then(r => r.json())
   .then(res => {
@@ -558,16 +776,15 @@ function simpan(){
   });
 }
 
-/* UPLOAD GAMBAR */
 function uploadImage(){
-  let file = imageInputEl.files[0];
+  const file = imageInputEl.files[0];
 
   if(!file){
     alert("Pilih gambar");
     return;
   }
 
-  let reader = new FileReader();
+  const reader = new FileReader();
 
   reader.onload = function(e){
     fetch(API,{
@@ -590,7 +807,6 @@ function uploadImage(){
   reader.readAsDataURL(file);
 }
 
-/* DELETE DATA */
 function del(id){
   if(!confirm("Delete data ini?")) return;
 
@@ -608,7 +824,16 @@ function del(id){
   });
 }
 
-/* CLEAR FORM */
+function openImageModal(url){
+  document.getElementById("modalImage").src = url;
+  document.getElementById("imageModal").style.display = "flex";
+}
+
+function closeImageModal(){
+  document.getElementById("imageModal").style.display = "none";
+  document.getElementById("modalImage").src = "";
+}
+
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
 
@@ -621,7 +846,6 @@ function clearForm(){
   lokasiLainEl.value = "";
 }
 
-/* INIT */
 window.onload = function(){
   load();
   stats();

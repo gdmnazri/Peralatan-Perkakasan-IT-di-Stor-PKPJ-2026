@@ -37,7 +37,6 @@ body{
   font-weight:900;
 }
 
-/* DASHBOARD */
 .dashboard-section{
   display:grid;
   grid-template-columns:4fr 3fr;
@@ -58,7 +57,6 @@ body{
   font-weight:900;
   letter-spacing:1px;
   margin-bottom:10px;
-  color:#071b3a;
 }
 
 .dashboard{
@@ -112,7 +110,6 @@ body{
 .gray{background:linear-gradient(135deg,#1d2939,#263342)}
 .yellow{background:linear-gradient(135deg,#ffb300,#ffc107)}
 
-/* FORM */
 .form-box{
   background:white;
   border-radius:10px;
@@ -184,7 +181,6 @@ button{
   margin-top:16px;
 }
 
-/* TABLE */
 table{
   width:100%;
   border-collapse:collapse;
@@ -213,7 +209,6 @@ td:nth-child(2){
   font-size:12px;
 }
 
-/* RESPONSIVE */
 @media(max-width:1100px){
   .dashboard-section{
     grid-template-columns:1fr;
@@ -368,9 +363,9 @@ td:nth-child(2){
     <div class="field">
       <label>Status</label>
       <select id="status">
-        <option>Baik</option>
-        <option>Rosak</option>
-        <option>Pelupusan</option>
+        <option value="Baik">Baik</option>
+        <option value="Rosak">Rosak</option>
+        <option value="Pelupusan">Pelupusan</option>
       </select>
     </div>
 
@@ -436,20 +431,36 @@ td:nth-child(2){
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
+const tahunEl = document.getElementById("tahun");
+const noInventoriEl = document.getElementById("noInventori");
+const namaEl = document.getElementById("nama");
+const kategoriEl = document.getElementById("kategori");
+const jenamaEl = document.getElementById("jenama");
+const modelEl = document.getElementById("model");
+const noSiriEl = document.getElementById("noSiri");
+const tagAsetEl = document.getElementById("tagAset");
+const kuantitiEl = document.getElementById("kuantiti");
+const lokasiEl = document.getElementById("lokasi");
+const lokasiLainEl = document.getElementById("lokasiLain");
+const statusEl = document.getElementById("status");
+const tarikhEl = document.getElementById("tarikh");
+const pembekalEl = document.getElementById("pembekal");
+const gambarEl = document.getElementById("gambar");
+const catatanEl = document.getElementById("catatan");
+const imageInputEl = document.getElementById("imageInput");
+const tableEl = document.getElementById("table");
+
 for(let y=2010; y<=2035; y++){
-  tahun.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
+  tahunEl.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
 function checkLokasi(){
-  const lokasi = document.getElementById("lokasi");
-  const lokasiLain = document.getElementById("lokasiLain");
-
-  if(lokasi.value === "Lain-lain"){
-    lokasiLain.style.display = "block";
-    lokasiLain.focus();
+  if(lokasiEl.value === "Lain-lain"){
+    lokasiLainEl.style.display = "block";
+    lokasiLainEl.focus();
   }else{
-    lokasiLain.style.display = "none";
-    lokasiLain.value = "";
+    lokasiLainEl.style.display = "none";
+    lokasiLainEl.value = "";
   }
 }
 
@@ -457,10 +468,10 @@ function load(){
   fetch(API)
   .then(r => r.json())
   .then(d => {
-    table.innerHTML = "";
+    tableEl.innerHTML = "";
 
     d.forEach(v => {
-      table.innerHTML += `
+      tableEl.innerHTML += `
       <tr>
         <td>${v.noInventori || ""}</td>
         <td>${v.nama || ""}</td>
@@ -477,51 +488,53 @@ function stats(){
   fetch(API + "?action=stats")
   .then(r => r.json())
   .then(s => {
-    total.innerText = s.total || 0;
-    baik.innerText = s.baik || 0;
-    rosak.innerText = s.rosak || 0;
-    pelupusan.innerText = s.pelupusan || 0;
-    ict.innerText = s.ICT || 0;
-    sewaan.innerText = s.Sewaan || 0;
-    pkpj.innerText = s.PKPJ || 0;
+    document.getElementById("total").innerText = s.total || 0;
+    document.getElementById("baik").innerText = s.baik || 0;
+    document.getElementById("rosak").innerText = s.rosak || 0;
+    document.getElementById("pelupusan").innerText = s.pelupusan || 0;
+    document.getElementById("ict").innerText = s.ICT || 0;
+    document.getElementById("sewaan").innerText = s.Sewaan || 0;
+    document.getElementById("pkpj").innerText = s.PKPJ || 0;
   });
 }
 
 function simpan(){
 
-  let lokasiFinal = lokasi.value;
+  let lokasiFinal = lokasiEl.value;
 
-  if(lokasi.value === "Lain-lain"){
-    if(lokasiLain.value.trim() === ""){
+  if(lokasiEl.value === "Lain-lain"){
+    if(lokasiLainEl.value.trim() === ""){
       alert("Sila masukkan lokasi lain-lain");
-      lokasiLain.focus();
+      lokasiLainEl.focus();
       return;
     }
 
-    lokasiFinal = lokasiLain.value.trim();
+    lokasiFinal = lokasiLainEl.value.trim();
   }
+
+  const data = {
+    action:"simpan",
+    tahun:tahunEl.value,
+    noInventori:noInventoriEl.value,
+    nama:namaEl.value,
+    kategori:kategoriEl.value,
+    jenama:jenamaEl.value,
+    model:modelEl.value,
+    noSiri:noSiriEl.value,
+    tagAset:tagAsetEl.value,
+    kuantiti:kuantitiEl.value,
+    lokasi:lokasiFinal,
+    status:statusEl.value,
+    tarikh:tarikhEl.value,
+    pembekal:pembekalEl.value,
+    gambar:gambarEl.value,
+    catatan:catatanEl.value
+  };
 
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify({
-      action:"simpan",
-      tahun:tahun.value,
-      noInventori:noInventori.value,
-      nama:nama.value,
-      kategori:kategori.value,
-      jenama:jenama.value,
-      model:model.value,
-      noSiri:noSiri.value,
-      tagAset:tagAset.value,
-      kuantiti:kuantiti.value,
-      lokasi:lokasiFinal,
-      status:status.value,
-      tarikh:tarikh.value,
-      pembekal:pembekal.value,
-      gambar:gambar.value,
-      catatan:catatan.value
-    })
+    body:JSON.stringify(data)
   })
   .then(r => r.json())
   .then(res => {
@@ -533,7 +546,7 @@ function simpan(){
 }
 
 function uploadImage(){
-  let file = imageInput.files[0];
+  let file = imageInputEl.files[0];
 
   if(!file){
     alert("Pilih gambar");
@@ -555,8 +568,8 @@ function uploadImage(){
     })
     .then(r => r.json())
     .then(res => {
-      gambar.value = res.url;
-      alert("UPLOAD OK");
+      gambarEl.value = res.url;
+      alert("UPLOAD OK. Link gambar sudah masuk dalam kotak Gambar URL.");
     });
   };
 
@@ -583,13 +596,13 @@ function del(id){
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
 
-  tahun.value = new Date().getFullYear();
-  kategori.value = "ICT";
-  status.value = "Baik";
+  tahunEl.value = new Date().getFullYear();
+  kategoriEl.value = "ICT";
+  statusEl.value = "Baik";
 
-  lokasi.selectedIndex = 0;
-  lokasiLain.style.display = "none";
-  lokasiLain.value = "";
+  lokasiEl.selectedIndex = 0;
+  lokasiLainEl.style.display = "none";
+  lokasiLainEl.value = "";
 }
 
 window.onload = function(){

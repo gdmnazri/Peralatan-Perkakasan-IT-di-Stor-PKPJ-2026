@@ -37,6 +37,7 @@ body{
   font-weight:900;
 }
 
+/* DASHBOARD */
 .dashboard-section{
   display:grid;
   grid-template-columns:4fr 3fr;
@@ -110,6 +111,7 @@ body{
 .gray{background:linear-gradient(135deg,#1d2939,#263342)}
 .yellow{background:linear-gradient(135deg,#ffb300,#ffc107)}
 
+/* FORM */
 .form-box{
   background:white;
   border-radius:10px;
@@ -181,6 +183,7 @@ button{
   margin-top:16px;
 }
 
+/* TABLE */
 table{
   width:100%;
   border-collapse:collapse;
@@ -198,7 +201,6 @@ th{
   color:white;
 }
 
-td:nth-child(1),
 td:nth-child(2){
   text-align:left;
 }
@@ -209,6 +211,7 @@ td:nth-child(2){
   font-size:12px;
 }
 
+/* RESPONSIVE */
 @media(max-width:1100px){
   .dashboard-section{
     grid-template-columns:1fr;
@@ -242,6 +245,7 @@ td:nth-child(2){
   <h2>SISTEM INVENTORI IT PKPJ</h2>
 </div>
 
+<!-- DASHBOARD -->
 <div class="dashboard-section">
 
   <div class="dash-group">
@@ -293,6 +297,7 @@ td:nth-child(2){
 
 </div>
 
+<!-- FORM -->
 <div class="form-box">
   <div class="form">
 
@@ -319,9 +324,9 @@ td:nth-child(2){
     <div class="field">
       <label>Kategori</label>
       <select id="kategori">
-        <option>ICT</option>
-        <option>Sewaan</option>
-        <option>PKPJ</option>
+        <option value="ICT">ICT</option>
+        <option value="Sewaan">Sewaan</option>
+        <option value="PKPJ">PKPJ</option>
       </select>
     </div>
 
@@ -414,13 +419,15 @@ td:nth-child(2){
   </div>
 </div>
 
+<!-- TABLE -->
 <table>
 <thead>
 <tr>
-  <th>No Inventori</th>
+  <th>No</th>
   <th>Nama</th>
   <th>Kategori</th>
   <th>Jenama</th>
+  <th>Status</th>
   <th>Lokasi</th>
   <th>Action</th>
 </tr>
@@ -450,10 +457,12 @@ const catatanEl = document.getElementById("catatan");
 const imageInputEl = document.getElementById("imageInput");
 const tableEl = document.getElementById("table");
 
+/* TAHUN */
 for(let y=2010; y<=2035; y++){
   tahunEl.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
+/* LOKASI LAIN-LAIN */
 function checkLokasi(){
   if(lokasiEl.value === "Lain-lain"){
     lokasiLainEl.style.display = "block";
@@ -464,19 +473,21 @@ function checkLokasi(){
   }
 }
 
+/* LOAD DATA */
 function load(){
   fetch(API)
   .then(r => r.json())
   .then(d => {
     tableEl.innerHTML = "";
 
-    d.forEach(v => {
+    d.forEach((v, index) => {
       tableEl.innerHTML += `
       <tr>
-        <td>${v.noInventori || ""}</td>
+        <td>${index + 1}</td>
         <td>${v.nama || ""}</td>
         <td>${v.kategori || ""}</td>
         <td>${v.jenama || ""}</td>
+        <td>${v.status || ""}</td>
         <td>${v.lokasi || ""}</td>
         <td><button class="del" onclick="del(${v.row})">Delete</button></td>
       </tr>`;
@@ -484,6 +495,7 @@ function load(){
   });
 }
 
+/* DASHBOARD STATS */
 function stats(){
   fetch(API + "?action=stats")
   .then(r => r.json())
@@ -498,6 +510,7 @@ function stats(){
   });
 }
 
+/* SIMPAN DATA */
 function simpan(){
 
   let lokasiFinal = lokasiEl.value;
@@ -545,6 +558,7 @@ function simpan(){
   });
 }
 
+/* UPLOAD GAMBAR */
 function uploadImage(){
   let file = imageInputEl.files[0];
 
@@ -576,6 +590,7 @@ function uploadImage(){
   reader.readAsDataURL(file);
 }
 
+/* DELETE DATA */
 function del(id){
   if(!confirm("Delete data ini?")) return;
 
@@ -593,6 +608,7 @@ function del(id){
   });
 }
 
+/* CLEAR FORM */
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
 
@@ -605,6 +621,7 @@ function clearForm(){
   lokasiLainEl.value = "";
 }
 
+/* INIT */
 window.onload = function(){
   load();
   stats();

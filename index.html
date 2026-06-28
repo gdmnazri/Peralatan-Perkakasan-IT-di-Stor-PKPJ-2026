@@ -168,8 +168,7 @@ td:nth-child(1),td:nth-child(2){
 
 <div class="header">
   <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png"
-       alt="Logo PKPJ"
-       class="logo">
+       alt="Logo PKPJ">
   <h2>SISTEM INVENTORI IT PKPJ</h2>
 </div>
 
@@ -261,22 +260,20 @@ td:nth-child(1),td:nth-child(2){
 
     <div></div>
 
-   <div class="field">
-    <label>Lokasi</label>
-
-    <select id="lokasi" onchange="checkLokasi()">
+    <div class="field">
+      <label>Lokasi</label>
+      <select id="lokasi" onchange="checkLokasi()">
         <option value="">-- Pilih Lokasi --</option>
-        <option value="Stor">Stor PKPJ</option>
-        <option value="Pejabat">Pejabat PKPJ</option>
+        <option value="Stor PKPJ">Stor PKPJ</option>
+        <option value="Pejabat PKPJ">Pejabat PKPJ</option>
         <option value="Lain-lain">Lain-lain</option>
-    </select>
+      </select>
 
-    <input
-        type="text"
-        id="lokasiLain"
-        placeholder="Masukkan lokasi..."
-        style="display:none;margin-top:8px;">
-</div>
+      <input type="text"
+             id="lokasiLain"
+             placeholder="Masukkan lokasi..."
+             style="display:none;margin-top:8px;">
+    </div>
 
     <div class="field">
       <label>Pembekal</label>
@@ -321,10 +318,26 @@ td:nth-child(1),td:nth-child(2){
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
+/* Tahun */
 for(let y=2010; y<=2035; y++){
   tahun.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
+/* Lokasi Lain-lain */
+function checkLokasi(){
+  const lokasi = document.getElementById("lokasi");
+  const lokasiLain = document.getElementById("lokasiLain");
+
+  if(lokasi.value === "Lain-lain"){
+    lokasiLain.style.display = "block";
+    lokasiLain.focus();
+  }else{
+    lokasiLain.style.display = "none";
+    lokasiLain.value = "";
+  }
+}
+
+/* Load Data */
 function load(){
   fetch(API)
   .then(r => r.json())
@@ -345,6 +358,7 @@ function load(){
   });
 }
 
+/* Dashboard Stats */
 function stats(){
   fetch(API + "?action=stats")
   .then(r => r.json())
@@ -359,7 +373,20 @@ function stats(){
   });
 }
 
+/* Simpan Data */
 function simpan(){
+
+  let lokasiFinal = lokasi.value;
+
+  if(lokasi.value === "Lain-lain"){
+    if(lokasiLain.value.trim() === ""){
+      alert("Sila masukkan lokasi lain-lain");
+      lokasiLain.focus();
+      return;
+    }
+    lokasiFinal = lokasiLain.value.trim();
+  }
+
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
@@ -374,7 +401,7 @@ function simpan(){
       noSiri:noSiri.value,
       tagAset:tagAset.value,
       kuantiti:kuantiti.value,
-      lokasi:lokasi.value,
+      lokasi:lokasiFinal,
       status:status.value,
       tarikh:tarikh.value,
       pembekal:pembekal.value,
@@ -391,6 +418,7 @@ function simpan(){
   });
 }
 
+/* Upload Gambar */
 function uploadImage(){
   let file = imageInput.files[0];
 
@@ -422,6 +450,7 @@ function uploadImage(){
   reader.readAsDataURL(file);
 }
 
+/* Delete */
 function del(id){
   if(!confirm("Delete data ini?")) return;
 
@@ -439,11 +468,20 @@ function del(id){
   });
 }
 
+/* Clear Form */
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
+
   tahun.value = new Date().getFullYear();
+  kategori.value = "ICT";
+  status.value = "Baik";
+
+  lokasi.selectedIndex = 0;
+  lokasiLain.style.display = "none";
+  lokasiLain.value = "";
 }
 
+/* Init */
 window.onload = function(){
   load();
   stats();

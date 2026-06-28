@@ -41,7 +41,6 @@ body{
   padding:24px;
 }
 
-/* DASHBOARD */
 .dashboard-area{margin-bottom:25px}
 
 .dashboard-title{
@@ -101,6 +100,11 @@ body{
   position:absolute;
   bottom:0;
   width:100%;
+  cursor:pointer;
+}
+
+.info-card-footer:hover{
+  background:rgba(0,0,0,.25);
 }
 
 .pk-logo-card{
@@ -119,7 +123,6 @@ body{
 .bg-dark{background:#263342}
 .bg-yellow{background:#ffc107}
 
-/* SECTION */
 .section-box{
   background:white;
   border-radius:6px;
@@ -139,7 +142,6 @@ body{
   gap:10px;
 }
 
-/* FORM */
 .form-area{padding:24px}
 
 .form-grid{
@@ -213,7 +215,6 @@ button{
   display:none;
 }
 
-/* TABLE */
 .table-toolbar{
   padding:18px;
   display:flex;
@@ -303,7 +304,6 @@ tr:hover{background:#f8fbff}
   margin-right:4px;
 }
 
-/* MODAL */
 .modal{
   display:none;
   position:fixed;
@@ -371,13 +371,16 @@ tr:hover{background:#f8fbff}
     <div class="dashboard-title">STATUS INVENTORI</div>
 
     <div class="dashboard-grid status-grid">
+
       <div class="info-card bg-green">
         <div class="info-card-content">
           <div class="info-number" id="baik">0</div>
           <div class="info-label">Status Baik</div>
         </div>
         <i class="fa-solid fa-circle-check info-icon"></i>
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('status','Baik')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
 
       <div class="info-card bg-red">
@@ -386,7 +389,9 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Status Rosak</div>
         </div>
         <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
 
       <div class="info-card bg-orange">
@@ -395,20 +400,26 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Status Pelupusan</div>
         </div>
         <i class="fa-solid fa-trash info-icon"></i>
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
+
     </div>
 
     <div class="dashboard-title">KATEGORI INVENTORI</div>
 
     <div class="dashboard-grid kategori-grid">
+
       <div class="info-card bg-blue">
         <div class="info-card-content">
           <div class="info-number" id="total">0</div>
           <div class="info-label">Jumlah Inventori</div>
         </div>
         <i class="fa-solid fa-boxes-stacked info-icon"></i>
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('all','')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
 
       <div class="info-card bg-purple">
@@ -417,7 +428,9 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Kategori ICT</div>
         </div>
         <i class="fa-solid fa-computer info-icon"></i>
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
 
       <div class="info-card bg-dark">
@@ -426,7 +439,9 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Kategori Sewaan</div>
         </div>
         <i class="fa-solid fa-building info-icon"></i>
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
 
       <div class="info-card bg-yellow">
@@ -435,8 +450,11 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Kategori PKPJ</div>
         </div>
         <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="PKPJ">
-        <div class="info-card-footer">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+        <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">
+          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+        </div>
       </div>
+
     </div>
 
   </div>
@@ -688,6 +706,30 @@ function renderTable(data){
         <button class="btn-delete" onclick="del(${v.row})"><i class="fa-solid fa-trash"></i></button>
       </td>
     </tr>`;
+  });
+}
+
+function filterDashboard(type, value){
+  let filtered = allData;
+
+  if(type === "status"){
+    filtered = allData.filter(v => v.status === value);
+  }
+
+  if(type === "kategori"){
+    filtered = allData.filter(v => v.kategori === value);
+  }
+
+  if(type === "all"){
+    filtered = allData;
+  }
+
+  renderTable(filtered);
+  document.getElementById("recordCount").innerText = filtered.length;
+  document.getElementById("searchInput").value = "";
+
+  document.querySelectorAll(".section-box")[1].scrollIntoView({
+    behavior:"smooth"
   });
 }
 

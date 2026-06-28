@@ -27,9 +27,7 @@ body{
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-.top-header img{
-  width:58px;
-}
+.top-header img{width:58px}
 
 .top-header h1{
   margin:0;
@@ -44,16 +42,12 @@ body{
 }
 
 /* DASHBOARD */
-.dashboard-area{
-  margin-bottom:25px;
-}
+.dashboard-area{margin-bottom:25px}
 
 .dashboard-title{
   font-size:15px;
   font-weight:900;
-  color:#0b1f3a;
   margin:18px 0 12px;
-  letter-spacing:.5px;
 }
 
 .dashboard-grid{
@@ -62,13 +56,8 @@ body{
   margin-bottom:20px;
 }
 
-.status-grid{
-  grid-template-columns:repeat(3,1fr);
-}
-
-.kategori-grid{
-  grid-template-columns:repeat(4,1fr);
-}
+.status-grid{grid-template-columns:repeat(3,1fr)}
+.kategori-grid{grid-template-columns:repeat(4,1fr)}
 
 .info-card{
   min-height:135px;
@@ -122,13 +111,13 @@ body{
   opacity:.28;
 }
 
-.bg-blue{background:#17a2d4;}
-.bg-green{background:#28a745;}
-.bg-red{background:#dc3545;}
-.bg-orange{background:#fd7e14;}
-.bg-purple{background:#6f42c1;}
-.bg-dark{background:#263342;}
-.bg-yellow{background:#ffc107;}
+.bg-blue{background:#17a2d4}
+.bg-green{background:#28a745}
+.bg-red{background:#dc3545}
+.bg-orange{background:#fd7e14}
+.bg-purple{background:#6f42c1}
+.bg-dark{background:#263342}
+.bg-yellow{background:#ffc107}
 
 /* SECTION */
 .section-box{
@@ -151,9 +140,7 @@ body{
 }
 
 /* FORM */
-.form-area{
-  padding:24px;
-}
+.form-area{padding:24px}
 
 .form-grid{
   display:grid;
@@ -185,9 +172,7 @@ textarea{
   resize:vertical;
 }
 
-.full-width{
-  grid-column:1 / span 3;
-}
+.full-width{grid-column:1 / span 3}
 
 .form-buttons{
   text-align:center;
@@ -206,7 +191,12 @@ button{
 .btn-save{
   background:#0d6efd;
   color:white;
-  min-width:160px;
+  min-width:170px;
+}
+
+.btn-update{
+  background:#ffc107;
+  color:#111;
 }
 
 .btn-upload{
@@ -214,6 +204,13 @@ button{
   color:white;
   width:165px;
   margin-top:6px;
+}
+
+.btn-cancel{
+  background:#6c757d;
+  color:white;
+  margin-left:8px;
+  display:none;
 }
 
 /* TABLE */
@@ -240,13 +237,9 @@ button{
   color:#6c757d;
 }
 
-.search-box input{
-  padding-left:38px;
-}
+.search-box input{padding-left:38px}
 
-.table-wrap{
-  overflow-x:auto;
-}
+.table-wrap{overflow-x:auto}
 
 table{
   width:100%;
@@ -272,9 +265,7 @@ td:nth-child(2){
   font-weight:600;
 }
 
-tr:hover{
-  background:#f8fbff;
-}
+tr:hover{background:#f8fbff}
 
 .badge{
   display:inline-block;
@@ -285,15 +276,23 @@ tr:hover{
   font-weight:800;
 }
 
-.badge-baik{background:#198754;}
-.badge-rosak{background:#dc3545;}
-.badge-pelupusan{background:#fd7e14;}
+.badge-baik{background:#198754}
+.badge-rosak{background:#dc3545}
+.badge-pelupusan{background:#fd7e14}
 
 .btn-delete{
   background:#dc3545;
   color:white;
   font-size:12px;
   padding:6px 10px;
+}
+
+.btn-edit{
+  background:#ffc107;
+  color:#111;
+  font-size:12px;
+  padding:6px 10px;
+  margin-right:4px;
 }
 
 .btn-image{
@@ -343,41 +342,17 @@ tr:hover{
 }
 
 @media(max-width:1200px){
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .full-width{
-    grid-column:1 / span 2;
-  }
+  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+  .full-width{grid-column:1 / span 2}
 }
 
 @media(max-width:700px){
-  .top-header h1{
-    font-size:20px;
-  }
-
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full-width{
-    grid-column:1;
-  }
-
-  .container{
-    padding:14px;
-  }
+  .top-header h1{font-size:20px}
+  .status-grid,.kategori-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+  .container{padding:14px}
 }
 </style>
 </head>
@@ -472,6 +447,8 @@ tr:hover{
     </div>
 
     <div class="form-area">
+      <input type="hidden" id="editingRow">
+
       <div class="form-grid">
 
         <div class="field">
@@ -575,8 +552,13 @@ tr:hover{
       </div>
 
       <div class="form-buttons">
-        <button class="btn-save" onclick="simpan()">
-          <i class="fa-solid fa-floppy-disk"></i> SIMPAN DATA
+        <button id="saveBtn" class="btn-save" onclick="simpan()">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span id="saveText">SIMPAN DATA</span>
+        </button>
+
+        <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">
+          <i class="fa-solid fa-xmark"></i> BATAL EDIT
         </button>
       </div>
     </div>
@@ -649,6 +631,10 @@ const gambarEl = document.getElementById("gambar");
 const catatanEl = document.getElementById("catatan");
 const imageInputEl = document.getElementById("imageInput");
 const tableEl = document.getElementById("table");
+const editingRowEl = document.getElementById("editingRow");
+const saveBtn = document.getElementById("saveBtn");
+const saveText = document.getElementById("saveText");
+const cancelBtn = document.getElementById("cancelBtn");
 
 for(let y=2010; y<=2035; y++){
   tahunEl.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
@@ -685,7 +671,7 @@ function renderTable(data){
 
     let gambarButton = "-";
     if(v.gambar){
-      gambarButton = `<button class="btn-image" onclick="openImageModal('${v.gambar}')"><i class="fa-solid fa-eye"></i> Lihat</button>`;
+      gambarButton = `<button class="btn-image" onclick="openImageModal('${v.gambar}')"><i class="fa-solid fa-eye"></i></button>`;
     }
 
     tableEl.innerHTML += `
@@ -697,9 +683,75 @@ function renderTable(data){
       <td><span class="badge ${badgeClass}">${v.status || ""}</span></td>
       <td>${v.lokasi || ""}</td>
       <td>${gambarButton}</td>
-      <td><button class="btn-delete" onclick="del(${v.row})"><i class="fa-solid fa-trash"></i> Delete</button></td>
+      <td>
+        <button class="btn-edit" onclick="editData(${v.row})"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn-delete" onclick="del(${v.row})"><i class="fa-solid fa-trash"></i></button>
+      </td>
     </tr>`;
   });
+}
+
+function editData(row){
+  const data = allData.find(x => x.row == row);
+
+  if(!data){
+    alert("Data tidak dijumpai");
+    return;
+  }
+
+  editingRowEl.value = data.row || "";
+
+  tahunEl.value = data.tahun || new Date().getFullYear();
+  noInventoriEl.value = data.noInventori || "";
+  namaEl.value = data.nama || "";
+  kategoriEl.value = data.kategori || "ICT";
+  jenamaEl.value = data.jenama || "";
+  modelEl.value = data.model || "";
+  noSiriEl.value = data.noSiri || "";
+  tagAsetEl.value = data.tagAset || "";
+  kuantitiEl.value = data.kuantiti || "";
+  statusEl.value = data.status || "Baik";
+  tarikhEl.value = formatDateForInput(data.tarikh);
+  pembekalEl.value = data.pembekal || "";
+  gambarEl.value = data.gambar || "";
+  catatanEl.value = data.catatan || "";
+
+  if(data.lokasi === "Stor PKPJ" || data.lokasi === "Pejabat PKPJ" || data.lokasi === ""){
+    lokasiEl.value = data.lokasi || "";
+    lokasiLainEl.style.display = "none";
+    lokasiLainEl.value = "";
+  }else{
+    lokasiEl.value = "Lain-lain";
+    lokasiLainEl.style.display = "block";
+    lokasiLainEl.value = data.lokasi || "";
+  }
+
+  saveBtn.classList.add("btn-update");
+  saveText.innerText = "KEMASKINI DATA";
+  cancelBtn.style.display = "inline-block";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+function formatDateForInput(value){
+  if(!value) return "";
+
+  if(String(value).includes("T")){
+    return String(value).split("T")[0];
+  }
+
+  const d = new Date(value);
+  if(!isNaN(d)){
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2,"0");
+    const day = String(d.getDate()).padStart(2,"0");
+    return `${year}-${month}-${day}`;
+  }
+
+  return value;
 }
 
 function searchTable(){
@@ -711,7 +763,10 @@ function searchTable(){
       String(v.kategori || "").toLowerCase().includes(keyword) ||
       String(v.jenama || "").toLowerCase().includes(keyword) ||
       String(v.status || "").toLowerCase().includes(keyword) ||
-      String(v.lokasi || "").toLowerCase().includes(keyword)
+      String(v.lokasi || "").toLowerCase().includes(keyword) ||
+      String(v.noSiri || "").toLowerCase().includes(keyword) ||
+      String(v.tagAset || "").toLowerCase().includes(keyword) ||
+      String(v.pembekal || "").toLowerCase().includes(keyword)
     );
   });
 
@@ -745,31 +800,36 @@ function simpan(){
     lokasiFinal = lokasiLainEl.value.trim();
   }
 
+  const isEdit = editingRowEl.value !== "";
+
+  const data = {
+    action:isEdit ? "update" : "simpan",
+    row:editingRowEl.value,
+    tahun:tahunEl.value,
+    noInventori:noInventoriEl.value,
+    nama:namaEl.value,
+    kategori:kategoriEl.value,
+    jenama:jenamaEl.value,
+    model:modelEl.value,
+    noSiri:noSiriEl.value,
+    tagAset:tagAsetEl.value,
+    kuantiti:kuantitiEl.value,
+    lokasi:lokasiFinal,
+    status:statusEl.value,
+    tarikh:tarikhEl.value,
+    pembekal:pembekalEl.value,
+    gambar:gambarEl.value,
+    catatan:catatanEl.value
+  };
+
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify({
-      action:"simpan",
-      tahun:tahunEl.value,
-      noInventori:noInventoriEl.value,
-      nama:namaEl.value,
-      kategori:kategoriEl.value,
-      jenama:jenamaEl.value,
-      model:modelEl.value,
-      noSiri:noSiriEl.value,
-      tagAset:tagAsetEl.value,
-      kuantiti:kuantitiEl.value,
-      lokasi:lokasiFinal,
-      status:statusEl.value,
-      tarikh:tarikhEl.value,
-      pembekal:pembekalEl.value,
-      gambar:gambarEl.value,
-      catatan:catatanEl.value
-    })
+    body:JSON.stringify(data)
   })
   .then(r => r.json())
   .then(res => {
-    alert(res.message || "OK");
+    alert(isEdit ? "BERJAYA DIKEMASKINI" : (res.message || "BERJAYA DISIMPAN"));
     clearForm();
     load();
     stats();
@@ -824,6 +884,10 @@ function del(id){
   });
 }
 
+function cancelEdit(){
+  clearForm();
+}
+
 function openImageModal(url){
   document.getElementById("modalImage").src = url;
   document.getElementById("imageModal").style.display = "flex";
@@ -837,6 +901,7 @@ function closeImageModal(){
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
 
+  editingRowEl.value = "";
   tahunEl.value = new Date().getFullYear();
   kategoriEl.value = "ICT";
   statusEl.value = "Baik";
@@ -844,6 +909,10 @@ function clearForm(){
   lokasiEl.selectedIndex = 0;
   lokasiLainEl.style.display = "none";
   lokasiLainEl.value = "";
+
+  saveBtn.classList.remove("btn-update");
+  saveText.innerText = "SIMPAN DATA";
+  cancelBtn.style.display = "none";
 }
 
 window.onload = function(){

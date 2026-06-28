@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Sistem Inventori IT PKPJ</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 *{box-sizing:border-box}
 
@@ -35,7 +37,7 @@ body{
   font-weight:900;
 }
 
-/* DASHBOARD PECAHAN */
+/* DASHBOARD */
 .dashboard-section{
   display:grid;
   grid-template-columns:4fr 3fr;
@@ -73,32 +75,42 @@ body{
 }
 
 .card{
-  height:78px;
-  border-radius:6px;
+  height:82px;
+  border-radius:8px;
   color:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
+  gap:14px;
   font-weight:bold;
   box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-.icon{font-size:34px}
+.card i{
+  font-size:34px;
+}
+
+.dashboard-logo{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+}
 
 .card span{
   display:block;
-  font-size:28px;
+  font-size:30px;
   text-align:center;
+  line-height:1;
+  margin-top:3px;
 }
 
-.blue{background:#0d6efd}
-.green{background:#198754}
-.red{background:#dc3545}
-.orange{background:#fd7e14}
-.purple{background:#6f42c1}
-.gray{background:#263342}
-.yellow{background:#ffc107;color:white}
+.blue{background:linear-gradient(135deg,#0069ff,#0d6efd)}
+.green{background:linear-gradient(135deg,#0b7d3b,#198754)}
+.red{background:linear-gradient(135deg,#d91f35,#dc3545)}
+.orange{background:linear-gradient(135deg,#ff7300,#fd7e14)}
+.purple{background:linear-gradient(135deg,#5426b5,#6f42c1)}
+.gray{background:linear-gradient(135deg,#1d2939,#263342)}
+.yellow{background:linear-gradient(135deg,#ffb300,#ffc107)}
 
 /* FORM */
 .form-box{
@@ -231,12 +243,10 @@ td:nth-child(2){
 <body>
 
 <div class="header">
-  <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png"
-       alt="Logo PKPJ">
+  <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="Logo PKPJ">
   <h2>SISTEM INVENTORI IT PKPJ</h2>
 </div>
 
-<!-- DASHBOARD PECAHAN -->
 <div class="dashboard-section">
 
   <div class="dash-group">
@@ -244,22 +254,22 @@ td:nth-child(2){
 
     <div class="dashboard status-dashboard">
       <div class="card blue">
-        <div class="icon">▢</div>
+        <i class="fa-solid fa-boxes-stacked"></i>
         <div>Total <span id="total">0</span></div>
       </div>
 
       <div class="card green">
-        <div class="icon">✓</div>
+        <i class="fa-solid fa-circle-check"></i>
         <div>Baik <span id="baik">0</span></div>
       </div>
 
       <div class="card red">
-        <div class="icon">🛠</div>
+        <i class="fa-solid fa-screwdriver-wrench"></i>
         <div>Rosak <span id="rosak">0</span></div>
       </div>
 
       <div class="card orange">
-        <div class="icon">▧</div>
+        <i class="fa-solid fa-trash"></i>
         <div>Pelupusan <span id="pelupusan">0</span></div>
       </div>
     </div>
@@ -270,25 +280,21 @@ td:nth-child(2){
 
     <div class="dashboard kategori-dashboard">
       <div class="card purple">
-        <div class="icon">▭</div>
+        <i class="fa-solid fa-computer"></i>
         <div>ICT <span id="ict">0</span></div>
       </div>
 
       <div class="card gray">
-        <div class="icon">▥</div>
+        <i class="fa-solid fa-building"></i>
         <div>Sewaan <span id="sewaan">0</span></div>
       </div>
 
-    <div class="card yellow">
-    <img src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png"
-         class="dashboard-logo"
-         alt="PKPJ">
-
-    <div>
-        PKPJ
-        <span id="pkpj">0</span>
+      <div class="card yellow">
+        <img class="dashboard-logo" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="PKPJ">
+        <div>PKPJ <span id="pkpj">0</span></div>
+      </div>
     </div>
-</div>
+  </div>
 
 </div>
 
@@ -407,7 +413,9 @@ td:nth-child(2){
   </div>
 
   <div class="save-wrap">
-    <button class="save" onclick="simpan()">💾 SIMPAN DATA</button>
+    <button class="save" onclick="simpan()">
+      <i class="fa-solid fa-floppy-disk"></i> SIMPAN DATA
+    </button>
   </div>
 </div>
 
@@ -428,12 +436,10 @@ td:nth-child(2){
 <script>
 const API = "https://script.google.com/macros/s/AKfycbxgGk8fXcN1qbvG-PTIHYB0UymbcxxFsZUyStbW98A6L-DbTUikDYwHXVNeG2oz7P_8/exec";
 
-/* Tahun */
 for(let y=2010; y<=2035; y++){
   tahun.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
-/* Lokasi Lain-lain */
 function checkLokasi(){
   const lokasi = document.getElementById("lokasi");
   const lokasiLain = document.getElementById("lokasiLain");
@@ -447,7 +453,6 @@ function checkLokasi(){
   }
 }
 
-/* Load Data */
 function load(){
   fetch(API)
   .then(r => r.json())
@@ -468,7 +473,6 @@ function load(){
   });
 }
 
-/* Dashboard Stats */
 function stats(){
   fetch(API + "?action=stats")
   .then(r => r.json())
@@ -483,7 +487,6 @@ function stats(){
   });
 }
 
-/* Simpan Data */
 function simpan(){
 
   let lokasiFinal = lokasi.value;
@@ -529,7 +532,6 @@ function simpan(){
   });
 }
 
-/* Upload Gambar */
 function uploadImage(){
   let file = imageInput.files[0];
 
@@ -561,7 +563,6 @@ function uploadImage(){
   reader.readAsDataURL(file);
 }
 
-/* Delete */
 function del(id){
   if(!confirm("Delete data ini?")) return;
 
@@ -579,7 +580,6 @@ function del(id){
   });
 }
 
-/* Clear Form */
 function clearForm(){
   document.querySelectorAll("input, textarea").forEach(e => e.value = "");
 
@@ -592,7 +592,6 @@ function clearForm(){
   lokasiLain.value = "";
 }
 
-/* Init */
 window.onload = function(){
   load();
   stats();

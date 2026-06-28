@@ -107,6 +107,12 @@ body{
   font-size:68px;
   font-weight:900;
   line-height:1;
+  margin-bottom:14px;
+}
+
+.info-label{
+  font-size:25px;
+  font-weight:900;
 }
 
 .info-icon{
@@ -288,16 +294,16 @@ table{
 th{
   background:#0d6efd;
   color:white;
-  padding:20px;
+  padding:16px;
   border:1px solid #0b5ed7;
-  font-size:18px;
+  font-size:16px;
 }
 
 td{
-  padding:18px;
+  padding:15px;
   border:1px solid #dbe2ea;
   text-align:center;
-  font-size:18px;
+  font-size:16px;
 }
 
 td:nth-child(2){
@@ -309,7 +315,7 @@ td:nth-child(2){
   display:inline-block;
   padding:8px 18px;
   border-radius:22px;
-  font-size:16px;
+  font-size:15px;
   color:white;
   font-weight:900;
 }
@@ -321,23 +327,23 @@ td:nth-child(2){
 .btn-delete{
   background:#dc3545;
   color:white;
-  font-size:16px;
-  padding:10px 14px;
+  font-size:15px;
+  padding:9px 13px;
 }
 
 .btn-edit{
   background:#ffc107;
   color:#111;
-  font-size:16px;
-  padding:10px 14px;
+  font-size:15px;
+  padding:9px 13px;
   margin-right:6px;
 }
 
 .btn-image{
   background:#0d6efd;
   color:white;
-  font-size:16px;
-  padding:10px 14px;
+  font-size:15px;
+  padding:9px 13px;
   margin-right:6px;
   text-decoration:none;
   display:inline-block;
@@ -394,6 +400,7 @@ td:nth-child(2){
     <div class="info-card bg-green">
       <div class="info-card-content">
         <div class="info-number" id="baik">0</div>
+        <div class="info-label">Baik</div>
       </div>
       <i class="fa-solid fa-circle-check info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -402,6 +409,7 @@ td:nth-child(2){
     <div class="info-card bg-red">
       <div class="info-card-content">
         <div class="info-number" id="rosak">0</div>
+        <div class="info-label">Rosak</div>
       </div>
       <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -410,6 +418,7 @@ td:nth-child(2){
     <div class="info-card bg-orange">
       <div class="info-card-content">
         <div class="info-number" id="pelupusan">0</div>
+        <div class="info-label">Pelupusan</div>
       </div>
       <i class="fa-solid fa-trash info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -424,6 +433,7 @@ td:nth-child(2){
     <div class="info-card bg-blue">
       <div class="info-card-content">
         <div class="info-number" id="total">0</div>
+        <div class="info-label">Jumlah Inventori</div>
       </div>
       <i class="fa-solid fa-boxes-stacked info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -432,6 +442,7 @@ td:nth-child(2){
     <div class="info-card bg-purple">
       <div class="info-card-content">
         <div class="info-number" id="ict">0</div>
+        <div class="info-label">ICT</div>
       </div>
       <i class="fa-solid fa-computer info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -440,6 +451,7 @@ td:nth-child(2){
     <div class="info-card bg-dark">
       <div class="info-card-content">
         <div class="info-number" id="sewaan">0</div>
+        <div class="info-label">Sewaan</div>
       </div>
       <i class="fa-solid fa-building info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -448,6 +460,7 @@ td:nth-child(2){
     <div class="info-card bg-yellow">
       <div class="info-card-content">
         <div class="info-number" id="pkpj">0</div>
+        <div class="info-label">PKPJ</div>
       </div>
       <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
       <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -456,6 +469,7 @@ td:nth-child(2){
     <div class="info-card bg-teal">
       <div class="info-card-content">
         <div class="info-number" id="prosesICT">0</div>
+        <div class="info-label">Proses Pemulangan ke ICT</div>
       </div>
       <i class="fa-solid fa-rotate-left info-icon"></i>
       <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
@@ -622,8 +636,11 @@ td:nth-child(2){
             <th>Nama</th>
             <th>Kategori</th>
             <th>Jenama</th>
+            <th>Model</th>
+            <th>No Siri</th>
             <th>Status</th>
             <th>Lokasi</th>
+            <th>Catatan</th>
             <th>Gambar</th>
             <th>Action</th>
           </tr>
@@ -728,8 +745,11 @@ function renderTable(data){
       <td>${v.nama || ""}</td>
       <td>${v.kategori || ""}</td>
       <td>${v.jenama || ""}</td>
+      <td>${v.model || ""}</td>
+      <td>${v.noSiri || ""}</td>
       <td><span class="badge ${badgeClass}">${v.status || ""}</span></td>
       <td>${v.lokasi || ""}</td>
+      <td>${v.catatan || ""}</td>
       <td>${gambarButton}</td>
       <td>
         <button class="btn-edit" onclick="editData(${v.row})"><i class="fa-solid fa-pen"></i></button>
@@ -815,9 +835,11 @@ function searchTable(){
     String(v.nama || "").toLowerCase().includes(keyword) ||
     String(v.kategori || "").toLowerCase().includes(keyword) ||
     String(v.jenama || "").toLowerCase().includes(keyword) ||
+    String(v.model || "").toLowerCase().includes(keyword) ||
+    String(v.noSiri || "").toLowerCase().includes(keyword) ||
     String(v.status || "").toLowerCase().includes(keyword) ||
     String(v.lokasi || "").toLowerCase().includes(keyword) ||
-    String(v.noSiri || "").toLowerCase().includes(keyword) ||
+    String(v.catatan || "").toLowerCase().includes(keyword) ||
     String(v.tagAset || "").toLowerCase().includes(keyword) ||
     String(v.pembekal || "").toLowerCase().includes(keyword)
   );
@@ -930,7 +952,7 @@ function del(id){
 }
 
 function exportExcel(){
-  let csv = "No,Nama,Kategori,Jenama,Status,Lokasi\n";
+  let csv = "No,Nama,Kategori,Jenama,Model,No Siri,Status,Lokasi,Catatan\n";
 
   allData.forEach((v,index)=>{
     csv += [
@@ -938,8 +960,11 @@ function exportExcel(){
       v.nama || "",
       v.kategori || "",
       v.jenama || "",
+      v.model || "",
+      v.noSiri || "",
       v.status || "",
-      v.lokasi || ""
+      v.lokasi || "",
+      v.catatan || ""
     ].map(x => `"${String(x).replace(/"/g,'""')}"`).join(",") + "\n";
   });
 

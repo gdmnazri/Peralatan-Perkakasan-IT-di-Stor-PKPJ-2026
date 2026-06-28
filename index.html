@@ -14,89 +14,102 @@ body{
   font-family:Arial, sans-serif;
   background:#eef3f8;
   color:#0b1f3a;
-  font-size:14px;
+  font-size:17px;
 }
 
 .top-header{
   background:white;
-  padding:18px 25px;
+  padding:22px 30px;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:15px;
+  gap:18px;
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-.top-header img{width:58px}
+.top-header img{
+  width:82px;
+}
 
 .top-header h1{
   margin:0;
-  font-size:28px;
+  font-size:42px;
   font-weight:900;
+  letter-spacing:1px;
 }
 
 .container{
-  max-width:1500px;
+  width:98%;
+  max-width:1900px;
   margin:auto;
   padding:24px;
 }
 
-.dashboard-area{margin-bottom:25px}
+.dashboard-area{
+  margin-bottom:30px;
+}
 
 .dashboard-title{
-  font-size:15px;
+  font-size:20px;
   font-weight:900;
-  margin:18px 0 12px;
+  margin:22px 0 14px;
 }
 
 .dashboard-grid{
   display:grid;
-  gap:22px;
-  margin-bottom:20px;
+  gap:24px;
+  margin-bottom:24px;
 }
 
-.status-grid{grid-template-columns:repeat(3,1fr)}
-.kategori-grid{grid-template-columns:repeat(4,1fr)}
+.status-grid{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.kategori-grid{
+  grid-template-columns:repeat(4,1fr);
+}
 
 .info-card{
-  min-height:135px;
+  min-height:175px;
   color:white;
-  border-radius:4px;
+  border-radius:6px;
   overflow:hidden;
   position:relative;
-  box-shadow:0 4px 12px rgba(0,0,0,.18);
+  box-shadow:0 5px 14px rgba(0,0,0,.22);
 }
 
 .info-card-content{
-  padding:18px;
+  padding:24px;
   position:relative;
   z-index:2;
 }
 
 .info-number{
-  font-size:38px;
+  font-size:60px;
   font-weight:900;
-  margin-bottom:14px;
+  margin-bottom:16px;
+  line-height:1;
 }
 
 .info-label{
-  font-size:16px;
-  font-weight:700;
+  font-size:23px;
+  font-weight:800;
 }
 
 .info-icon{
   position:absolute;
-  right:18px;
-  top:20px;
-  font-size:70px;
+  right:24px;
+  top:28px;
+  font-size:105px;
   opacity:.22;
 }
 
 .info-card-footer{
-  background:rgba(0,0,0,.14);
+  background:rgba(0,0,0,.16);
   text-align:center;
-  padding:8px;
-  font-weight:700;
+  padding:13px;
+  font-size:17px;
+  font-weight:800;
   position:absolute;
   bottom:0;
   width:100%;
@@ -104,15 +117,15 @@ body{
 }
 
 .info-card-footer:hover{
-  background:rgba(0,0,0,.25);
+  background:rgba(0,0,0,.28);
 }
 
 .pk-logo-card{
   position:absolute;
-  right:22px;
-  top:25px;
-  width:70px;
-  opacity:.28;
+  right:28px;
+  top:30px;
+  width:95px;
+  opacity:.30;
 }
 
 .bg-blue{background:#17a2d4}
@@ -125,75 +138,79 @@ body{
 
 .section-box{
   background:white;
-  border-radius:6px;
-  box-shadow:0 3px 14px rgba(0,0,0,.12);
-  margin-bottom:25px;
+  border-radius:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,.14);
+  margin-bottom:30px;
   overflow:hidden;
 }
 
 .section-title{
   background:#0d6efd;
   color:white;
-  padding:13px 18px;
-  font-size:15px;
+  padding:18px 26px;
+  font-size:22px;
   font-weight:900;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
 }
 
-.form-area{padding:24px}
+.form-area{
+  padding:30px;
+}
 
 .form-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:18px 28px;
+  gap:24px 34px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:8px;
 }
 
 label{
-  font-weight:700;
-  font-size:13px;
+  font-weight:800;
+  font-size:17px;
 }
 
 input,select,textarea{
   width:100%;
-  padding:10px 12px;
+  padding:15px 16px;
   border:1px solid #cbd5e1;
-  border-radius:4px;
-  font-size:14px;
+  border-radius:5px;
+  font-size:17px;
 }
 
 textarea{
-  height:75px;
+  height:100px;
   resize:vertical;
 }
 
-.full-width{grid-column:1 / span 3}
+.full-width{
+  grid-column:1 / span 3;
+}
 
 .form-buttons{
   text-align:center;
-  margin-top:22px;
+  margin-top:28px;
 }
 
 button{
   border:none;
   cursor:pointer;
-  border-radius:4px;
-  padding:9px 16px;
-  font-size:14px;
-  font-weight:700;
+  border-radius:5px;
+  padding:12px 20px;
+  font-size:17px;
+  font-weight:800;
 }
 
 .btn-save{
   background:#0d6efd;
   color:white;
-  min-width:170px;
+  min-width:210px;
 }
 
 .btn-update{
@@ -204,43 +221,52 @@ button{
 .btn-upload{
   background:#198754;
   color:white;
-  width:165px;
-  margin-top:6px;
+  width:210px;
+  margin-top:8px;
 }
 
 .btn-cancel{
   background:#6c757d;
   color:white;
-  margin-left:8px;
+  margin-left:10px;
   display:none;
 }
 
 .table-toolbar{
-  padding:18px;
+  padding:22px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:15px;
+  gap:18px;
   flex-wrap:wrap;
 }
 
 .search-box{
   position:relative;
-  width:320px;
+  width:480px;
   max-width:100%;
 }
 
 .search-box i{
   position:absolute;
-  left:12px;
+  left:15px;
   top:50%;
   transform:translateY(-50%);
   color:#6c757d;
 }
 
-.search-box input{padding-left:38px}
+.search-box input{
+  padding-left:45px;
+}
 
-.table-wrap{overflow-x:auto}
+.table-count{
+  font-size:18px;
+  font-weight:800;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
 
 table{
   width:100%;
@@ -251,30 +277,34 @@ table{
 th{
   background:#0d6efd;
   color:white;
-  padding:11px;
+  padding:17px;
   border:1px solid #0b5ed7;
+  font-size:17px;
 }
 
 td{
-  padding:10px;
+  padding:16px;
   border:1px solid #dbe2ea;
   text-align:center;
+  font-size:16px;
 }
 
 td:nth-child(2){
   text-align:left;
-  font-weight:600;
+  font-weight:700;
 }
 
-tr:hover{background:#f8fbff}
+tr:hover{
+  background:#f8fbff;
+}
 
 .badge{
   display:inline-block;
-  padding:5px 12px;
+  padding:7px 16px;
   border-radius:20px;
-  font-size:12px;
+  font-size:15px;
   color:white;
-  font-weight:800;
+  font-weight:900;
 }
 
 .badge-baik{background:#198754}
@@ -284,24 +314,24 @@ tr:hover{background:#f8fbff}
 .btn-delete{
   background:#dc3545;
   color:white;
-  font-size:12px;
-  padding:6px 10px;
+  font-size:15px;
+  padding:8px 12px;
 }
 
 .btn-edit{
   background:#ffc107;
   color:#111;
-  font-size:12px;
-  padding:6px 10px;
-  margin-right:4px;
+  font-size:15px;
+  padding:8px 12px;
+  margin-right:5px;
 }
 
 .btn-image{
   background:#0d6efd;
   color:white;
-  font-size:12px;
-  padding:6px 10px;
-  margin-right:4px;
+  font-size:15px;
+  padding:8px 12px;
+  margin-right:5px;
 }
 
 .modal{
@@ -318,41 +348,45 @@ tr:hover{background:#f8fbff}
 .modal-content{
   background:white;
   border-radius:8px;
-  max-width:700px;
+  max-width:850px;
   width:100%;
-  padding:18px;
+  padding:22px;
   position:relative;
 }
 
 .modal-content img{
   width:100%;
-  max-height:500px;
+  max-height:650px;
   object-fit:contain;
 }
 
 .modal-close{
   position:absolute;
-  top:-14px;
-  right:-14px;
+  top:-16px;
+  right:-16px;
   background:#dc3545;
   color:white;
   border-radius:50%;
-  width:34px;
-  height:34px;
+  width:38px;
+  height:38px;
 }
 
 @media(max-width:1200px){
   .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
   .form-grid{grid-template-columns:1fr 1fr}
   .full-width{grid-column:1 / span 2}
+  .top-header h1{font-size:32px}
 }
 
 @media(max-width:700px){
-  .top-header h1{font-size:20px}
+  .top-header h1{font-size:22px}
+  .top-header img{width:55px}
   .status-grid,.kategori-grid{grid-template-columns:1fr}
   .form-grid{grid-template-columns:1fr}
   .full-width{grid-column:1}
-  .container{padding:14px}
+  .container{width:100%;padding:14px}
+  .info-number{font-size:46px}
+  .info-label{font-size:18px}
 }
 </style>
 </head>
@@ -371,16 +405,13 @@ tr:hover{background:#f8fbff}
     <div class="dashboard-title">STATUS INVENTORI</div>
 
     <div class="dashboard-grid status-grid">
-
       <div class="info-card bg-green">
         <div class="info-card-content">
           <div class="info-number" id="baik">0</div>
           <div class="info-label">Status Baik</div>
         </div>
         <i class="fa-solid fa-circle-check info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('status','Baik')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
 
       <div class="info-card bg-red">
@@ -389,9 +420,7 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Status Rosak</div>
         </div>
         <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
 
       <div class="info-card bg-orange">
@@ -400,26 +429,20 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Status Pelupusan</div>
         </div>
         <i class="fa-solid fa-trash info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
-
     </div>
 
     <div class="dashboard-title">KATEGORI INVENTORI</div>
 
     <div class="dashboard-grid kategori-grid">
-
       <div class="info-card bg-blue">
         <div class="info-card-content">
           <div class="info-number" id="total">0</div>
           <div class="info-label">Jumlah Inventori</div>
         </div>
         <i class="fa-solid fa-boxes-stacked info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('all','')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
 
       <div class="info-card bg-purple">
@@ -428,9 +451,7 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Kategori ICT</div>
         </div>
         <i class="fa-solid fa-computer info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
 
       <div class="info-card bg-dark">
@@ -439,9 +460,7 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Kategori Sewaan</div>
         </div>
         <i class="fa-solid fa-building info-icon"></i>
-        <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
 
       <div class="info-card bg-yellow">
@@ -450,11 +469,8 @@ tr:hover{background:#f8fbff}
           <div class="info-label">Kategori PKPJ</div>
         </div>
         <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png" alt="PKPJ">
-        <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">
-          Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+        <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
       </div>
-
     </div>
 
   </div>

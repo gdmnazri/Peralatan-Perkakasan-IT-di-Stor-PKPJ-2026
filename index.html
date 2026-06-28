@@ -261,10 +261,22 @@ td:nth-child(1),td:nth-child(2){
 
     <div></div>
 
-    <div class="field">
-      <label>Lokasi</label>
-      <input id="lokasi">
-    </div>
+   <div class="field">
+    <label>Lokasi</label>
+
+    <select id="lokasi" onchange="checkLokasi()">
+        <option value="">-- Pilih Lokasi --</option>
+        <option value="Stor">Stor PKPJ</option>
+        <option value="Pejabat">Pejabat PKPJ</option>
+        <option value="Lain-lain">Lain-lain</option>
+    </select>
+
+    <input
+        type="text"
+        id="lokasiLain"
+        placeholder="Masukkan lokasi..."
+        style="display:none;margin-top:8px;">
+</div>
 
     <div class="field">
       <label>Pembekal</label>

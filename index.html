@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><title>Sistem Inventori Unit IT PKPJ</title></title>
+<title>Sistem Inventori Unit IT PKPJ</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -562,6 +562,51 @@ td:nth-child(4){
   .full-width{grid-column:1}
   .dashboard-grid{grid-template-columns:1fr}
 }
+
+/* ===== HEADER FINAL FIX ===== */
+/* Buang 3 line kiri atas dan Admin kanan atas */
+.menu-icon,
+.admin-text{
+  display:none !important;
+}
+
+/* Pastikan tajuk baru muncul jelas sebelah logo */
+.topbar{
+  justify-content:flex-start !important;
+}
+
+.topbar-left{
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+}
+
+.header-title{
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  width:100% !important;
+}
+
+.header-title img,
+.top-header img{
+  width:42px !important;
+  height:42px !important;
+  object-fit:contain !important;
+  border-radius:8px !important;
+  flex-shrink:0 !important;
+}
+
+.header-title h1,
+.top-header h1{
+  margin:0 !important;
+  color:inherit !important;
+  font-size:20px !important;
+  font-weight:800 !important;
+  line-height:1.2 !important;
+  white-space:normal !important;
+}
+
 </style>
 </head>
 
@@ -570,21 +615,11 @@ td:nth-child(4){
 <div class="app">
 
   <header class="topbar">
-    <div class="topbar-left">
-      <div class="menu-icon">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-
-      <div class="header-title">
-        <img src="PKPJ.png" alt="Logo PKPJ" onerror="this.src='pkpj.png'">
-        <h1><title>Sistem Inventori Unit IT PKPJ</title></h1>
-      </div>
-    </div>
-
-    <div class="admin-text">
-      <i class="fa-solid fa-user"></i> Admin
-    </div>
-  </header>
+  <div class="header-title">
+    <img src="PKPJ.png" alt="Logo PKPJ" onerror="this.src='https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png'">
+    <h1>Sistem Inventori Unit IT PKPJ</h1>
+  </div>
+</header>
 
   <aside class="sidebar">
     <div class="datetime" id="dateTimeBox">Loading...</div>

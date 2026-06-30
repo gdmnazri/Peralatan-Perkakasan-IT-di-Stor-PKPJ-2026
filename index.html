@@ -22,17 +22,23 @@ body{
   padding:12px 22px;
   display:flex;
   align-items:center;
+  justify-content:center;
   gap:15px;
+  text-align:center;
   border-top:2px solid #1d4ed8;
   box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
 
-.top-header img{width:52px}
+.top-header img{
+  width:52px;
+  flex:0 0 auto;
+}
 
 .top-header h1{
   margin:0;
   font-size:24px;
   font-weight:700;
+  text-align:center;
 }
 
 .nav-menu{
@@ -272,6 +278,13 @@ button:disabled{
   margin-top:6px;
 }
 
+.btn-camera{
+  background:#0dcaf0;
+  color:#111;
+  width:165px;
+  margin-top:6px;
+}
+
 .btn-upload{
   background:#198754;
   color:white;
@@ -454,6 +467,11 @@ td:nth-child(2){
 }
 
 @media(max-width:700px){
+  .top-header{
+    flex-direction:column;
+    gap:6px;
+    padding:10px 12px;
+  }
   .top-header h1{font-size:18px}
   .top-header img{width:42px}
   .nav-menu button{width:100%;min-width:0}
@@ -616,11 +634,16 @@ td:nth-child(2){
         <div class="field">
           <label>Upload Gambar</label>
 
-          <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="paparNamaFail()">
+          <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="paparNamaFail('galeri')">
+          <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none" onchange="paparNamaFail('kamera')">
 
           <div class="upload-row">
             <button type="button" class="btn-add-upload" onclick="pilihGambar()">
-              <i class="fa-solid fa-plus"></i> TAMBAH GAMBAR
+              <i class="fa-solid fa-images"></i> PILIH GALERI
+            </button>
+
+            <button type="button" class="btn-camera" onclick="bukaKamera()">
+              <i class="fa-solid fa-camera"></i> BUKA KAMERA
             </button>
 
             <button type="button" class="btn-upload" onclick="uploadImage()">
@@ -629,7 +652,7 @@ td:nth-child(2){
           </div>
 
           <div class="note">
-            Upload akan auto masukkan link ke ruangan Gambar URL.
+            Guna PILIH GALERI untuk gambar sedia ada, atau BUKA KAMERA untuk ambil gambar terus menggunakan telefon. Upload akan auto masukkan link ke ruangan Gambar URL.
           </div>
 
           <div id="namaFailGambar" class="upload-file-name">
@@ -789,6 +812,7 @@ const catatanEl = document.getElementById("catatan");
 const gambarEl = document.getElementById("gambar");
 const gambarPreviewEl = document.getElementById("gambarPreview");
 const imageInputEl = document.getElementById("imageInput");
+const cameraInputEl = document.getElementById("cameraInput");
 const namaFailGambarEl = document.getElementById("namaFailGambar");
 const tableEl = document.getElementById("table");
 const editingRowEl = document.getElementById("editingRow");
@@ -1151,8 +1175,13 @@ function pilihGambar(){
   imageInputEl.click();
 }
 
-function paparNamaFail(){
-  const files = Array.from(imageInputEl.files || []);
+function bukaKamera(){
+  cameraInputEl.click();
+}
+
+function paparNamaFail(sumber){
+  const inputEl = sumber === "kamera" ? cameraInputEl : imageInputEl;
+  const files = Array.from(inputEl.files || []);
 
   files.forEach(file => {
     const exists = selectedFiles.some(existing =>
@@ -1166,6 +1195,7 @@ function paparNamaFail(){
     }
   });
 
+  inputEl.value = "";
   renderSelectedFiles();
 }
 
@@ -1214,10 +1244,12 @@ async function uploadImage(){
 
   const uploadBtn = document.querySelector(".btn-upload");
   const addBtn = document.querySelector(".btn-add-upload");
+  const cameraBtn = document.querySelector(".btn-camera");
 
   isUploading = true;
   uploadBtn.disabled = true;
   addBtn.disabled = true;
+  cameraBtn.disabled = true;
   saveBtn.disabled = true;
   uploadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SEDANG UPLOAD...`;
   setStatus("Sedang upload gambar...");
@@ -1258,6 +1290,7 @@ async function uploadImage(){
 
     selectedFiles = [];
     imageInputEl.value = "";
+    cameraInputEl.value = "";
     renderSelectedFiles();
 
   }catch(err){
@@ -1267,6 +1300,7 @@ async function uploadImage(){
     isUploading = false;
     uploadBtn.disabled = false;
     addBtn.disabled = false;
+    cameraBtn.disabled = false;
     saveBtn.disabled = false;
     uploadBtn.innerHTML = `<i class="fa-solid fa-upload"></i> UPLOAD SEMUA GAMBAR`;
     setStatus("");
@@ -1454,6 +1488,7 @@ function clearForm(){
 
   selectedFiles = [];
   imageInputEl.value = "";
+  cameraInputEl.value = "";
   renderSelectedFiles();
 
   gambarPreviewEl.innerHTML = "";

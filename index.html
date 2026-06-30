@@ -7,25 +7,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
-:root{
-  --main-blue:#0d6efd;
-  --dark-blue:#0b1f3a;
-  --border:#d7dde5;
-  --page-bg:#f3f4f6;
-  --text:#222;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:var(--page-bg);
-  color:var(--text);
+  background:#f3f4f6;
+  color:#222;
   font-size:13px;
-  line-height:1.35;
 }
 
 .top-header{
@@ -33,27 +22,22 @@ body{
   padding:12px 22px;
   display:flex;
   align-items:center;
-  justify-content:flex-start;
   gap:15px;
   border-top:2px solid #1d4ed8;
   box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
 
-.top-header img{
-  width:52px;
-}
+.top-header img{width:52px}
 
 .top-header h1{
   margin:0;
   font-size:24px;
-  font-weight:600;
-  letter-spacing:0;
+  font-weight:700;
 }
 
 .nav-menu{
   background:#243447;
   display:flex;
-  justify-content:flex-start;
   gap:10px;
   padding:10px 16px;
   flex-wrap:wrap;
@@ -66,9 +50,8 @@ body{
   border-radius:3px;
   padding:9px 14px;
   font-size:13px;
-  font-weight:600;
+  font-weight:700;
   cursor:pointer;
-  box-shadow:none;
   min-width:160px;
 }
 
@@ -77,24 +60,14 @@ body{
   color:#111;
 }
 
-.container{
-  width:100%;
-  max-width:100%;
-  margin:0;
-  padding:18px 20px;
-}
+.container{padding:18px 20px}
 
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
+.page{display:none}
+.page.active{display:block}
 
 .dashboard-title{
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
   margin:14px 0 10px;
   border-bottom:1px solid #2196f3;
   padding-bottom:8px;
@@ -106,18 +79,13 @@ body{
   margin-bottom:18px;
 }
 
-.status-grid{
-  grid-template-columns:repeat(3,1fr);
-}
-
-.kategori-grid{
-  grid-template-columns:repeat(5,1fr);
-}
+.status-grid{grid-template-columns:repeat(3,1fr)}
+.kategori-grid{grid-template-columns:repeat(5,1fr)}
 
 .info-card{
   min-height:105px;
   color:white;
-  border-radius:2px;
+  border-radius:3px;
   overflow:hidden;
   position:relative;
   box-shadow:0 1px 4px rgba(0,0,0,.16);
@@ -131,14 +99,14 @@ body{
 
 .info-number{
   font-size:30px;
-  font-weight:700;
+  font-weight:800;
   line-height:1;
   margin-bottom:10px;
 }
 
 .info-label{
   font-size:13px;
-  font-weight:500;
+  font-weight:600;
 }
 
 .info-icon{
@@ -154,7 +122,7 @@ body{
   text-align:center;
   padding:8px;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
   position:absolute;
   bottom:0;
   width:100%;
@@ -169,14 +137,14 @@ body{
   opacity:.25;
 }
 
-.bg-blue{background:#17a2d4;}
-.bg-green{background:#28a745;}
-.bg-red{background:#dc3545;}
-.bg-orange{background:#fd7e14;}
-.bg-purple{background:#6f42c1;}
-.bg-dark{background:#263342;}
-.bg-yellow{background:#ffc107;}
-.bg-teal{background:#20c997;}
+.bg-blue{background:#17a2d4}
+.bg-green{background:#28a745}
+.bg-red{background:#dc3545}
+.bg-orange{background:#fd7e14}
+.bg-purple{background:#6f42c1}
+.bg-dark{background:#263342}
+.bg-yellow{background:#ffc107}
+.bg-teal{background:#20c997}
 
 .section-box{
   background:white;
@@ -184,7 +152,6 @@ body{
   box-shadow:0 1px 4px rgba(0,0,0,.14);
   margin-bottom:20px;
   overflow:hidden;
-  width:100%;
 }
 
 .section-title{
@@ -192,15 +159,13 @@ body{
   color:white;
   padding:12px 16px;
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
   display:flex;
   align-items:center;
   gap:8px;
 }
 
-.form-area{
-  padding:18px;
-}
+.form-area{padding:18px}
 
 .form-grid{
   display:grid;
@@ -215,16 +180,14 @@ body{
 }
 
 label{
-  font-weight:600;
+  font-weight:700;
   font-size:13px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:8px 10px;
-  border:1px solid var(--border);
+  border:1px solid #d7dde5;
   border-radius:3px;
   font-size:13px;
   background:white;
@@ -241,14 +204,7 @@ textarea{
   font-size:12px;
 }
 
-.full-width{
-  grid-column:1 / span 3;
-}
-
-.form-buttons{
-  text-align:center;
-  margin-top:20px;
-}
+.full-width{grid-column:1 / span 3}
 
 button{
   border:none;
@@ -256,7 +212,12 @@ button{
   border-radius:3px;
   padding:8px 13px;
   font-size:13px;
-  font-weight:600;
+  font-weight:700;
+}
+
+.form-buttons{
+  text-align:center;
+  margin-top:20px;
 }
 
 .btn-save{
@@ -268,6 +229,13 @@ button{
 .btn-update{
   background:#ffc107;
   color:#111;
+}
+
+.btn-cancel{
+  background:#6c757d;
+  color:white;
+  margin-left:12px;
+  display:none;
 }
 
 .upload-row{
@@ -295,16 +263,13 @@ button{
   font-size:12px;
   color:#6c757d;
   font-weight:500;
-  line-height:1.5;
 }
 
 .upload-file-name{
   margin-top:4px;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
   color:#198754;
-  line-height:1.5;
-  white-space:normal;
 }
 
 .selected-file-list{
@@ -316,8 +281,8 @@ button{
 
 .selected-file-item{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:8px;
   background:#f8fafc;
   border:1px solid #dbe2ea;
@@ -328,7 +293,7 @@ button{
 
 .selected-file-item span{
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
   word-break:break-word;
 }
 
@@ -337,7 +302,6 @@ button{
   color:white;
   font-size:11px;
   padding:5px 8px;
-  border-radius:3px;
   min-width:58px;
 }
 
@@ -354,20 +318,8 @@ button{
   padding:5px 8px;
   border-radius:3px;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
   text-decoration:none;
-}
-
-.btn-cancel{
-  background:#6c757d;
-  color:white;
-  margin-left:12px;
-  display:none;
-}
-
-.btn-excel{
-  background:#198754;
-  color:white;
 }
 
 .table-toolbar{
@@ -391,21 +343,21 @@ button{
   top:50%;
   transform:translateY(-50%);
   color:#6c757d;
-  font-size:13px;
 }
 
-.search-box input{
-  padding-left:36px;
-}
+.search-box input{padding-left:36px}
 
 .table-count{
   font-size:13px;
-  font-weight:600;
+  font-weight:700;
 }
 
-.table-wrap{
-  overflow-x:auto;
+.btn-excel{
+  background:#198754;
+  color:white;
 }
+
+.table-wrap{overflow-x:auto}
 
 table{
   width:100%;
@@ -419,21 +371,18 @@ th{
   color:white;
   padding:9px 8px;
   border:1px solid #0b5ed7;
-  font-size:12px;
-  font-weight:600;
 }
 
 td{
   padding:8px;
   border:1px solid #dbe2ea;
   text-align:center;
-  font-size:12px;
   vertical-align:middle;
 }
 
 td:nth-child(2){
   text-align:left;
-  font-weight:600;
+  font-weight:700;
 }
 
 .badge{
@@ -442,28 +391,12 @@ td:nth-child(2){
   border-radius:14px;
   font-size:11px;
   color:white;
-  font-weight:600;
+  font-weight:700;
 }
 
-.badge-baik{
-  background:#198754;
-}
-
-.badge-rosak{
-  background:#dc3545;
-}
-
-.badge-pelupusan{
-  background:#fd7e14;
-}
-
-.btn-delete{
-  background:#dc3545;
-  color:white;
-  font-size:11px;
-  padding:6px 8px;
-  border-radius:3px;
-}
+.badge-baik{background:#198754}
+.badge-rosak{background:#dc3545}
+.badge-pelupusan{background:#fd7e14}
 
 .btn-edit{
   background:#ffc107;
@@ -471,7 +404,13 @@ td:nth-child(2){
   font-size:11px;
   padding:6px 8px;
   margin-right:6px;
-  border-radius:3px;
+}
+
+.btn-delete{
+  background:#dc3545;
+  color:white;
+  font-size:11px;
+  padding:6px 8px;
 }
 
 .btn-image{
@@ -490,70 +429,25 @@ td:nth-child(2){
   color:white;
   font-size:11px;
   padding:6px 8px;
-  margin:2px;
   display:inline-block;
   border-radius:3px;
 }
 
 @media(max-width:1200px){
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .full-width{
-    grid-column:1 / span 2;
-  }
+  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+  .full-width{grid-column:1 / span 2}
 }
 
 @media(max-width:700px){
-  body{
-    font-size:13px;
-  }
-
-  .top-header{
-    justify-content:center;
-    padding:10px;
-  }
-
-  .top-header h1{
-    font-size:18px;
-  }
-
-  .top-header img{
-    width:42px;
-  }
-
-  .nav-menu button{
-    width:100%;
-    min-width:0;
-    font-size:13px;
-  }
-
-  .container{
-    padding:12px;
-  }
-
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full-width{
-    grid-column:1;
-  }
-
-  .upload-row button{
-    width:100%;
-  }
+  .top-header h1{font-size:18px}
+  .top-header img{width:42px}
+  .nav-menu button{width:100%;min-width:0}
+  .container{padding:12px}
+  .status-grid,.kategori-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+  .upload-row button{width:100%}
 }
 </style>
 </head>
@@ -586,16 +480,13 @@ td:nth-child(2){
   <div class="dashboard-title">STATUS INVENTORI</div>
 
   <div class="dashboard-grid status-grid">
-
     <div class="info-card bg-green">
       <div class="info-card-content">
         <div class="info-number" id="baik">0</div>
         <div class="info-label">Baik</div>
       </div>
       <i class="fa-solid fa-circle-check info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat</div>
     </div>
 
     <div class="info-card bg-red">
@@ -604,9 +495,7 @@ td:nth-child(2){
         <div class="info-label">Rosak</div>
       </div>
       <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat</div>
     </div>
 
     <div class="info-card bg-orange">
@@ -615,26 +504,20 @@ td:nth-child(2){
         <div class="info-label">Pelupusan</div>
       </div>
       <i class="fa-solid fa-trash info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat</div>
     </div>
-
   </div>
 
   <div class="dashboard-title">KATEGORI INVENTORI</div>
 
   <div class="dashboard-grid kategori-grid">
-
     <div class="info-card bg-blue">
       <div class="info-card-content">
         <div class="info-number" id="total">0</div>
         <div class="info-label">Jumlah Inventori</div>
       </div>
       <i class="fa-solid fa-boxes-stacked info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('all','')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat</div>
     </div>
 
     <div class="info-card bg-purple">
@@ -643,9 +526,7 @@ td:nth-child(2){
         <div class="info-label">ICT</div>
       </div>
       <i class="fa-solid fa-computer info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat</div>
     </div>
 
     <div class="info-card bg-dark">
@@ -654,9 +535,7 @@ td:nth-child(2){
         <div class="info-label">Sewaan</div>
       </div>
       <i class="fa-solid fa-building info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat</div>
     </div>
 
     <div class="info-card bg-yellow">
@@ -665,9 +544,7 @@ td:nth-child(2){
         <div class="info-label">PKPJ</div>
       </div>
       <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
-      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat</div>
     </div>
 
     <div class="info-card bg-teal">
@@ -676,16 +553,12 @@ td:nth-child(2){
         <div class="info-label">Proses Pemulangan ke ICT</div>
       </div>
       <i class="fa-solid fa-rotate-left info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat</div>
     </div>
-
   </div>
 </div>
 
 <div id="formPage" class="page">
-
   <div class="section-box">
     <div class="section-title">
       <i class="fa-solid fa-clipboard-list"></i> MAKLUMAT INVENTORI
@@ -695,7 +568,6 @@ td:nth-child(2){
       <input type="hidden" id="editingRow">
 
       <div class="form-grid">
-
         <div class="field">
           <label>Tahun</label>
           <select id="tahun"></select>
@@ -708,7 +580,7 @@ td:nth-child(2){
 
         <div class="field">
           <label>Gambar URL</label>
-          <textarea id="gambar" class="gambar-url-box" readonly placeholder="Link gambar akan masuk di sini. Jika lebih dari satu, sistem akan asingkan dengan simbol |"></textarea>
+          <textarea id="gambar" class="gambar-url-box" readonly></textarea>
           <div id="gambarPreview" class="gambar-preview"></div>
         </div>
 
@@ -730,14 +602,7 @@ td:nth-child(2){
         <div class="field">
           <label>Upload Gambar</label>
 
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            multiple
-            style="display:none"
-            onchange="paparNamaFail()"
-          >
+          <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="paparNamaFail()">
 
           <div class="upload-row">
             <button type="button" class="btn-add-upload" onclick="pilihGambar()">
@@ -750,7 +615,7 @@ td:nth-child(2){
           </div>
 
           <div class="upload-hint">
-            Boleh pilih lebih dari satu gambar. Kalau tersalah pilih, tekan butang Batal pada gambar tersebut.
+            Boleh pilih lebih dari satu gambar. Tekan Batal kalau tersalah pilih.
           </div>
 
           <div id="namaFailGambar" class="upload-file-name">
@@ -800,7 +665,6 @@ td:nth-child(2){
             <option value="Pejabat PKPJ">Pejabat PKPJ</option>
             <option value="Lain-lain">Lain-lain</option>
           </select>
-
           <input type="text" id="lokasiLain" placeholder="Masukkan lokasi..." style="display:none;margin-top:8px;">
         </div>
 
@@ -818,7 +682,6 @@ td:nth-child(2){
           <label>Catatan</label>
           <textarea id="catatan"></textarea>
         </div>
-
       </div>
 
       <div class="form-buttons">
@@ -833,11 +696,9 @@ td:nth-child(2){
       </div>
     </div>
   </div>
-
 </div>
 
 <div id="tablePage" class="page">
-
   <div class="section-box">
     <div class="section-title">
       <i class="fa-solid fa-table"></i> SENARAI INVENTORI
@@ -846,7 +707,7 @@ td:nth-child(2){
     <div class="table-toolbar">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="Cari nama, kategori, jenama, status atau lokasi..." onkeyup="searchTable()">
+        <input type="text" id="searchInput" placeholder="Cari..." onkeyup="searchTable()">
       </div>
 
       <div class="table-count">
@@ -880,12 +741,13 @@ td:nth-child(2){
       </table>
     </div>
   </div>
-
 </div>
 
 </div>
 
 <script>
+const API_URL = "https://script.google.com/macros/s/AKfycbz8T40QL4qgt0usJJgall2fhDCgp-6OQwCghomctXWmDQa15ozxc8YxUd5b2LWrNABl/exec";
+
 let allData = [];
 let selectedFiles = [];
 
@@ -913,15 +775,37 @@ const saveBtn = document.getElementById("saveBtn");
 const saveText = document.getElementById("saveText");
 const cancelBtn = document.getElementById("cancelBtn");
 
-for(let y = 2010; y <= 2035; y++){
+for(let y=2010; y<=2035; y++){
   tahunEl.innerHTML += `<option value="${y}" ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
-function serverRun(functionName, ...args){
-  return new Promise((resolve, reject) => {
-    google.script.run
-      .withSuccessHandler(resolve)
-      .withFailureHandler(reject)[functionName](...args);
+function apiPost(payload){
+  return fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.text())
+  .then(text => {
+    try {
+      return JSON.parse(text);
+    } catch(e) {
+      throw new Error("API tidak pulangkan JSON. Response: " + text.substring(0,200));
+    }
+  });
+}
+
+function apiGet(){
+  return fetch(API_URL)
+  .then(r => r.text())
+  .then(text => {
+    try {
+      return JSON.parse(text);
+    } catch(e) {
+      throw new Error("API tidak pulangkan JSON. Response: " + text.substring(0,200));
+    }
   });
 }
 
@@ -934,11 +818,10 @@ function showPage(pageId, btn){
 
 function goPage(pageId){
   const btnMap = {
-    dashboardPage: document.getElementById("btnDashboard"),
-    formPage: document.getElementById("btnForm"),
-    tablePage: document.getElementById("btnTable")
+    dashboardPage:document.getElementById("btnDashboard"),
+    formPage:document.getElementById("btnForm"),
+    tablePage:document.getElementById("btnTable")
   };
-
   showPage(pageId, btnMap[pageId]);
 }
 
@@ -952,25 +835,35 @@ function checkLokasi(){
   }
 }
 
-async function load(){
-  try{
-    const d = await serverRun("getDataClient");
+function load(){
+  if(API_URL === "PASTE_WEB_APP_URL_AWAK_DI_SINI"){
+    alert("Sila masukkan Web App URL dalam API_URL dahulu.");
+    return;
+  }
+
+  apiGet()
+  .then(d => {
+    if(d.status === "ERROR"){
+      alert(d.message);
+      return;
+    }
+
     allData = Array.isArray(d) ? d : [];
     renderTable(allData);
     document.getElementById("recordCount").innerText = allData.length;
     stats();
-  }catch(err){
+  })
+  .catch(err => {
     alert("Gagal load data: " + err.message);
     console.error(err);
-  }
+  });
 }
 
 function renderTable(data){
   tableEl.innerHTML = "";
 
-  data.forEach((v, index) => {
+  data.forEach((v,index) => {
     let badgeClass = "";
-
     if(v.status === "Baik") badgeClass = "badge-baik";
     if(v.status === "Rosak") badgeClass = "badge-rosak";
     if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
@@ -1005,29 +898,20 @@ function renderGambarButtons(gambarValue){
     return `<span class="btn-no-image">Tiada Gambar</span>`;
   }
 
-  return urls.map((url, index) => {
-    return `
-      <a href="${escapeAttr(url)}" target="_blank" class="btn-image">
-        <i class="fa-solid fa-image"></i> Gambar ${index + 1}
-      </a>
-    `;
-  }).join("");
+  return urls.map((url,index) => `
+    <a href="${escapeAttr(url)}" target="_blank" class="btn-image">
+      <i class="fa-solid fa-image"></i> Gambar ${index + 1}
+    </a>
+  `).join("");
 }
 
 function parseGambarUrls(value){
   if(!value) return [];
-
-  return String(value)
-    .split("|")
-    .map(x => x.trim())
-    .filter(x => x !== "");
+  return String(value).split("|").map(x => x.trim()).filter(x => x !== "");
 }
 
 function joinGambarUrls(urls){
-  return urls
-    .map(x => String(x || "").trim())
-    .filter(x => x !== "")
-    .join(" | ");
+  return urls.map(x => String(x || "").trim()).filter(x => x !== "").join(" | ");
 }
 
 function updateGambarPreview(){
@@ -1038,7 +922,7 @@ function updateGambarPreview(){
     return;
   }
 
-  gambarPreviewEl.innerHTML = urls.map((url, index) => {
+  gambarPreviewEl.innerHTML = urls.map((url,index) => {
     return `<a href="${escapeAttr(url)}" target="_blank">Gambar ${index + 1}</a>`;
   }).join("");
 }
@@ -1047,36 +931,21 @@ gambarEl.addEventListener("input", updateGambarPreview);
 
 function stats(){
   let total = allData.length;
-  let baik = 0;
-  let rosak = 0;
-  let pelupusan = 0;
-  let ict = 0;
-  let sewaan = 0;
-  let pkpj = 0;
-  let prosesICT = 0;
+  let baik = 0, rosak = 0, pelupusan = 0;
+  let ict = 0, sewaan = 0, pkpj = 0, prosesICT = 0;
 
   allData.forEach(v => {
-    let status = String(v.status || "").trim().toLowerCase().replace(/\s+/g," ");
-    let kategori = String(v.kategori || "").trim().toLowerCase().replace(/\s+/g," ");
+    let status = String(v.status || "").trim().toLowerCase();
+    let kategori = String(v.kategori || "").trim().toLowerCase();
 
     if(status === "baik") baik++;
     if(status === "rosak") rosak++;
     if(status === "pelupusan") pelupusan++;
 
-    if(kategori === "ict"){
-      ict++;
-    }else if(kategori === "sewaan"){
-      sewaan++;
-    }else if(kategori === "pkpj"){
-      pkpj++;
-    }else if(
-      kategori === "dalam proses pemulangan ke ict" ||
-      kategori === "proses pemulangan ke ict" ||
-      kategori.includes("proses") ||
-      kategori.includes("pemulangan")
-    ){
-      prosesICT++;
-    }
+    if(kategori === "ict") ict++;
+    if(kategori === "sewaan") sewaan++;
+    if(kategori === "pkpj") pkpj++;
+    if(kategori.includes("proses") || kategori.includes("pemulangan")) prosesICT++;
   });
 
   document.getElementById("total").innerText = total;
@@ -1089,7 +958,7 @@ function stats(){
   document.getElementById("prosesICT").innerText = prosesICT;
 }
 
-function filterDashboard(type, value){
+function filterDashboard(type,value){
   let filtered = allData;
 
   if(type === "status"){
@@ -1101,16 +970,12 @@ function filterDashboard(type, value){
       let kategori = String(v.kategori || "").trim().toLowerCase();
       let target = String(value || "").trim().toLowerCase();
 
-      if(target === "dalam proses pemulangan ke ict"){
+      if(target.includes("proses")){
         return kategori.includes("proses") || kategori.includes("pemulangan");
       }
 
       return kategori === target;
     });
-  }
-
-  if(type === "all"){
-    filtered = allData;
   }
 
   renderTable(filtered);
@@ -1167,13 +1032,9 @@ function editData(row){
 
 function formatDateForInput(value){
   if(!value) return "";
-
-  if(String(value).includes("T")){
-    return String(value).split("T")[0];
-  }
+  if(String(value).includes("T")) return String(value).split("T")[0];
 
   const d = new Date(value);
-
   if(!isNaN(d)){
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   }
@@ -1201,7 +1062,7 @@ function searchTable(){
   document.getElementById("recordCount").innerText = filtered.length;
 }
 
-async function simpan(){
+function simpan(){
   let lokasiFinal = lokasiEl.value;
 
   if(lokasiEl.value === "Lain-lain"){
@@ -1218,45 +1079,43 @@ async function simpan(){
   saveBtn.disabled = true;
   saveText.innerText = isEdit ? "SEDANG KEMASKINI..." : "SEDANG SIMPAN...";
 
-  const payload = {
-    row: editingRowEl.value,
-    tahun: tahunEl.value,
-    noInventori: noInventoriEl.value,
-    nama: namaEl.value,
-    kategori: kategoriEl.value,
-    jenama: jenamaEl.value,
-    model: modelEl.value,
-    noSiri: noSiriEl.value,
-    tagAset: tagAsetEl.value,
-    kuantiti: kuantitiEl.value,
-    lokasi: lokasiFinal,
-    status: statusEl.value,
-    tarikh: tarikhEl.value,
-    pembekal: pembekalEl.value,
-    gambar: gambarEl.value,
-    catatan: catatanEl.value
-  };
-
-  try{
-    const res = isEdit
-      ? await serverRun("updateData", payload)
-      : await serverRun("simpanData", payload);
-
+  apiPost({
+    action:isEdit ? "update" : "simpan",
+    row:editingRowEl.value,
+    tahun:tahunEl.value,
+    noInventori:noInventoriEl.value,
+    nama:namaEl.value,
+    kategori:kategoriEl.value,
+    jenama:jenamaEl.value,
+    model:modelEl.value,
+    noSiri:noSiriEl.value,
+    tagAset:tagAsetEl.value,
+    kuantiti:kuantitiEl.value,
+    lokasi:lokasiFinal,
+    status:statusEl.value,
+    tarikh:tarikhEl.value,
+    pembekal:pembekalEl.value,
+    gambar:gambarEl.value,
+    catatan:catatanEl.value
+  })
+  .then(res => {
     if(res.status === "OK"){
       alert(isEdit ? "BERJAYA DIKEMASKINI" : "BERJAYA DISIMPAN");
       clearForm();
-      await load();
+      load();
       goPage("tablePage");
     }else{
       alert(res.message || "Gagal simpan data");
     }
-  }catch(err){
+  })
+  .catch(err => {
     alert("Ralat simpan data: " + err.message);
     console.error(err);
-  }finally{
+  })
+  .finally(() => {
     saveBtn.disabled = false;
     saveText.innerText = isEdit ? "KEMASKINI DATA" : "SIMPAN DATA";
-  }
+  });
 }
 
 function pilihGambar(){
@@ -1266,11 +1125,6 @@ function pilihGambar(){
 function paparNamaFail(){
   const files = Array.from(imageInputEl.files || []);
 
-  if(files.length === 0){
-    renderSelectedFiles();
-    return;
-  }
-
   files.forEach(file => {
     const exists = selectedFiles.some(existing =>
       existing.name === file.name &&
@@ -1278,9 +1132,7 @@ function paparNamaFail(){
       existing.lastModified === file.lastModified
     );
 
-    if(!exists){
-      selectedFiles.push(file);
-    }
+    if(!exists) selectedFiles.push(file);
   });
 
   renderSelectedFiles();
@@ -1295,28 +1147,25 @@ function renderSelectedFiles(){
   let html = `<div>Jumlah gambar dipilih: ${selectedFiles.length}</div>`;
   html += `<div class="selected-file-list">`;
 
-  selectedFiles.forEach((file, index) => {
+  selectedFiles.forEach((file,index) => {
     html += `
       <div class="selected-file-item">
         <span>${index + 1}. ${escapeHtml(file.name)}</span>
-        <button type="button" class="btn-remove-file" onclick="buangGambarDipilih(${index})">
-          Batal
-        </button>
+        <button type="button" class="btn-remove-file" onclick="buangGambarDipilih(${index})">Batal</button>
       </div>
     `;
   });
 
   html += `</div>`;
-
   namaFailGambarEl.innerHTML = html;
 }
 
 function buangGambarDipilih(index){
-  selectedFiles.splice(index, 1);
+  selectedFiles.splice(index,1);
   renderSelectedFiles();
 }
 
-async function uploadImage(){
+function uploadImage(){
   const files = selectedFiles;
 
   if(files.length === 0){
@@ -1335,30 +1184,34 @@ async function uploadImage(){
   uploadBtn.disabled = true;
   uploadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SEDANG UPLOAD...`;
 
-  try{
-    const existingUrls = parseGambarUrls(gambarEl.value);
-    const uploadedUrls = [];
+  const existingUrls = parseGambarUrls(gambarEl.value);
+  const uploadedUrls = [];
 
-    for(let i = 0; i < files.length; i++){
-      const file = files[i];
+  let chain = Promise.resolve();
 
-      namaFailGambarEl.innerText = `Sedang upload ${i + 1}/${files.length}: ${file.name}`;
-
-      const base64 = await fileToBase64(file);
-
-      const res = await serverRun("uploadFile", {
-        image: base64.split(",")[1],
-        mimeType: file.type,
-        fileName: file.name
+  files.forEach((file,index) => {
+    chain = chain.then(() => {
+      namaFailGambarEl.innerText = `Sedang upload ${index + 1}/${files.length}: ${file.name}`;
+      return fileToBase64(file);
+    })
+    .then(base64 => {
+      return apiPost({
+        action:"upload",
+        image:base64.split(",")[1],
+        mimeType:file.type,
+        fileName:file.name
       });
-
+    })
+    .then(res => {
       if(res.status !== "OK"){
         throw new Error(res.message || "Upload gagal: " + file.name);
       }
-
       uploadedUrls.push(res.url);
-    }
+    });
+  });
 
+  chain
+  .then(() => {
     gambarEl.value = joinGambarUrls(existingUrls.concat(uploadedUrls));
     updateGambarPreview();
 
@@ -1367,18 +1220,19 @@ async function uploadImage(){
     selectedFiles = [];
     imageInputEl.value = "";
     renderSelectedFiles();
-
-  }catch(err){
+  })
+  .catch(err => {
     alert("Ralat upload gambar: " + err.message);
     console.error(err);
-  }finally{
+  })
+  .finally(() => {
     uploadBtn.disabled = false;
     uploadBtn.innerHTML = `<i class="fa-solid fa-upload"></i> UPLOAD SEMUA GAMBAR`;
-  }
+  });
 }
 
 function fileToBase64(file){
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve,reject) => {
     const reader = new FileReader();
 
     reader.onload = function(e){
@@ -1393,27 +1247,30 @@ function fileToBase64(file){
   });
 }
 
-async function del(id){
+function del(id){
   if(!confirm("Delete data ini?")) return;
 
-  try{
-    const res = await serverRun("deleteData", {row:id});
-
+  apiPost({
+    action:"delete",
+    row:id
+  })
+  .then(res => {
     if(res.status === "OK"){
-      await load();
+      load();
     }else{
       alert(res.message || "Gagal delete data");
     }
-  }catch(err){
+  })
+  .catch(err => {
     alert("Ralat delete data: " + err.message);
     console.error(err);
-  }
+  });
 }
 
 function exportExcel(){
   let csv = "No,Nama,Kategori,Jenama,Model,No Siri,Kuantiti,Status,Lokasi,Catatan,Gambar\n";
 
-  allData.forEach((v,index)=>{
+  allData.forEach((v,index) => {
     csv += [
       index + 1,
       v.nama || "",
@@ -1487,4 +1344,3 @@ window.onload = function(){
 
 </body>
 </html>
-

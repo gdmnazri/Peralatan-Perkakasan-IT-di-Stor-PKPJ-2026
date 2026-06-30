@@ -658,6 +658,16 @@ td:nth-child(4){
   white-space:normal !important;
 }
 
+
+/* ===== BUTANG PAPAR SEMUA REKOD ===== */
+.btn-reset-filter{
+  background:#2563eb;
+  color:white;
+}
+.btn-reset-filter:hover{
+  background:#1d4ed8;
+}
+
 </style>
 </head>
 
@@ -931,6 +941,10 @@ td:nth-child(4){
           <div class="table-count">
             Jumlah Rekod: <span id="recordCount">0</span>
           </div>
+
+          <button class="btn-reset-filter" onclick="resetFilter()">
+            <i class="fa-solid fa-list"></i> Papar Semua Rekod
+          </button>
 
           <button class="btn-excel" onclick="exportExcel()">
             <i class="fa-solid fa-file-excel"></i> Export Excel
@@ -1791,6 +1805,23 @@ function updateSortIcons(){
 
   const active = document.getElementById("sort-" + sortKey);
   if(active){active.innerText = sortAsc ? "↑" : "↓"}
+}
+
+
+function resetFilter(){
+  tableBaseData = [...allData];
+
+  const searchInput = document.getElementById("searchInput");
+  const sideSearch = document.getElementById("sideSearch");
+
+  if(searchInput){searchInput.value = "";}
+  if(sideSearch){sideSearch.value = "";}
+
+  sortKey = "";
+  sortAsc = true;
+
+  applyTableView();
+  updateSortIcons();
 }
 
 function exportExcel(){

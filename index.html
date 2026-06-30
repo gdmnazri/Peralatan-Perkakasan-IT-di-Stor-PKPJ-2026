@@ -7,55 +7,41 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
-:root{
-  --main-blue:#0d6efd;
-  --dark-blue:#0b1f3a;
-  --border:#d7dde5;
-  --page-bg:#f3f4f6;
-  --text:#222;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:var(--page-bg);
-  color:var(--text);
-  font-size:13px;
-  line-height:1.35;
+  background:#eef3f8;
+  color:#0b1f3a;
+  font-size:18px;
 }
 
 .top-header{
   background:white;
-  padding:12px 22px;
+  padding:24px 35px;
   display:flex;
   align-items:center;
-  justify-content:flex-start;
-  gap:15px;
-  border-top:2px solid #1d4ed8;
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
+  justify-content:center;
+  gap:20px;
+  box-shadow:0 2px 10px rgba(0,0,0,.10);
 }
 
-.top-header img{
-  width:52px;
-}
+.top-header img{width:90px}
 
 .top-header h1{
   margin:0;
-  font-size:24px;
-  font-weight:600;
-  letter-spacing:0;
+  font-size:46px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
 .nav-menu{
-  background:#243447;
+  background:#0b1f3a;
   display:flex;
-  justify-content:flex-start;
-  gap:10px;
-  padding:10px 16px;
+  justify-content:center;
+  gap:22px;
+  padding:22px;
   flex-wrap:wrap;
 }
 
@@ -63,17 +49,17 @@ body{
   background:#0d6efd;
   color:white;
   border:none;
-  border-radius:3px;
-  padding:9px 14px;
-  font-size:13px;
-  font-weight:600;
+  border-radius:8px;
+  padding:18px 36px;
+  font-size:21px;
+  font-weight:900;
   cursor:pointer;
-  box-shadow:none;
-  min-width:160px;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+  min-width:230px;
 }
 
 .nav-menu button.active{
-  background:#f59e0b;
+  background:#ffc107;
   color:#111;
 }
 
@@ -81,80 +67,68 @@ body{
   width:100%;
   max-width:100%;
   margin:0;
-  padding:18px 20px;
+  padding:34px 45px;
 }
 
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
+.page{display:none}
+.page.active{display:block}
 
 .dashboard-title{
-  font-size:16px;
-  font-weight:600;
-  margin:14px 0 10px;
-  border-bottom:1px solid #2196f3;
-  padding-bottom:8px;
+  font-size:24px;
+  font-weight:900;
+  margin:24px 0 18px;
 }
 
 .dashboard-grid{
   display:grid;
-  gap:16px;
-  margin-bottom:18px;
+  gap:28px;
+  margin-bottom:30px;
 }
 
-.status-grid{
-  grid-template-columns:repeat(3,1fr);
-}
-
-.kategori-grid{
-  grid-template-columns:repeat(5,1fr);
-}
+.status-grid{grid-template-columns:repeat(3,1fr)}
+.kategori-grid{grid-template-columns:repeat(5,1fr)}
 
 .info-card{
-  min-height:105px;
+  min-height:190px;
   color:white;
-  border-radius:2px;
+  border-radius:8px;
   overflow:hidden;
   position:relative;
-  box-shadow:0 1px 4px rgba(0,0,0,.16);
+  box-shadow:0 6px 16px rgba(0,0,0,.24);
 }
 
 .info-card-content{
-  padding:14px 16px;
+  padding:28px;
   position:relative;
   z-index:2;
 }
 
 .info-number{
-  font-size:30px;
-  font-weight:700;
+  font-size:68px;
+  font-weight:900;
   line-height:1;
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
 
 .info-label{
-  font-size:13px;
-  font-weight:500;
+  font-size:25px;
+  font-weight:900;
 }
 
 .info-icon{
   position:absolute;
-  right:18px;
-  top:18px;
-  font-size:58px;
-  opacity:.20;
+  right:28px;
+  top:30px;
+  font-size:115px;
+  opacity:.23;
 }
 
 .info-card-footer{
   background:rgba(0,0,0,.16);
   text-align:center;
-  padding:8px;
-  font-size:12px;
-  font-weight:600;
+  padding:15px;
+  font-size:19px;
+  font-weight:900;
   position:absolute;
   bottom:0;
   width:100%;
@@ -163,26 +137,26 @@ body{
 
 .pk-logo-card{
   position:absolute;
-  right:18px;
-  top:18px;
-  width:58px;
-  opacity:.25;
+  right:32px;
+  top:32px;
+  width:110px;
+  opacity:.30;
 }
 
-.bg-blue{background:#17a2d4;}
-.bg-green{background:#28a745;}
-.bg-red{background:#dc3545;}
-.bg-orange{background:#fd7e14;}
-.bg-purple{background:#6f42c1;}
-.bg-dark{background:#263342;}
-.bg-yellow{background:#ffc107;}
-.bg-teal{background:#20c997;}
+.bg-blue{background:#17a2d4}
+.bg-green{background:#28a745}
+.bg-red{background:#dc3545}
+.bg-orange{background:#fd7e14}
+.bg-purple{background:#6f42c1}
+.bg-dark{background:#263342}
+.bg-yellow{background:#ffc107}
+.bg-teal{background:#20c997}
 
 .section-box{
   background:white;
-  border-radius:3px;
-  box-shadow:0 1px 4px rgba(0,0,0,.14);
-  margin-bottom:20px;
+  border-radius:10px;
+  box-shadow:0 5px 18px rgba(0,0,0,.16);
+  margin-bottom:34px;
   overflow:hidden;
   width:100%;
 }
@@ -190,79 +164,72 @@ body{
 .section-title{
   background:#0d6efd;
   color:white;
-  padding:12px 16px;
-  font-size:16px;
-  font-weight:600;
+  padding:22px 30px;
+  font-size:25px;
+  font-weight:900;
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:14px;
 }
 
-.form-area{
-  padding:18px;
-}
+.form-area{padding:36px}
 
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  gap:14px 18px;
+  gap:30px 42px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:5px;
+  gap:10px;
 }
 
 label{
-  font-weight:600;
-  font-size:13px;
+  font-weight:900;
+  font-size:19px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
-  padding:8px 10px;
-  border:1px solid var(--border);
-  border-radius:3px;
-  font-size:13px;
+  padding:18px;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  font-size:18px;
   background:white;
-  min-height:36px;
 }
 
 textarea{
-  height:80px;
+  height:125px;
   resize:vertical;
 }
 
 .gambar-url-box{
-  height:72px;
-  font-size:12px;
+  height:92px;
+  font-size:14px;
 }
 
-.full-width{
-  grid-column:1 / span 3;
-}
+.full-width{grid-column:1 / span 3}
 
 .form-buttons{
   text-align:center;
-  margin-top:20px;
+  margin-top:34px;
 }
 
 button{
   border:none;
   cursor:pointer;
-  border-radius:3px;
-  padding:8px 13px;
-  font-size:13px;
-  font-weight:600;
+  border-radius:6px;
+  padding:14px 24px;
+  font-size:18px;
+  font-weight:900;
 }
 
 .btn-save{
   background:#0d6efd;
   color:white;
-  min-width:170px;
+  min-width:240px;
 }
 
 .btn-update{
@@ -272,7 +239,7 @@ button{
 
 .upload-row{
   display:flex;
-  gap:8px;
+  gap:10px;
   align-items:center;
   flex-wrap:wrap;
 }
@@ -280,32 +247,171 @@ button{
 .btn-add-upload{
   background:#0d6efd;
   color:white;
-  width:165px;
-  margin-top:6px;
+  width:220px;
+  margin-top:10px;
 }
 
 .btn-upload{
   background:#198754;
   color:white;
-  width:185px;
-  margin-top:6px;
-}
-
-.upload-hint{
-  font-size:12px;
-  color:#6c757d;
-  font-weight:500;
-  line-height:1.5;
+  width:240px;
+  margin-top:10px;
 }
 
 .upload-file-name{
-  margin-top:4px;
-  font-size:12px;
-  font-weight:600;
+  margin-top:8px;
+  font-size:15px;
+  font-weight:800;
   color:#198754;
   line-height:1.5;
-  white-space:normal;
 }
+
+.upload-hint{
+  font-size:14px;
+  color:#6c757d;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.gambar-preview{
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.gambar-preview a{
+  background:#0d6efd;
+  color:white;
+  padding:8px 12px;
+  border-radius:6px;
+  font-size:14px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.btn-cancel{
+  background:#6c757d;
+  color:white;
+  margin-left:12px;
+  display:none;
+}
+
+.btn-excel{
+  background:#198754;
+  color:white;
+}
+
+.table-toolbar{
+  padding:26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.search-box{
+  position:relative;
+  width:560px;
+  max-width:100%;
+}
+
+.search-box i{
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#6c757d;
+}
+
+.search-box input{
+  padding-left:52px;
+}
+
+.table-count{
+  font-size:20px;
+  font-weight:900;
+}
+
+.table-wrap{overflow-x:auto}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+}
+
+th{
+  background:#0d6efd;
+  color:white;
+  padding:16px;
+  border:1px solid #0b5ed7;
+  font-size:16px;
+}
+
+td{
+  padding:15px;
+  border:1px solid #dbe2ea;
+  text-align:center;
+  font-size:16px;
+  vertical-align:middle;
+}
+
+td:nth-child(2){
+  text-align:left;
+  font-weight:800;
+}
+
+.badge{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:22px;
+  font-size:15px;
+  color:white;
+  font-weight:900;
+}
+
+.badge-baik{background:#198754}
+.badge-rosak{background:#dc3545}
+.badge-pelupusan{background:#fd7e14}
+
+.btn-delete{
+  background:#dc3545;
+  color:white;
+  font-size:15px;
+  padding:9px 13px;
+}
+
+.btn-edit{
+  background:#ffc107;
+  color:#111;
+  font-size:15px;
+  padding:9px 13px;
+  margin-right:6px;
+}
+
+.btn-image{
+  background:#0d6efd;
+  color:white;
+  font-size:15px;
+  padding:9px 13px;
+  margin:3px;
+  text-decoration:none;
+  display:inline-block;
+  border-radius:6px;
+}
+
+.btn-no-image{
+  background:#6c757d;
+  color:white;
+  font-size:15px;
+  padding:9px 13px;
+  margin:3px;
+  display:inline-block;
+  border-radius:6px;
+}
+
 
 .selected-file-list{
   margin-top:6px;
@@ -341,56 +447,246 @@ button{
   min-width:58px;
 }
 
+@media(max-width:1200px){
+  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+  .full-width{grid-column:1 / span 2}
+}
+
+@media(max-width:700px){
+  .top-header h1{font-size:22px}
+  .top-header img{width:55px}
+  .nav-menu button{width:100%;min-width:0;font-size:17px}
+  .container{padding:16px}
+  .status-grid,.kategori-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+  .upload-row button{width:100%}
+}
+
+/* ===== ADMIN SYSTEM STYLE - STANDARD COMPACT ===== */
+:root{
+  --main-blue:#0d6efd;
+  --dark-blue:#0b1f3a;
+  --border:#d7dde5;
+  --page-bg:#f3f4f6;
+  --text:#222;
+}
+
+body{
+  background:var(--page-bg);
+  color:var(--text);
+  font-size:13px;
+  line-height:1.35;
+}
+
+.top-header{
+  padding:12px 22px;
+  justify-content:flex-start;
+  border-top:2px solid #1d4ed8;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.top-header img{
+  width:52px;
+}
+
+.top-header h1{
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:0;
+}
+
+.nav-menu{
+  padding:10px 16px;
+  gap:10px;
+  justify-content:flex-start;
+  background:#243447;
+}
+
+.nav-menu button{
+  min-width:160px;
+  padding:9px 14px;
+  font-size:13px;
+  font-weight:600;
+  border-radius:3px;
+  box-shadow:none;
+}
+
+.nav-menu button.active{
+  background:#f59e0b;
+  color:#111;
+}
+
+.container{
+  padding:18px 20px;
+}
+
+.dashboard-title{
+  font-size:16px;
+  font-weight:600;
+  margin:14px 0 10px;
+  border-bottom:1px solid #2196f3;
+  padding-bottom:8px;
+}
+
+.dashboard-grid{
+  gap:16px;
+  margin-bottom:18px;
+}
+
+.info-card{
+  min-height:105px;
+  border-radius:2px;
+  box-shadow:0 1px 4px rgba(0,0,0,.16);
+}
+
+.info-card-content{
+  padding:14px 16px;
+}
+
+.info-number{
+  font-size:30px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.info-label{
+  font-size:13px;
+  font-weight:500;
+}
+
+.info-icon{
+  right:18px;
+  top:18px;
+  font-size:58px;
+  opacity:.20;
+}
+
+.pk-logo-card{
+  right:18px;
+  top:18px;
+  width:58px;
+  opacity:.25;
+}
+
+.info-card-footer{
+  padding:8px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.section-box{
+  border-radius:3px;
+  box-shadow:0 1px 4px rgba(0,0,0,.14);
+  margin-bottom:20px;
+}
+
+.section-title{
+  padding:12px 16px;
+  font-size:16px;
+  font-weight:600;
+  gap:8px;
+}
+
+.form-area{
+  padding:18px;
+}
+
+.form-grid{
+  gap:14px 18px;
+}
+
+.field{
+  gap:5px;
+}
+
+label{
+  font-size:13px;
+  font-weight:600;
+}
+
+input,
+select,
+textarea{
+  padding:8px 10px;
+  font-size:13px;
+  border:1px solid var(--border);
+  border-radius:3px;
+  min-height:36px;
+}
+
+textarea{
+  height:80px;
+}
+
+.gambar-url-box{
+  height:72px;
+  font-size:12px;
+}
+
+button{
+  padding:8px 13px;
+  font-size:13px;
+  font-weight:600;
+  border-radius:3px;
+}
+
+.btn-save{
+  min-width:170px;
+}
+
+.btn-add-upload{
+  width:165px;
+  margin-top:6px;
+}
+
+.btn-upload{
+  width:185px;
+  margin-top:6px;
+}
+
+.upload-row{
+  gap:8px;
+}
+
+.upload-hint{
+  font-size:12px;
+  font-weight:500;
+}
+
+.upload-file-name{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:600;
+}
+
 .gambar-preview{
   margin-top:6px;
-  display:flex;
   gap:6px;
-  flex-wrap:wrap;
 }
 
 .gambar-preview a{
-  background:#0d6efd;
-  color:white;
   padding:5px 8px;
-  border-radius:3px;
   font-size:12px;
-  font-weight:600;
-  text-decoration:none;
+  border-radius:3px;
 }
 
-.btn-cancel{
-  background:#6c757d;
-  color:white;
-  margin-left:12px;
-  display:none;
-}
-
-.btn-excel{
-  background:#198754;
-  color:white;
+.form-buttons{
+  margin-top:20px;
 }
 
 .table-toolbar{
   padding:14px 16px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
   gap:12px;
-  flex-wrap:wrap;
 }
 
 .search-box{
-  position:relative;
   width:420px;
-  max-width:100%;
 }
 
 .search-box i{
-  position:absolute;
   left:12px;
-  top:50%;
-  transform:translateY(-50%);
-  color:#6c757d;
   font-size:13px;
 }
 
@@ -403,158 +699,97 @@ button{
   font-weight:600;
 }
 
-.table-wrap{
-  overflow-x:auto;
-}
-
 table{
-  width:100%;
-  border-collapse:collapse;
-  background:white;
   font-size:12px;
 }
 
 th{
-  background:#0d6efd;
-  color:white;
   padding:9px 8px;
-  border:1px solid #0b5ed7;
   font-size:12px;
   font-weight:600;
 }
 
 td{
   padding:8px;
-  border:1px solid #dbe2ea;
-  text-align:center;
   font-size:12px;
-  vertical-align:middle;
-}
-
-td:nth-child(2){
-  text-align:left;
-  font-weight:600;
 }
 
 .badge{
-  display:inline-block;
   padding:5px 10px;
+  font-size:11px;
   border-radius:14px;
-  font-size:11px;
-  color:white;
-  font-weight:600;
 }
 
-.badge-baik{
-  background:#198754;
-}
-
-.badge-rosak{
-  background:#dc3545;
-}
-
-.badge-pelupusan{
-  background:#fd7e14;
-}
-
-.btn-delete{
-  background:#dc3545;
-  color:white;
+.btn-edit,
+.btn-delete,
+.btn-image,
+.btn-no-image{
   font-size:11px;
   padding:6px 8px;
-  border-radius:3px;
-}
-
-.btn-edit{
-  background:#ffc107;
-  color:#111;
-  font-size:11px;
-  padding:6px 8px;
-  margin-right:6px;
   border-radius:3px;
 }
 
 .btn-image{
-  background:#0d6efd;
-  color:white;
-  font-size:11px;
-  padding:6px 8px;
   margin:2px;
-  text-decoration:none;
-  display:inline-block;
-  border-radius:3px;
 }
 
-.btn-no-image{
-  background:#6c757d;
+
+.selected-file-list{
+  margin-top:6px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.selected-file-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  background:#f8fafc;
+  border:1px solid #dbe2ea;
+  border-radius:3px;
+  padding:6px 8px;
+  color:#198754;
+}
+
+.selected-file-item span{
+  font-size:12px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.btn-remove-file{
+  background:#dc3545;
   color:white;
   font-size:11px;
-  padding:6px 8px;
-  margin:2px;
-  display:inline-block;
+  padding:5px 8px;
   border-radius:3px;
+  min-width:58px;
 }
 
 @media(max-width:1200px){
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .full-width{
-    grid-column:1 / span 2;
-  }
+  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+  .full-width{grid-column:1 / span 2}
 }
 
 @media(max-width:700px){
-  body{
-    font-size:13px;
-  }
-
+  body{font-size:13px}
   .top-header{
     justify-content:center;
     padding:10px;
   }
-
-  .top-header h1{
-    font-size:18px;
-  }
-
-  .top-header img{
-    width:42px;
-  }
-
-  .nav-menu button{
-    width:100%;
-    min-width:0;
-    font-size:13px;
-  }
-
-  .container{
-    padding:12px;
-  }
-
-  .status-grid,
-  .kategori-grid{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full-width{
-    grid-column:1;
-  }
-
-  .upload-row button{
-    width:100%;
-  }
+  .top-header h1{font-size:18px}
+  .top-header img{width:42px}
+  .nav-menu button{width:100%;min-width:0;font-size:13px}
+  .container{padding:12px}
+  .status-grid,.kategori-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+  .upload-row button{width:100%}
 }
+
 </style>
 </head>
 
@@ -593,9 +828,7 @@ td:nth-child(2){
         <div class="info-label">Baik</div>
       </div>
       <i class="fa-solid fa-circle-check info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
     <div class="info-card bg-red">
@@ -604,9 +837,7 @@ td:nth-child(2){
         <div class="info-label">Rosak</div>
       </div>
       <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
     <div class="info-card bg-orange">
@@ -615,9 +846,7 @@ td:nth-child(2){
         <div class="info-label">Pelupusan</div>
       </div>
       <i class="fa-solid fa-trash info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
   </div>
@@ -632,9 +861,7 @@ td:nth-child(2){
         <div class="info-label">Jumlah Inventori</div>
       </div>
       <i class="fa-solid fa-boxes-stacked info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('all','')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
     <div class="info-card bg-purple">
@@ -643,9 +870,7 @@ td:nth-child(2){
         <div class="info-label">ICT</div>
       </div>
       <i class="fa-solid fa-computer info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
     <div class="info-card bg-dark">
@@ -654,9 +879,7 @@ td:nth-child(2){
         <div class="info-label">Sewaan</div>
       </div>
       <i class="fa-solid fa-building info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
     <div class="info-card bg-yellow">
@@ -665,9 +888,7 @@ td:nth-child(2){
         <div class="info-label">PKPJ</div>
       </div>
       <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
-      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
     <div class="info-card bg-teal">
@@ -676,9 +897,7 @@ td:nth-child(2){
         <div class="info-label">Proses Pemulangan ke ICT</div>
       </div>
       <i class="fa-solid fa-rotate-left info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">
-        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
-      </div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
     </div>
 
   </div>
@@ -750,7 +969,7 @@ td:nth-child(2){
           </div>
 
           <div class="upload-hint">
-            Boleh pilih lebih dari satu gambar. Kalau tersalah pilih, tekan butang Batal pada gambar tersebut.
+            Boleh pilih lebih dari satu gambar. Contoh: gambar depan, belakang, serial number.
           </div>
 
           <div id="namaFailGambar" class="upload-file-name">
@@ -915,7 +1134,7 @@ const saveBtn = document.getElementById("saveBtn");
 const saveText = document.getElementById("saveText");
 const cancelBtn = document.getElementById("cancelBtn");
 
-for(let y = 2010; y <= 2035; y++){
+for(let y=2010; y<=2035; y++){
   tahunEl.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
@@ -928,11 +1147,10 @@ function showPage(pageId, btn){
 
 function goPage(pageId){
   const btnMap = {
-    dashboardPage: document.getElementById("btnDashboard"),
-    formPage: document.getElementById("btnForm"),
-    tablePage: document.getElementById("btnTable")
+    dashboardPage:document.getElementById("btnDashboard"),
+    formPage:document.getElementById("btnForm"),
+    tablePage:document.getElementById("btnTable")
   };
-
   showPage(pageId, btnMap[pageId]);
 }
 
@@ -964,9 +1182,8 @@ function load(){
 function renderTable(data){
   tableEl.innerHTML = "";
 
-  data.forEach((v, index) => {
+  data.forEach((v,index) => {
     let badgeClass = "";
-
     if(v.status === "Baik") badgeClass = "badge-baik";
     if(v.status === "Rosak") badgeClass = "badge-rosak";
     if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
@@ -1153,11 +1370,9 @@ function editData(row){
   saveBtn.classList.add("btn-update");
   saveText.innerText = "KEMASKINI DATA";
   cancelBtn.style.display = "inline-block";
-
   selectedFiles = [];
   imageInputEl.value = "";
   renderSelectedFiles();
-
   goPage("formPage");
 }
 
@@ -1211,6 +1426,9 @@ function simpan(){
 
   const isEdit = editingRowEl.value !== "";
 
+  saveBtn.disabled = true;
+  saveText.innerText = isEdit ? "SEDANG KEMASKINI..." : "SEDANG SIMPAN...";
+
   fetch(API,{
     method:"POST",
     headers:{"Content-Type":"text/plain"},
@@ -1234,10 +1452,20 @@ function simpan(){
       catatan:catatanEl.value
     })
   })
-  .then(r => r.json())
+  .then(async r => {
+    const text = await r.text();
+
+    try{
+      return JSON.parse(text);
+    }catch(e){
+      throw new Error("API tidak pulangkan JSON. Semak URL API / deployment. Response: " + text.substring(0,150));
+    }
+  })
   .then(res => {
+    console.log(res);
+
     if(res.status === "OK"){
-      alert(isEdit ? "BERJAYA DIKEMASKINI" : (res.message || "BERJAYA DISIMPAN"));
+      alert(isEdit ? "BERJAYA DIKEMASKINI" : "BERJAYA DISIMPAN");
       clearForm();
       load();
       goPage("tablePage");
@@ -1246,8 +1474,12 @@ function simpan(){
     }
   })
   .catch(err => {
-    alert("Ralat semasa simpan data");
+    alert("Ralat simpan data: " + err.message);
     console.error(err);
+  })
+  .finally(() => {
+    saveBtn.disabled = false;
+    saveText.innerText = isEdit ? "KEMASKINI DATA" : "SIMPAN DATA";
   });
 }
 
@@ -1343,7 +1575,7 @@ async function uploadImage(){
     const existingUrls = parseGambarUrls(gambarEl.value);
     const uploadedUrls = [];
 
-    for(let i = 0; i < files.length; i++){
+    for(let i=0; i<files.length; i++){
       const file = files[i];
 
       namaFailGambarEl.innerText = `Sedang upload ${i + 1}/${files.length}: ${file.name}`;
@@ -1473,7 +1705,6 @@ function clearForm(){
   selectedFiles = [];
   imageInputEl.value = "";
   renderSelectedFiles();
-
   gambarPreviewEl.innerHTML = "";
 
   saveBtn.classList.remove("btn-update");
@@ -1501,3 +1732,4 @@ window.onload = function(){
 
 </body>
 </html>
+

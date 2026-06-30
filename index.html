@@ -887,6 +887,48 @@ td:nth-child(4){
   }
 }
 
+
+/* ===== DASHBOARD SECTION STATUS & KATEGORI SAHAJA ===== */
+.dashboard-section-title{
+  font-size:16px;
+  font-weight:900;
+  color:#111827;
+  margin:14px 0 10px;
+  padding:10px 12px;
+  background:white;
+  border-left:5px solid #214596;
+  border-radius:6px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+
+.dashboard-status-grid{
+  grid-template-columns:repeat(3,1fr) !important;
+  margin-bottom:18px;
+}
+
+.dashboard-category-grid{
+  grid-template-columns:repeat(5,1fr) !important;
+}
+
+@media(max-width:1100px){
+  .dashboard-status-grid,
+  .dashboard-category-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+  }
+}
+
+@media(max-width:760px){
+  .dashboard-status-grid,
+  .dashboard-category-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .dashboard-section-title{
+    font-size:14px !important;
+    margin-top:12px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -923,16 +965,9 @@ td:nth-child(4){
     <div id="dashboardPage" class="page active">
       <h2 class="page-title">Laman Utama</h2>
 
-      <div class="dashboard-grid">
-        <div class="info-card bg-blue">
-          <div class="info-card-content">
-            <div class="info-number" id="total">0</div>
-            <div class="info-label">Jumlah Inventori</div>
-          </div>
-          <i class="fa-solid fa-boxes-stacked info-icon"></i>
-          <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat</div>
-        </div>
+      <div class="dashboard-section-title">Status Inventori</div>
 
+      <div class="dashboard-grid dashboard-status-grid">
         <div class="info-card bg-green">
           <div class="info-card-content">
             <div class="info-number" id="baik">0</div>
@@ -958,6 +993,19 @@ td:nth-child(4){
           </div>
           <i class="fa-solid fa-trash info-icon"></i>
           <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat</div>
+        </div>
+      </div>
+
+      <div class="dashboard-section-title">Kategori Inventori</div>
+
+      <div class="dashboard-grid dashboard-category-grid">
+        <div class="info-card bg-blue">
+          <div class="info-card-content">
+            <div class="info-number" id="total">0</div>
+            <div class="info-label">Jumlah Inventori</div>
+          </div>
+          <i class="fa-solid fa-boxes-stacked info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat</div>
         </div>
 
         <div class="info-card bg-purple">

@@ -1,1564 +1,1760 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Sistem Inventori PKPJ</title>
-
-  <style>
-    :root {
-      --primary: #183a8f;
-      --primary-dark: #112b6b;
-      --primary-light: #2554c7;
-      --accent: #f6c343;
-      --bg: #f4f6fb;
-      --card: #ffffff;
-      --text: #222;
-      --muted: #6b7280;
-      --border: #d7dce8;
-      --success: #16a34a;
-      --danger: #dc2626;
-      --warning: #f59e0b;
-      --info: #0284c7;
-      --shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-    }
-
-    .topbar {
-      height: 64px;
-      background: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 18px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.18);
-    }
-
-    .menu-btn {
-      position: absolute;
-      left: 18px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-    }
-
-    .header-center {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      text-align: center;
-    }
-
-    .logo-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 13px;
-      line-height: 1;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.4);
-    }
-
-    .system-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      margin: 0;
-      line-height: 1.1;
-    }
-
-    .user-area {
-      position: absolute;
-      right: 18px;
-      font-size: 15px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .layout {
-      display: flex;
-      min-height: calc(100vh - 64px);
-    }
-
-    .sidebar {
-      width: 270px;
-      background: #e5e7eb;
-      border-right: 1px solid #cfd4df;
-      padding: 16px 0;
-      transition: 0.25s;
-      flex-shrink: 0;
-    }
-
-    .sidebar.closed {
-      margin-left: -270px;
-    }
-
-    .date-box {
-      text-align: center;
-      font-weight: 700;
-      font-size: 15px;
-      padding: 10px 12px 18px;
-      color: #111827;
-      border-bottom: 1px solid #cfd4df;
-      margin-bottom: 10px;
-    }
-
-    .search-side {
-      padding: 0 12px 12px;
-    }
-
-    .search-side input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #c7ccd7;
-      border-radius: 4px;
-      font-size: 15px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 18px;
-      border-bottom: 1px solid #cfd4df;
-      color: #374151;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-      background: transparent;
-      transition: 0.2s;
-    }
-
-    .nav-item:hover,
-    .nav-item.active {
-      background: white;
-      color: var(--primary);
-      border-left: 5px solid var(--primary);
-      padding-left: 13px;
-    }
-
-    .main {
-      flex: 1;
-      padding: 24px;
-      overflow-x: hidden;
-    }
-
-    .page-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      border-bottom: 3px solid #0ea5e9;
-      padding-bottom: 14px;
-      margin-bottom: 22px;
-    }
-
-    .page-title {
-      font-size: 28px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .api-status {
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 700;
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .api-status.ok {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .api-status.error {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(150px, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      min-height: 128px;
-      border-radius: 8px;
-      padding: 18px;
-      color: white;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::after {
-      content: attr(data-icon);
-      position: absolute;
-      right: 15px;
-      bottom: 6px;
-      font-size: 60px;
-      opacity: 0.18;
-    }
-
-    .stat-card.total { background: linear-gradient(135deg, #fb7185, #ef4444); }
-    .stat-card.baik { background: linear-gradient(135deg, #2dd4bf, #0f766e); }
-    .stat-card.rosak { background: linear-gradient(135deg, #38bdf8, #0369a1); }
-    .stat-card.pelupusan { background: linear-gradient(135deg, #f97316, #c2410c); }
-    .stat-card.ict { background: linear-gradient(135deg, #8b5cf6, #5b21b6); }
-    .stat-card.pkpj { background: linear-gradient(135deg, #0ea5e9, #075985); }
-
-    .stat-number {
-      font-size: 40px;
-      font-weight: 900;
-      line-height: 1;
-      margin-bottom: 14px;
-    }
-
-    .stat-label {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .stat-sub {
-      font-size: 13px;
-      opacity: 0.95;
-    }
-
-    .panel {
-      background: var(--card);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      border-top: 4px solid #0ea5e9;
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .panel-title {
-      font-size: 23px;
-      font-weight: 700;
-      margin: 0;
-      color: #374151;
-    }
-
-    .panel-body {
-      padding: 20px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-size: 15px;
-      font-weight: 800;
-      color: #111827;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 12px 13px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: #fff;
-      font-size: 15px;
-      outline: none;
-      transition: 0.15s;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(37,84,199,0.12);
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .image-preview-wrap {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-
-    .image-preview {
-      width: 120px;
-      height: 90px;
-      border-radius: 8px;
-      border: 1px dashed var(--border);
-      object-fit: cover;
-      background: #f9fafb;
-      display: none;
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 7px;
-      padding: 12px 18px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(0.97);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-success {
-      background: var(--success);
-      color: white;
-    }
-
-    .btn-danger {
-      background: var(--danger);
-      color: white;
-    }
-
-    .btn-warning {
-      background: var(--warning);
-      color: white;
-    }
-
-    .btn-secondary {
-      background: #6b7280;
-      color: white;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .toolbar input,
-    .toolbar select {
-      width: auto;
-      min-width: 190px;
-    }
-
-    .table-wrap {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-      background: white;
-      min-width: 1450px;
-    }
-
-    th,
-    td {
-      border-bottom: 1px solid var(--border);
-      padding: 12px 10px;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    th {
-      background: var(--primary);
-      color: white;
-      font-weight: 800;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    td {
-      font-size: 14px;
-    }
-
-    tbody tr:hover {
-      background: #f8fafc;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      color: white;
-      white-space: nowrap;
-    }
-
-    .badge.baik { background: var(--success); }
-    .badge.rosak { background: var(--danger); }
-    .badge.pelupusan { background: var(--warning); color: #111827; }
-    .badge.default { background: #6b7280; }
-
-    .table-actions {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .mini-btn {
-      border: none;
-      border-radius: 5px;
-      padding: 7px 9px;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      color: white;
-    }
-
-    .mini-edit { background: var(--info); }
-    .mini-delete { background: var(--danger); }
-    .mini-view { background: var(--success); }
-
-    .notice {
-      padding: 13px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .notice.ok {
-      display: block;
-      background: #dcfce7;
-      color: #166534;
-      border: 1px solid #86efac;
-    }
-
-    .notice.error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-
-    .notice.info {
-      display: block;
-      background: #dbeafe;
-      color: #1e40af;
-      border: 1px solid #93c5fd;
-    }
-
-    .loading {
-      opacity: 0.65;
-      pointer-events: none;
-    }
-
-    .empty {
-      text-align: center;
-      color: var(--muted);
-      font-weight: 700;
-      padding: 22px;
-    }
-
-    .section-hidden {
-      display: none;
-    }
-
-    iframe[name="hiddenFrame"] {
-      display: none;
-    }
-
-    @media (max-width: 1200px) {
-      .dashboard-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .form-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .user-area {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .topbar {
-        height: auto;
-        min-height: 62px;
-        padding: 10px 55px;
-      }
-
-      .system-title {
-        font-size: 22px;
-      }
-
-      .logo-box {
-        width: 42px;
-        height: 42px;
-        font-size: 12px;
-      }
-
-      .layout {
-        display: block;
-      }
-
-      .sidebar {
-        width: 100%;
-        border-right: none;
-      }
-
-      .sidebar.closed {
-        display: none;
-        margin-left: 0;
-      }
-
-      .main {
-        padding: 16px;
-      }
-
-      .page-title-row {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .page-title {
-        font-size: 23px;
-      }
-
-      .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .stat-card {
-        min-height: 110px;
-      }
-
-      .stat-number {
-        font-size: 32px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .toolbar input,
-      .toolbar select {
-        width: 100%;
-      }
-
-      .panel-header {
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-actions {
-        justify-content: stretch;
-      }
-
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Sistem Inventori PKPJ</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f3f4f6;
+  color:#111827;
+  font-size:13px;
+}
+
+.topbar{
+  height:58px;
+  background:#214596;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:20;
+}
+
+.topbar-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.menu-icon{
+  font-size:22px;
+}
+
+.header-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.header-title img{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+  border-radius:8px;
+}
+
+.header-title h1{
+  margin:0;
+  font-size:23px;
+  font-weight:800;
+}
+
+.admin-text{
+  font-size:12px;
+  font-weight:700;
+}
+
+.sidebar{
+  position:fixed;
+  top:58px;
+  left:0;
+  width:210px;
+  height:calc(100vh - 58px);
+  background:#e5e7eb;
+  border-right:1px solid #cbd5e1;
+  z-index:10;
+}
+
+.datetime{
+  text-align:center;
+  padding:16px 8px;
+  font-size:12px;
+  font-weight:700;
+  border-bottom:1px solid #cbd5e1;
+  color:#111827;
+  line-height:1.4;
+}
+
+.side-search{
+  padding:10px;
+}
+
+.side-search input{
+  width:100%;
+  padding:9px;
+  border:1px solid #cbd5e1;
+  border-radius:4px;
+  font-size:12px;
+}
+
+.side-menu{
+  display:flex;
+  flex-direction:column;
+}
+
+.side-menu button{
+  background:#e5e7eb;
+  color:#1f2937;
+  border:none;
+  border-bottom:1px solid #cbd5e1;
+  text-align:left;
+  padding:13px 12px;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.side-menu button:hover{
+  background:#dbeafe;
+}
+
+.side-menu button.active{
+  background:white;
+  color:#1d4ed8;
+}
+
+.main{
+  margin-left:210px;
+  padding:78px 20px 25px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-title{
+  font-size:22px;
+  font-weight:800;
+  margin:0 0 14px;
+  padding-bottom:12px;
+  border-bottom:2px solid #0ea5e9;
+}
+
+.success-toast{
+  position:fixed;
+  top:75px;
+  right:20px;
+  background:#dcfce7;
+  color:#166534;
+  padding:9px 16px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:800;
+  display:none;
+  z-index:30;
+}
+
+.section-box{
+  background:white;
+  border-radius:6px;
+  border-top:2px solid #0ea5e9;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
+  margin-bottom:18px;
+  overflow:hidden;
+}
+
+.section-title{
+  padding:16px;
+  border-bottom:1px solid #dbe2ea;
+  font-size:18px;
+  font-weight:800;
+}
+
+.form-area{
+  padding:16px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+label{
+  font-weight:800;
+  font-size:12px;
+  color:#111827;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:9px 10px;
+  border:1px solid #cbd5e1;
+  border-radius:5px;
+  font-size:13px;
+  background:white;
+  min-height:36px;
+}
+
+textarea{
+  resize:vertical;
+  min-height:70px;
+}
+
+.full-width{
+  grid-column:1 / span 4;
+}
+
+.note{
+  font-size:12px;
+  color:#475569;
+  line-height:1.4;
+}
+
+.form-buttons{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid #dbe2ea;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  border-radius:6px;
+  padding:9px 15px;
+  font-size:13px;
+  font-weight:800;
+}
+
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.btn-reset{
+  background:#6b7280;
+  color:white;
+}
+
+.btn-save{
+  background:#16a34a;
+  color:white;
+}
+
+.btn-update{
+  background:#f59e0b;
+  color:#111827;
+}
+
+.btn-cancel{
+  background:#6b7280;
+  color:white;
+  display:none;
+}
+
+.upload-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.btn-add-upload{
+  background:#2563eb;
+  color:white;
+}
+
+.btn-camera{
+  background:#7c3aed;
+  color:white;
+}
+
+.btn-upload{
+  background:#16a34a;
+  color:white;
+}
+
+.btn-clear-img{
+  background:#6b7280;
+  color:white;
+}
+
+.upload-file-name{
+  margin-top:7px;
+  font-size:12px;
+  font-weight:700;
+  color:#198754;
+}
+
+.selected-file-list{
+  margin-top:6px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.selected-file-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  background:#f8fafc;
+  border:1px solid #dbe2ea;
+  border-radius:6px;
+  padding:7px 9px;
+}
+
+.selected-file-item span{
+  font-size:12px;
+  font-weight:700;
+  word-break:break-word;
+}
+
+.btn-remove-file{
+  background:#dc3545;
+  color:white;
+  font-size:11px;
+  padding:5px 8px;
+}
+
+.gambar-preview{
+  margin-top:8px;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.gambar-preview a{
+  background:#2563eb;
+  color:white;
+  padding:6px 9px;
+  border-radius:5px;
+  font-size:12px;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.info-card{
+  min-height:105px;
+  color:white;
+  border-radius:7px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 1px 4px rgba(0,0,0,.16);
+}
+
+.info-card-content{
+  padding:16px;
+  position:relative;
+  z-index:2;
+}
+
+.info-number{
+  font-size:32px;
+  font-weight:900;
+  line-height:1;
+  margin-bottom:10px;
+}
+
+.info-label{
+  font-size:13px;
+  font-weight:800;
+}
+
+.info-icon{
+  position:absolute;
+  right:18px;
+  top:18px;
+  font-size:52px;
+  opacity:.22;
+}
+
+.info-card-footer{
+  background:rgba(0,0,0,.17);
+  text-align:center;
+  padding:8px;
+  font-size:12px;
+  font-weight:800;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  cursor:pointer;
+}
+
+.bg-blue{background:#0284c7}
+.bg-green{background:#16a34a}
+.bg-red{background:#dc2626}
+.bg-orange{background:#ea580c}
+.bg-purple{background:#7c3aed}
+.bg-dark{background:#334155}
+.bg-yellow{background:#ca8a04}
+.bg-teal{background:#0d9488}
+
+.table-toolbar{
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.search-box{
+  position:relative;
+  width:360px;
+  max-width:100%;
+}
+
+.search-box i{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#6b7280;
+}
+
+.search-box input{
+  padding-left:36px;
+}
+
+.table-count{
+  font-size:13px;
+  font-weight:800;
+}
+
+.btn-excel{
+  background:#16a34a;
+  color:white;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  font-size:12px;
+  min-width:1500px;
+}
+
+th{
+  background:#214596;
+  color:white;
+  padding:9px 8px;
+  border:1px solid #1d4ed8;
+  white-space:nowrap;
+}
+
+td{
+  padding:8px;
+  border:1px solid #dbe2ea;
+  text-align:center;
+  vertical-align:middle;
+}
+
+td:nth-child(4){
+  text-align:left;
+  font-weight:700;
+}
+
+.sortable{
+  cursor:pointer;
+  user-select:none;
+}
+
+.sortable:hover{
+  background:#1e40af;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:14px;
+  font-size:11px;
+  color:white;
+  font-weight:800;
+}
+
+.badge-baik{background:#16a34a}
+.badge-rosak{background:#dc2626}
+.badge-pelupusan{background:#ea580c}
+
+.btn-edit{
+  background:#f59e0b;
+  color:#111827;
+  font-size:11px;
+  padding:6px 8px;
+  margin:2px;
+}
+
+.btn-delete{
+  background:#dc2626;
+  color:white;
+  font-size:11px;
+  padding:6px 8px;
+  margin:2px;
+}
+
+.btn-image{
+  background:#2563eb;
+  color:white;
+  font-size:11px;
+  padding:6px 8px;
+  margin:2px;
+  text-decoration:none;
+  display:inline-block;
+  border-radius:5px;
+}
+
+.btn-no-image{
+  background:#6b7280;
+  color:white;
+  font-size:11px;
+  padding:6px 8px;
+  display:inline-block;
+  border-radius:5px;
+}
+
+.status-line{
+  margin-top:8px;
+  min-height:18px;
+  font-size:12px;
+  color:#2563eb;
+  font-weight:800;
+}
+
+@media(max-width:1100px){
+  .form-grid{grid-template-columns:repeat(2,1fr)}
+  .full-width{grid-column:1 / span 2}
+  .dashboard-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:760px){
+  .sidebar{width:170px}
+  .main{margin-left:170px}
+  .header-title h1{font-size:17px}
+  .header-title img{width:36px;height:36px}
+  .form-grid{grid-template-columns:1fr}
+  .full-width{grid-column:1}
+  .dashboard-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
-  <div class="topbar">
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-    <div class="header-center">
-      <div class="logo-box">PKPJ</div>
-      <h1 class="system-title">Sistem Inventori PKPJ</h1>
+<div class="app">
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="menu-icon">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+
+      <div class="header-title">
+        <img src="PKPJ.png" alt="Logo PKPJ" onerror="this.src='pkpj.png'">
+        <h1>Sistem Inventori PKPJ</h1>
+      </div>
     </div>
 
-    <div class="user-area">👤 Admin</div>
-  </div>
+    <div class="admin-text">
+      <i class="fa-solid fa-user"></i> Admin
+    </div>
+  </header>
 
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <div class="date-box">
-        <div id="todayText">-</div>
-        <div id="clockText">-</div>
-      </div>
+  <aside class="sidebar">
+    <div class="datetime" id="dateTimeBox">Loading...</div>
 
-      <div class="search-side">
-        <input type="text" id="sideSearch" placeholder="Search..." oninput="syncSearch(this.value)" />
-      </div>
+    <div class="side-search">
+      <input type="text" id="sideSearch" placeholder="Search..." onkeyup="sideSearchTable()">
+    </div>
 
-      <div class="nav-item active" onclick="showSection('dashboard')">🏠 Laman Utama</div>
-      <div class="nav-item" onclick="showSection('form')">➕ Tambah Inventori</div>
-      <div class="nav-item" onclick="showSection('list')">📋 Senarai Inventori</div>
-      <div class="nav-item" onclick="loadData()">🔄 Refresh Data</div>
-    </aside>
+    <div class="side-menu">
+      <button id="btnDashboard" class="active" onclick="showPage('dashboardPage', this)">🏠 Laman Utama</button>
+      <button id="btnForm" onclick="showPage('formPage', this)">➕ Tambah Inventori</button>
+      <button id="btnTable" onclick="showPage('tablePage', this)">📋 Senarai Inventori</button>
+      <button onclick="load()">🔄 Refresh Data</button>
+    </div>
+  </aside>
 
-    <main class="main">
-      <div class="page-title-row">
-        <h2 class="page-title" id="pageTitle">Laman Utama</h2>
-        <div class="api-status" id="apiStatus">Menyemak API...</div>
-      </div>
+  <main class="main">
 
-      <div id="notice" class="notice"></div>
+    <div id="successToast" class="success-toast">Data berjaya dimuatkan</div>
 
-      <section id="dashboardSection">
-        <div class="dashboard-grid">
-          <div class="stat-card total" data-icon="📦">
-            <div class="stat-number" id="statTotal">0</div>
-            <div class="stat-label">Jumlah Rekod</div>
-            <div class="stat-sub">Semua inventori</div>
+    <div id="dashboardPage" class="page active">
+      <h2 class="page-title">Laman Utama</h2>
+
+      <div class="dashboard-grid">
+        <div class="info-card bg-blue">
+          <div class="info-card-content">
+            <div class="info-number" id="total">0</div>
+            <div class="info-label">Jumlah Inventori</div>
           </div>
-
-          <div class="stat-card baik" data-icon="👍">
-            <div class="stat-number" id="statBaik">0</div>
-            <div class="stat-label">Status Baik</div>
-            <div class="stat-sub">Peralatan boleh digunakan</div>
-          </div>
-
-          <div class="stat-card rosak" data-icon="⚠️">
-            <div class="stat-number" id="statRosak">0</div>
-            <div class="stat-label">Status Rosak</div>
-            <div class="stat-sub">Perlu tindakan</div>
-          </div>
-
-          <div class="stat-card pelupusan" data-icon="🗂️">
-            <div class="stat-number" id="statPelupusan">0</div>
-            <div class="stat-label">Pelupusan</div>
-            <div class="stat-sub">Untuk proses pelupusan</div>
-          </div>
-
-          <div class="stat-card ict" data-icon="💻">
-            <div class="stat-number" id="statICT">0</div>
-            <div class="stat-label">Kategori ICT</div>
-            <div class="stat-sub">Aset ICT</div>
-          </div>
-
-          <div class="stat-card pkpj" data-icon="🏢">
-            <div class="stat-number" id="statPKPJ">0</div>
-            <div class="stat-label">Kategori PKPJ</div>
-            <div class="stat-sub">Aset PKPJ</div>
-          </div>
+          <i class="fa-solid fa-boxes-stacked info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat</div>
         </div>
-      </section>
 
-      <section id="formSection">
-        <div class="panel">
-          <div class="panel-header">
-            <h3 class="panel-title" id="formTitle">Tambah Maklumat Inventori</h3>
+        <div class="info-card bg-green">
+          <div class="info-card-content">
+            <div class="info-number" id="baik">0</div>
+            <div class="info-label">Baik</div>
           </div>
-
-          <div class="panel-body">
-            <form id="inventoryForm" onsubmit="saveRecord(event)">
-              <input type="hidden" id="editRow" />
-              <input type="hidden" id="gambarUrl" />
-
-              <div class="form-grid">
-                <div class="field">
-                  <label for="tahun">Tahun</label>
-                  <select id="tahun" required></select>
-                </div>
-
-                <div class="field">
-                  <label for="noInventori">No Inventori</label>
-                  <input type="text" id="noInventori" placeholder="Contoh: INV001" />
-                </div>
-
-                <div class="field">
-                  <label for="nama">Nama</label>
-                  <input type="text" id="nama" placeholder="Nama item / peralatan" />
-                </div>
-
-                <div class="field">
-                  <label for="kategori">Kategori</label>
-                  <select id="kategori" required>
-                    <option value="">Pilih kategori</option>
-                    <option value="ICT">ICT</option>
-                    <option value="Sewaan">Sewaan</option>
-                    <option value="PKPJ">PKPJ</option>
-                    <option value="Lain-lain">Lain-lain</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="jenama">Jenama</label>
-                  <input type="text" id="jenama" placeholder="Contoh: HP, Canon, Acer" />
-                </div>
-
-                <div class="field">
-                  <label for="model">Model</label>
-                  <input type="text" id="model" placeholder="Model peralatan" />
-                </div>
-
-                <div class="field">
-                  <label for="noSiri">No Siri</label>
-                  <input type="text" id="noSiri" placeholder="Serial number" />
-                </div>
-
-                <div class="field">
-                  <label for="tagAset">Tag Aset</label>
-                  <input type="text" id="tagAset" placeholder="Tag aset" />
-                </div>
-
-                <div class="field">
-                  <label for="kuantiti">Kuantiti</label>
-                  <input type="number" id="kuantiti" min="0" step="1" placeholder="1" />
-                </div>
-
-                <div class="field">
-                  <label for="lokasi">Lokasi</label>
-                  <input type="text" id="lokasi" placeholder="Contoh: Stor PKPJ" />
-                </div>
-
-                <div class="field">
-                  <label for="status">Status</label>
-                  <select id="status" required>
-                    <option value="">Pilih status</option>
-                    <option value="Baik">Baik</option>
-                    <option value="Rosak">Rosak</option>
-                    <option value="Pelupusan">Pelupusan</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="tarikh">Tarikh</label>
-                  <input type="date" id="tarikh" />
-                </div>
-
-                <div class="field">
-                  <label for="pembekal">Pembekal</label>
-                  <input type="text" id="pembekal" placeholder="Nama pembekal" />
-                </div>
-
-                <div class="field">
-                  <label for="gambarInput">Tambah Gambar</label>
-                  <input
-                    type="file"
-                    id="gambarInput"
-                    accept="image/*"
-                    capture="environment"
-                    onchange="previewSelectedImage()"
-                  />
-                  <small style="color:#6b7280;font-weight:700;">
-                    Boleh pilih gambar atau buka kamera telefon.
-                  </small>
-
-                  <div class="image-preview-wrap">
-                    <img id="imagePreview" class="image-preview" alt="Preview gambar" />
-                    <button type="button" class="btn btn-secondary" onclick="clearImage()">Buang Gambar</button>
-                  </div>
-                </div>
-
-                <div class="field full">
-                  <label for="catatan">Catatan</label>
-                  <textarea id="catatan" placeholder="Catatan tambahan"></textarea>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
-                <button type="submit" class="btn btn-success" id="saveBtn">Simpan</button>
-              </div>
-            </form>
-          </div>
+          <i class="fa-solid fa-circle-check info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat</div>
         </div>
-      </section>
 
-      <section id="listSection">
-        <div class="panel">
-          <div class="panel-header">
-            <h3 class="panel-title">Senarai Inventori</h3>
+        <div class="info-card bg-red">
+          <div class="info-card-content">
+            <div class="info-number" id="rosak">0</div>
+            <div class="info-label">Rosak</div>
+          </div>
+          <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat</div>
+        </div>
 
-            <div class="toolbar">
-              <select id="filterTahun" onchange="renderTable()">
-                <option value="all">Semua Tahun</option>
+        <div class="info-card bg-orange">
+          <div class="info-card-content">
+            <div class="info-number" id="pelupusan">0</div>
+            <div class="info-label">Pelupusan</div>
+          </div>
+          <i class="fa-solid fa-trash info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat</div>
+        </div>
+
+        <div class="info-card bg-purple">
+          <div class="info-card-content">
+            <div class="info-number" id="ict">0</div>
+            <div class="info-label">ICT</div>
+          </div>
+          <i class="fa-solid fa-computer info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat</div>
+        </div>
+
+        <div class="info-card bg-dark">
+          <div class="info-card-content">
+            <div class="info-number" id="sewaan">0</div>
+            <div class="info-label">Sewaan</div>
+          </div>
+          <i class="fa-solid fa-building info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat</div>
+        </div>
+
+        <div class="info-card bg-yellow">
+          <div class="info-card-content">
+            <div class="info-number" id="pkpj">0</div>
+            <div class="info-label">PKPJ</div>
+          </div>
+          <i class="fa-solid fa-warehouse info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat</div>
+        </div>
+
+        <div class="info-card bg-teal">
+          <div class="info-card-content">
+            <div class="info-number" id="prosesICT">0</div>
+            <div class="info-label">Proses Pemulangan ke ICT</div>
+          </div>
+          <i class="fa-solid fa-rotate-left info-icon"></i>
+          <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="formPage" class="page">
+      <h2 class="page-title">Tambah Inventori</h2>
+
+      <div class="section-box">
+        <div class="section-title">Tambah Maklumat Inventori</div>
+
+        <div class="form-area">
+          <input type="hidden" id="editingRow">
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>Tahun</label>
+              <select id="tahun"></select>
+            </div>
+
+            <div class="field">
+              <label>No Inventori</label>
+              <input id="noInventori" placeholder="Contoh: INV001">
+            </div>
+
+            <div class="field">
+              <label>Nama</label>
+              <input id="nama" placeholder="Nama item / peralatan">
+            </div>
+
+            <div class="field">
+              <label>Kategori</label>
+              <select id="kategori">
+                <option value="">Pilih kategori</option>
+                <option value="ICT">ICT</option>
+                <option value="Sewaan">Sewaan</option>
+                <option value="PKPJ">PKPJ</option>
+                <option value="Dalam Proses Pemulangan ke ICT">Dalam Proses Pemulangan ke ICT</option>
               </select>
-
-              <input
-                type="text"
-                id="mainSearch"
-                placeholder="Cari data..."
-                oninput="renderTable()"
-              />
-
-              <button class="btn btn-primary" onclick="loadData()">Refresh</button>
             </div>
-          </div>
 
-          <div class="panel-body">
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Tindakan</th>
-                    <th>Row</th>
-                    <th>Timestamp</th>
-                    <th>Tahun</th>
-                    <th>No Inventori</th>
-                    <th>Nama</th>
-                    <th>Kategori</th>
-                    <th>Jenama</th>
-                    <th>Model</th>
-                    <th>No Siri</th>
-                    <th>Tag Aset</th>
-                    <th>Kuantiti</th>
-                    <th>Lokasi</th>
-                    <th>Status</th>
-                    <th>Tarikh</th>
-                    <th>Pembekal</th>
-                    <th>Gambar</th>
-                    <th>Catatan</th>
-                  </tr>
-                </thead>
-
-                <tbody id="tableBody">
-                  <tr>
-                    <td colspan="18" class="empty">Memuatkan data...</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="field">
+              <label>Jenama</label>
+              <input id="jenama" placeholder="Contoh: HP, Canon, Acer">
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
 
-  <iframe name="hiddenFrame" id="hiddenFrame"></iframe>
+            <div class="field">
+              <label>Model</label>
+              <input id="model" placeholder="Model peralatan">
+            </div>
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwXZXpDxcPmPopezv0jH1y4a0etoMSGW8UcuKeWvPeQBk0vpU8bPuuff-MNTgQTki3SUA/exec";
+            <div class="field">
+              <label>No Siri</label>
+              <input id="noSiri" placeholder="Serial number">
+            </div>
 
-    let allData = [];
-    let currentSection = "dashboard";
+            <div class="field">
+              <label>Tag Aset</label>
+              <input id="tagAset" placeholder="Tag aset">
+            </div>
 
-    document.addEventListener("DOMContentLoaded", function () {
-      setupYears();
-      updateDateTime();
-      setInterval(updateDateTime, 1000);
+            <div class="field">
+              <label>Kuantiti</label>
+              <input id="kuantiti" type="number" min="1" value="1">
+            </div>
 
-      resetForm();
-      showSection("dashboard");
-      pingAPI();
-      loadData();
-    });
+            <div class="field">
+              <label>Lokasi</label>
+              <select id="lokasi" onchange="checkLokasi()">
+                <option value="">Pilih lokasi</option>
+                <option value="Stor PKPJ">Stor PKPJ</option>
+                <option value="Pejabat PKPJ">Pejabat PKPJ</option>
+                <option value="Lain-lain">Lain-lain</option>
+              </select>
+              <input type="text" id="lokasiLain" placeholder="Masukkan lokasi..." style="display:none;margin-top:8px;">
+            </div>
 
-    function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("closed");
-    }
+            <div class="field">
+              <label>Status</label>
+              <select id="status">
+                <option value="">Pilih status</option>
+                <option value="Baik">Baik</option>
+                <option value="Rosak">Rosak</option>
+                <option value="Pelupusan">Pelupusan</option>
+              </select>
+            </div>
 
-    function updateDateTime() {
-      const now = new Date();
+            <div class="field">
+              <label>Tarikh</label>
+              <input type="date" id="tarikh">
+            </div>
 
-      const dateText = now.toLocaleDateString("ms-MY", {
-        weekday: "long",
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-      });
+            <div class="field">
+              <label>Pembekal</label>
+              <input id="pembekal" placeholder="Nama pembekal">
+            </div>
 
-      const timeText = now.toLocaleTimeString("ms-MY", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-      });
+            <div class="field">
+              <label>Tambah Gambar</label>
 
-      document.getElementById("todayText").textContent = dateText;
-      document.getElementById("clockText").textContent = timeText;
-    }
+              <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="paparNamaFail('gallery')">
+              <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none" onchange="paparNamaFail('camera')">
 
-    function setupYears() {
-      const tahunSelect = document.getElementById("tahun");
-      const filterTahun = document.getElementById("filterTahun");
-      const currentYear = new Date().getFullYear();
+              <div class="upload-row">
+                <button type="button" class="btn-add-upload" onclick="pilihGambar()">
+                  <i class="fa-solid fa-plus"></i> Tambah Gambar
+                </button>
 
-      tahunSelect.innerHTML = "";
-      filterTahun.innerHTML = `<option value="all">Semua Tahun</option>`;
+                <button type="button" class="btn-camera" onclick="ambilFoto()">
+                  <i class="fa-solid fa-camera"></i> Ambil Foto
+                </button>
 
-      for (let y = 2010; y <= currentYear + 5; y++) {
-        const opt1 = document.createElement("option");
-        opt1.value = y;
-        opt1.textContent = y;
+                <button type="button" class="btn-upload" onclick="uploadImage(true)">
+                  <i class="fa-solid fa-upload"></i> Upload Semua
+                </button>
 
-        const opt2 = document.createElement("option");
-        opt2.value = y;
-        opt2.textContent = y;
-
-        tahunSelect.appendChild(opt1);
-        filterTahun.appendChild(opt2);
-      }
-
-      tahunSelect.value = currentYear;
-      filterTahun.value = "all";
-    }
-
-    function showSection(section) {
-      currentSection = section;
-
-      document.getElementById("dashboardSection").classList.add("section-hidden");
-      document.getElementById("formSection").classList.add("section-hidden");
-      document.getElementById("listSection").classList.add("section-hidden");
-
-      document.querySelectorAll(".nav-item").forEach(function (item) {
-        item.classList.remove("active");
-      });
-
-      if (section === "dashboard") {
-        document.getElementById("dashboardSection").classList.remove("section-hidden");
-        document.getElementById("pageTitle").textContent = "Laman Utama";
-        document.querySelectorAll(".nav-item")[0].classList.add("active");
-      }
-
-      if (section === "form") {
-        document.getElementById("formSection").classList.remove("section-hidden");
-        document.getElementById("pageTitle").textContent = "Tambah Inventori";
-        document.querySelectorAll(".nav-item")[1].classList.add("active");
-      }
-
-      if (section === "list") {
-        document.getElementById("listSection").classList.remove("section-hidden");
-        document.getElementById("pageTitle").textContent = "Senarai Inventori";
-        document.querySelectorAll(".nav-item")[2].classList.add("active");
-        renderTable();
-      }
-    }
-
-    function setStatus(type, text) {
-      const el = document.getElementById("apiStatus");
-      el.className = "api-status";
-
-      if (type === "ok") el.classList.add("ok");
-      if (type === "error") el.classList.add("error");
-
-      el.textContent = text;
-    }
-
-    function showNotice(type, message) {
-      const el = document.getElementById("notice");
-      el.className = "notice " + type;
-      el.textContent = message;
-
-      setTimeout(function () {
-        el.className = "notice";
-        el.textContent = "";
-      }, 5000);
-    }
-
-    function buildQuery(params) {
-      return Object.keys(params)
-        .map(function (key) {
-          return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
-        })
-        .join("&");
-    }
-
-    function jsonp(action, params) {
-      return new Promise(function (resolve, reject) {
-        params = params || {};
-
-        const callbackName = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
-
-        params.action = action;
-        params.callback = callbackName;
-
-        const script = document.createElement("script");
-        script.src = API_URL + "?" + buildQuery(params);
-
-        const timer = setTimeout(function () {
-          cleanup();
-          reject(new Error("Request timeout"));
-        }, 20000);
-
-        window[callbackName] = function (data) {
-          clearTimeout(timer);
-          cleanup();
-          resolve(data);
-        };
-
-        script.onerror = function () {
-          clearTimeout(timer);
-          cleanup();
-          reject(new Error("Gagal hubungi API"));
-        };
-
-        function cleanup() {
-          delete window[callbackName];
-          if (script.parentNode) {
-            script.parentNode.removeChild(script);
-          }
-        }
-
-        document.body.appendChild(script);
-      });
-    }
-
-    function postHidden(params) {
-      return new Promise(function (resolve) {
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = API_URL;
-        form.target = "hiddenFrame";
-        form.style.display = "none";
-
-        Object.keys(params).forEach(function (key) {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = key;
-          input.value = params[key] == null ? "" : params[key];
-          form.appendChild(input);
-        });
-
-        document.body.appendChild(form);
-        form.submit();
-
-        setTimeout(function () {
-          if (form.parentNode) {
-            form.parentNode.removeChild(form);
-          }
-          resolve();
-        }, 1200);
-      });
-    }
-
-    async function pingAPI() {
-      try {
-        const res = await jsonp("ping");
-        if (res && res.status === "OK") {
-          setStatus("ok", "API hidup");
-        } else {
-          setStatus("error", "API bermasalah");
-        }
-      } catch (err) {
-        setStatus("error", "API gagal");
-      }
-    }
-
-    async function loadData() {
-      try {
-        document.body.classList.add("loading");
-        const data = await jsonp("list");
-
-        if (Array.isArray(data)) {
-          allData = data;
-        } else {
-          allData = [];
-        }
-
-        updateDashboard();
-        renderTable();
-        setStatus("ok", "Data berjaya dimuatkan");
-      } catch (err) {
-        setStatus("error", "Gagal load data");
-        showNotice("error", "Gagal memuatkan data. Semak link API atau deployment.");
-      } finally {
-        document.body.classList.remove("loading");
-      }
-    }
-
-    function getFilteredData() {
-      const filterYear = document.getElementById("filterTahun").value;
-      const search = document.getElementById("mainSearch").value.trim().toLowerCase();
-
-      return allData.filter(function (item) {
-        const matchYear = filterYear === "all" || String(item.tahun) === String(filterYear);
-        const joined = Object.values(item).join(" ").toLowerCase();
-        const matchSearch = search === "" || joined.includes(search);
-
-        return matchYear && matchSearch;
-      });
-    }
-
-    function updateDashboard() {
-      const data = getFilteredData();
-
-      let baik = 0;
-      let rosak = 0;
-      let pelupusan = 0;
-      let ict = 0;
-      let pkpj = 0;
-
-      data.forEach(function (item) {
-        const status = String(item.status || "").trim().toLowerCase();
-        const kategori = String(item.kategori || "").trim().toLowerCase();
-
-        if (status === "baik") baik++;
-        if (status === "rosak") rosak++;
-        if (status === "pelupusan") pelupusan++;
-
-        if (kategori === "ict") ict++;
-        if (kategori === "pkpj") pkpj++;
-      });
-
-      document.getElementById("statTotal").textContent = data.length;
-      document.getElementById("statBaik").textContent = baik;
-      document.getElementById("statRosak").textContent = rosak;
-      document.getElementById("statPelupusan").textContent = pelupusan;
-      document.getElementById("statICT").textContent = ict;
-      document.getElementById("statPKPJ").textContent = pkpj;
-    }
-
-    function renderTable() {
-      updateDashboard();
-
-      const tbody = document.getElementById("tableBody");
-      const data = getFilteredData();
-
-      if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="18" class="empty">Tiada data dijumpai.</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = data.map(function (item) {
-        const statusClass = getStatusClass(item.status);
-        const gambarCell = item.gambar
-          ? `<button class="mini-btn mini-view" onclick="openImage('${escapeForAttr(item.gambar)}')">Lihat</button>`
-          : "-";
-
-        return `
-          <tr>
-            <td>
-              <div class="table-actions">
-                <button class="mini-btn mini-edit" onclick="editRecord(${item.row})">Edit</button>
-                <button class="mini-btn mini-delete" onclick="deleteRecord(${item.row})">Delete</button>
+                <button type="button" class="btn-clear-img" onclick="clearSelectedImages()">
+                  Buang Gambar
+                </button>
               </div>
-            </td>
-            <td>${escapeHtml(item.row)}</td>
-            <td>${escapeHtml(item.timestamp)}</td>
-            <td>${escapeHtml(item.tahun)}</td>
-            <td>${escapeHtml(item.noInventori)}</td>
-            <td>${escapeHtml(item.nama)}</td>
-            <td>${escapeHtml(item.kategori)}</td>
-            <td>${escapeHtml(item.jenama)}</td>
-            <td>${escapeHtml(item.model)}</td>
-            <td>${escapeHtml(item.noSiri)}</td>
-            <td>${escapeHtml(item.tagAset)}</td>
-            <td>${escapeHtml(item.kuantiti)}</td>
-            <td>${escapeHtml(item.lokasi)}</td>
-            <td><span class="badge ${statusClass}">${escapeHtml(item.status)}</span></td>
-            <td>${escapeHtml(item.tarikh)}</td>
-            <td>${escapeHtml(item.pembekal)}</td>
-            <td>${gambarCell}</td>
-            <td>${escapeHtml(item.catatan)}</td>
-          </tr>
-        `;
-      }).join("");
+
+              <div class="note">
+                Boleh pilih lebih dari satu gambar. Link gambar akan masuk secara automatik.
+              </div>
+
+              <div id="namaFailGambar" class="upload-file-name">Tiada gambar dipilih</div>
+
+              <textarea id="gambar" style="display:none;"></textarea>
+              <div id="gambarPreview" class="gambar-preview"></div>
+            </div>
+
+            <div class="field full-width">
+              <label>Catatan</label>
+              <textarea id="catatan" placeholder="Catatan tambahan"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-buttons">
+            <button class="btn-reset" onclick="clearForm()">Reset</button>
+            <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">Batal Edit</button>
+            <button id="saveBtn" class="btn-save" onclick="simpan()">
+              <span id="saveText">Simpan</span>
+            </button>
+          </div>
+
+          <div id="statusLine" class="status-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tablePage" class="page">
+      <h2 class="page-title">Senarai Inventori</h2>
+
+      <div class="section-box">
+        <div class="section-title">Senarai Maklumat Inventori</div>
+
+        <div class="table-toolbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Cari inventori..." onkeyup="searchTable()">
+          </div>
+
+          <div class="table-count">
+            Jumlah Rekod: <span id="recordCount">0</span>
+          </div>
+
+          <button class="btn-excel" onclick="exportExcel()">
+            <i class="fa-solid fa-file-excel"></i> Export Excel
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th onclick="sortTableBy('row')" class="sortable">No <span id="sort-row">↕</span></th>
+                <th onclick="sortTableBy('tahun')" class="sortable">Tahun <span id="sort-tahun">↕</span></th>
+                <th onclick="sortTableBy('noInventori')" class="sortable">No Inventori <span id="sort-noInventori">↕</span></th>
+                <th onclick="sortTableBy('nama')" class="sortable">Nama <span id="sort-nama">↕</span></th>
+                <th onclick="sortTableBy('kategori')" class="sortable">Kategori <span id="sort-kategori">↕</span></th>
+                <th onclick="sortTableBy('jenama')" class="sortable">Jenama <span id="sort-jenama">↕</span></th>
+                <th onclick="sortTableBy('model')" class="sortable">Model <span id="sort-model">↕</span></th>
+                <th onclick="sortTableBy('noSiri')" class="sortable">No Siri <span id="sort-noSiri">↕</span></th>
+                <th onclick="sortTableBy('tagAset')" class="sortable">Tag Aset <span id="sort-tagAset">↕</span></th>
+                <th onclick="sortTableBy('kuantiti')" class="sortable">Kuantiti <span id="sort-kuantiti">↕</span></th>
+                <th onclick="sortTableBy('lokasi')" class="sortable">Lokasi <span id="sort-lokasi">↕</span></th>
+                <th onclick="sortTableBy('status')" class="sortable">Status <span id="sort-status">↕</span></th>
+                <th onclick="sortTableBy('tarikh')" class="sortable">Tarikh <span id="sort-tarikh">↕</span></th>
+                <th onclick="sortTableBy('pembekal')" class="sortable">Pembekal <span id="sort-pembekal">↕</span></th>
+                <th onclick="sortTableBy('catatan')" class="sortable">Catatan <span id="sort-catatan">↕</span></th>
+                <th>Gambar</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbwXZXpDxcPmPopezv0jH1y4a0etoMSGW8UcuKeWvPeQBk0vpU8bPuuff-MNTgQTki3SUA/exec";
+
+let allData = [];
+let tableBaseData = [];
+let selectedFiles = [];
+let isSaving = false;
+let isUploading = false;
+let sortKey = "";
+let sortAsc = true;
+
+const tahunEl = document.getElementById("tahun");
+const noInventoriEl = document.getElementById("noInventori");
+const namaEl = document.getElementById("nama");
+const kategoriEl = document.getElementById("kategori");
+const jenamaEl = document.getElementById("jenama");
+const modelEl = document.getElementById("model");
+const noSiriEl = document.getElementById("noSiri");
+const tagAsetEl = document.getElementById("tagAset");
+const kuantitiEl = document.getElementById("kuantiti");
+const lokasiEl = document.getElementById("lokasi");
+const lokasiLainEl = document.getElementById("lokasiLain");
+const statusEl = document.getElementById("status");
+const tarikhEl = document.getElementById("tarikh");
+const pembekalEl = document.getElementById("pembekal");
+const catatanEl = document.getElementById("catatan");
+const gambarEl = document.getElementById("gambar");
+const gambarPreviewEl = document.getElementById("gambarPreview");
+const imageInputEl = document.getElementById("imageInput");
+const cameraInputEl = document.getElementById("cameraInput");
+const namaFailGambarEl = document.getElementById("namaFailGambar");
+const tableEl = document.getElementById("table");
+const editingRowEl = document.getElementById("editingRow");
+const saveBtn = document.getElementById("saveBtn");
+const saveText = document.getElementById("saveText");
+const cancelBtn = document.getElementById("cancelBtn");
+const statusLineEl = document.getElementById("statusLine");
+
+initYears();
+setTodayDate();
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+window.onload = function(){
+  load();
+};
+
+function initYears(){
+  const currentYear = new Date().getFullYear();
+  for(let y = 2010; y <= 2035; y++){
+    tahunEl.innerHTML += `<option value="${y}" ${y === currentYear ? "selected" : ""}>${y}</option>`;
+  }
+}
+
+function setTodayDate(){
+  const d = new Date();
+  tarikhEl.value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function updateDateTime(){
+  const now = new Date();
+  const hari = now.toLocaleDateString("ms-MY", {weekday:"long"});
+  const tarikh = now.toLocaleDateString("ms-MY", {day:"2-digit", month:"short", year:"numeric"});
+  const masa = now.toLocaleTimeString("ms-MY", {hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false});
+  document.getElementById("dateTimeBox").innerHTML = `${hari}, ${tarikh}<br>${masa}`;
+}
+
+function setStatus(text){
+  statusLineEl.innerText = text || "";
+}
+
+function showToast(text){
+  const toast = document.getElementById("successToast");
+  toast.innerText = text;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2500);
+}
+
+function showPage(pageId, btn){
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".side-menu button").forEach(b => b.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+  if(btn){btn.classList.add("active")}
+}
+
+function goPage(pageId){
+  const btnMap = {
+    dashboardPage:document.getElementById("btnDashboard"),
+    formPage:document.getElementById("btnForm"),
+    tablePage:document.getElementById("btnTable")
+  };
+  showPage(pageId, btnMap[pageId]);
+}
+
+function checkLokasi(){
+  if(lokasiEl.value === "Lain-lain"){
+    lokasiLainEl.style.display = "block";
+    lokasiLainEl.focus();
+  }else{
+    lokasiLainEl.style.display = "none";
+    lokasiLainEl.value = "";
+  }
+}
+
+function checkApiUrl(){
+  if(!API_URL){
+    alert("Sila masukkan Web App URL dalam API_URL dahulu.");
+    return false;
+  }
+  return true;
+}
+
+function jsonp(params){
+  return new Promise((resolve, reject) => {
+    if(!checkApiUrl()){
+      reject(new Error("API_URL belum dimasukkan"));
+      return;
     }
 
-    function getStatusClass(status) {
-      const s = String(status || "").trim().toLowerCase();
+    const callbackName = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+    params = params || {};
+    params.callback = callbackName;
 
-      if (s === "baik") return "baik";
-      if (s === "rosak") return "rosak";
-      if (s === "pelupusan") return "pelupusan";
+    const query = Object.keys(params)
+      .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(params[k] == null ? "" : params[k]))
+      .join("&");
 
-      return "default";
+    const script = document.createElement("script");
+
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error("Timeout baca data daripada Apps Script"));
+    }, 25000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      delete window[callbackName];
+      if(script.parentNode){script.parentNode.removeChild(script)}
     }
 
-    function syncSearch(value) {
-      document.getElementById("mainSearch").value = value;
-      renderTable();
-      showSection("list");
+    window[callbackName] = function(data){
+      cleanup();
+      resolve(data);
+    };
+
+    script.onerror = function(){
+      cleanup();
+      reject(new Error("Gagal hubungi Apps Script API"));
+    };
+
+    script.src = API_URL + "?" + query;
+    document.body.appendChild(script);
+  });
+}
+
+function submitHiddenForm(payload){
+  if(!checkApiUrl()){return}
+
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = API_URL;
+  form.target = "hiddenFrame";
+  form.style.display = "none";
+
+  Object.keys(payload).forEach(key => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = key;
+    input.value = payload[key] == null ? "" : payload[key];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => {
+    if(form.parentNode){form.parentNode.removeChild(form)}
+  }, 3000);
+}
+
+async function load(){
+  try{
+    setStatus("Sedang load data...");
+    const d = await jsonp({action:"list"});
+
+    if(d && d.status === "ERROR"){
+      alert(d.message);
+      setStatus("");
+      return;
     }
 
-    function collectFormData() {
-      return {
-        tahun: document.getElementById("tahun").value,
-        noInventori: document.getElementById("noInventori").value.trim(),
-        nama: document.getElementById("nama").value.trim(),
-        kategori: document.getElementById("kategori").value,
-        jenama: document.getElementById("jenama").value.trim(),
-        model: document.getElementById("model").value.trim(),
-        noSiri: document.getElementById("noSiri").value.trim(),
-        tagAset: document.getElementById("tagAset").value.trim(),
-        kuantiti: document.getElementById("kuantiti").value.trim(),
-        lokasi: document.getElementById("lokasi").value.trim(),
-        status: document.getElementById("status").value,
-        tarikh: document.getElementById("tarikh").value,
-        pembekal: document.getElementById("pembekal").value.trim(),
-        gambar: document.getElementById("gambarUrl").value.trim(),
-        catatan: document.getElementById("catatan").value.trim()
-      };
-    }
+    allData = Array.isArray(d) ? d : [];
+    tableBaseData = [...allData];
+    applyTableView();
+    stats();
+    setStatus("");
+    showToast("Data berjaya dimuatkan");
+  }catch(err){
+    setStatus("");
+    alert("Gagal load data: " + err.message);
+    console.error(err);
+  }
+}
 
-    async function saveRecord(event) {
-      event.preventDefault();
+function renderTable(data){
+  tableEl.innerHTML = "";
 
-      const editRow = document.getElementById("editRow").value;
-      const file = document.getElementById("gambarInput").files[0];
+  if(!data || data.length === 0){
+    tableEl.innerHTML = `<tr><td colspan="17">Tiada rekod dijumpai</td></tr>`;
+    return;
+  }
 
-      let data = collectFormData();
+  data.forEach((v,index) => {
+    let badgeClass = "";
+    if(v.status === "Baik") badgeClass = "badge-baik";
+    if(v.status === "Rosak") badgeClass = "badge-rosak";
+    if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
 
-      if (!data.kategori) {
-        showNotice("error", "Sila pilih kategori.");
-        return;
+    const gambarButton = renderGambarButtons(v.gambar);
+
+    tableEl.innerHTML += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${escapeHtml(v.tahun || "")}</td>
+        <td>${escapeHtml(v.noInventori || "")}</td>
+        <td>${escapeHtml(v.nama || "")}</td>
+        <td>${escapeHtml(v.kategori || "")}</td>
+        <td>${escapeHtml(v.jenama || "")}</td>
+        <td>${escapeHtml(v.model || "")}</td>
+        <td>${escapeHtml(v.noSiri || "")}</td>
+        <td>${escapeHtml(v.tagAset || "")}</td>
+        <td>${escapeHtml(v.kuantiti || "")}</td>
+        <td>${escapeHtml(v.lokasi || "")}</td>
+        <td><span class="badge ${badgeClass}">${escapeHtml(v.status || "")}</span></td>
+        <td>${escapeHtml(v.tarikh || "")}</td>
+        <td>${escapeHtml(v.pembekal || "")}</td>
+        <td>${escapeHtml(v.catatan || "")}</td>
+        <td>${gambarButton}</td>
+        <td>
+          <button class="btn-edit" onclick="editData(${v.row})"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn-delete" onclick="del(${v.row})"><i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+function renderGambarButtons(gambarValue){
+  const urls = parseGambarUrls(gambarValue);
+
+  if(urls.length === 0){
+    return `<span class="btn-no-image">Tiada Gambar</span>`;
+  }
+
+  return urls.map((url,index) => `
+    <a href="${escapeAttr(url)}" target="_blank" class="btn-image">
+      <i class="fa-solid fa-image"></i> Gambar ${index + 1}
+    </a>
+  `).join("");
+}
+
+function stats(){
+  let total = allData.length;
+  let baik = 0, rosak = 0, pelupusan = 0, ict = 0, sewaan = 0, pkpj = 0, prosesICT = 0;
+
+  allData.forEach(v => {
+    const status = String(v.status || "").trim().toLowerCase();
+    const kategori = String(v.kategori || "").trim().toLowerCase();
+
+    if(status === "baik") baik++;
+    if(status === "rosak") rosak++;
+    if(status === "pelupusan") pelupusan++;
+    if(kategori === "ict") ict++;
+    if(kategori === "sewaan") sewaan++;
+    if(kategori === "pkpj") pkpj++;
+    if(kategori.includes("proses") || kategori.includes("pemulangan")) prosesICT++;
+  });
+
+  document.getElementById("total").innerText = total;
+  document.getElementById("baik").innerText = baik;
+  document.getElementById("rosak").innerText = rosak;
+  document.getElementById("pelupusan").innerText = pelupusan;
+  document.getElementById("ict").innerText = ict;
+  document.getElementById("sewaan").innerText = sewaan;
+  document.getElementById("pkpj").innerText = pkpj;
+  document.getElementById("prosesICT").innerText = prosesICT;
+}
+
+function filterDashboard(type,value){
+  let filtered = [...allData];
+
+  if(type === "status"){
+    filtered = allData.filter(v => String(v.status || "").trim() === value);
+  }
+
+  if(type === "kategori"){
+    filtered = allData.filter(v => {
+      const kategori = String(v.kategori || "").trim().toLowerCase();
+      const target = String(value || "").trim().toLowerCase();
+
+      if(target.includes("proses")){
+        return kategori.includes("proses") || kategori.includes("pemulangan");
       }
 
-      if (!data.status) {
-        showNotice("error", "Sila pilih status.");
-        return;
-      }
+      return kategori === target;
+    });
+  }
 
-      try {
-        document.body.classList.add("loading");
-        document.getElementById("saveBtn").textContent = "Sedang proses...";
+  tableBaseData = filtered;
+  document.getElementById("searchInput").value = "";
+  document.getElementById("sideSearch").value = "";
+  applyTableView();
+  goPage("tablePage");
+}
 
-        if (file) {
-          showNotice("info", "Sedang upload gambar...");
-          const uploaded = await uploadImage(file);
+function pilihGambar(){
+  imageInputEl.click();
+}
 
-          if (uploaded && uploaded.status === "OK") {
-            data.gambar = uploaded.directUrl || uploaded.url || "";
-            document.getElementById("gambarUrl").value = data.gambar;
-          } else {
-            throw new Error(uploaded.message || "Upload gambar gagal");
-          }
-        }
+function ambilFoto(){
+  cameraInputEl.click();
+}
 
-        if (editRow) {
-          data.action = "update";
-          data.row = editRow;
-          await postHidden(data);
-          showNotice("ok", "Data berjaya dikemaskini.");
-        } else {
-          data.action = "simpan";
-          await postHidden(data);
-          showNotice("ok", "Data berjaya disimpan.");
-        }
+function paparNamaFail(source){
+  let files = source === "camera" ? Array.from(cameraInputEl.files || []) : Array.from(imageInputEl.files || []);
 
-        setTimeout(async function () {
-          await loadData();
-          resetForm();
-          showSection("list");
-        }, 1500);
+  files.forEach(file => {
+    const exists = selectedFiles.some(existing =>
+      existing.name === file.name &&
+      existing.size === file.size &&
+      existing.lastModified === file.lastModified
+    );
 
-      } catch (err) {
-        showNotice("error", err.message || "Ralat semasa simpan data.");
-      } finally {
-        document.body.classList.remove("loading");
-        document.getElementById("saveBtn").textContent = editRow ? "Update" : "Simpan";
-      }
+    if(!exists){selectedFiles.push(file)}
+  });
+
+  renderSelectedFiles();
+}
+
+function renderSelectedFiles(){
+  if(selectedFiles.length === 0){
+    namaFailGambarEl.innerHTML = "Tiada gambar dipilih";
+    return;
+  }
+
+  let html = `<div>Jumlah gambar dipilih: ${selectedFiles.length}</div>`;
+  html += `<div class="selected-file-list">`;
+
+  selectedFiles.forEach((file,index) => {
+    html += `
+      <div class="selected-file-item">
+        <span>${index + 1}. ${escapeHtml(file.name)}</span>
+        <button type="button" class="btn-remove-file" onclick="buangGambarDipilih(${index})">Batal</button>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  namaFailGambarEl.innerHTML = html;
+}
+
+function buangGambarDipilih(index){
+  selectedFiles.splice(index,1);
+  renderSelectedFiles();
+}
+
+function clearSelectedImages(){
+  selectedFiles = [];
+  imageInputEl.value = "";
+  cameraInputEl.value = "";
+  renderSelectedFiles();
+}
+
+async function uploadImage(showAlert){
+  if(selectedFiles.length === 0){
+    alert("Sila tekan Tambah Gambar / Ambil Foto dan pilih gambar dahulu.");
+    return false;
+  }
+
+  if(isUploading) return false;
+  if(!checkApiUrl()) return false;
+
+  for(const file of selectedFiles){
+    if(!file.type.startsWith("image/")){
+      alert("Fail mesti gambar sahaja: " + file.name);
+      return false;
     }
+  }
 
-    async function uploadImage(file) {
-      const uploadId = "up_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
-      const imageData = await resizeImageToBase64(file);
+  const uploadBtn = document.querySelector(".btn-upload");
+  const addBtn = document.querySelector(".btn-add-upload");
+  const cameraBtn = document.querySelector(".btn-camera");
 
-      await postHidden({
-        action: "uploadForm",
-        uploadId: uploadId,
-        image: imageData.base64,
-        mimeType: imageData.mimeType,
-        fileName: file.name
+  isUploading = true;
+  uploadBtn.disabled = true;
+  addBtn.disabled = true;
+  cameraBtn.disabled = true;
+  saveBtn.disabled = true;
+  uploadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Upload...`;
+  setStatus("Sedang upload gambar...");
+
+  try{
+    const existingUrls = parseGambarUrls(gambarEl.value);
+    const uploadedUrls = [];
+
+    for(let i = 0; i < selectedFiles.length; i++){
+      const file = selectedFiles[i];
+      namaFailGambarEl.innerText = `Sedang upload ${i + 1}/${selectedFiles.length}: ${file.name}`;
+
+      const base64 = await fileToBase64(file);
+      const uploadId = "u" + Date.now() + "_" + i + "_" + Math.floor(Math.random() * 100000);
+
+      submitHiddenForm({
+        action:"uploadForm",
+        uploadId:uploadId,
+        fileName:file.name,
+        mimeType:file.type,
+        image:base64.split(",")[1]
       });
 
-      for (let i = 0; i < 35; i++) {
-        await wait(1200);
+      const res = await waitUploadResult(uploadId);
 
-        const result = await jsonp("uploadResult", {
-          uploadId: uploadId
-        });
-
-        if (result.status === "OK" || result.status === "ERROR") {
-          return result;
-        }
+      if(!res || res.status !== "OK"){
+        throw new Error((res && res.message) ? res.message : "Upload gagal: " + file.name);
       }
 
-      return {
-        status: "ERROR",
-        message: "Upload terlalu lama. Cuba gambar yang lebih kecil."
-      };
+      uploadedUrls.push(res.url || res.directUrl);
     }
 
-    function resizeImageToBase64(file) {
-      return new Promise(function (resolve, reject) {
-        const reader = new FileReader();
+    gambarEl.value = joinGambarUrls(existingUrls.concat(uploadedUrls));
+    updateGambarPreview();
 
-        reader.onload = function (event) {
-          const img = new Image();
+    selectedFiles = [];
+    imageInputEl.value = "";
+    cameraInputEl.value = "";
+    renderSelectedFiles();
 
-          img.onload = function () {
-            const maxSize = 1600;
-            let width = img.width;
-            let height = img.height;
-
-            if (width > height && width > maxSize) {
-              height = Math.round(height * (maxSize / width));
-              width = maxSize;
-            } else if (height > maxSize) {
-              width = Math.round(width * (maxSize / height));
-              height = maxSize;
-            }
-
-            const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
-
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            const mimeType = "image/jpeg";
-            const base64 = canvas.toDataURL(mimeType, 0.78);
-
-            resolve({
-              base64: base64,
-              mimeType: mimeType
-            });
-          };
-
-          img.onerror = reject;
-          img.src = event.target.result;
-        };
-
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
+    if(showAlert){
+      alert("UPLOAD OK. Link gambar sudah masuk.");
     }
 
-    function wait(ms) {
-      return new Promise(function (resolve) {
-        setTimeout(resolve, ms);
-      });
+    return true;
+  }catch(err){
+    alert("Ralat upload gambar: " + err.message);
+    console.error(err);
+    return false;
+  }finally{
+    isUploading = false;
+    uploadBtn.disabled = false;
+    addBtn.disabled = false;
+    cameraBtn.disabled = false;
+    saveBtn.disabled = false;
+    uploadBtn.innerHTML = `<i class="fa-solid fa-upload"></i> Upload Semua`;
+    setStatus("");
+  }
+}
+
+async function waitUploadResult(uploadId){
+  for(let i = 0; i < 40; i++){
+    await sleep(1500);
+    const res = await jsonp({action:"uploadResult", uploadId:uploadId});
+    if(res && res.status !== "PENDING"){return res}
+  }
+
+  return {status:"ERROR", message:"Timeout menunggu upload siap"};
+}
+
+function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function fileToBase64(file){
+  return new Promise((resolve,reject) => {
+    const reader = new FileReader();
+    reader.onload = function(e){resolve(e.target.result)};
+    reader.onerror = function(){reject(new Error("Gagal baca fail: " + file.name))};
+    reader.readAsDataURL(file);
+  });
+}
+
+function parseGambarUrls(value){
+  if(!value) return [];
+  return String(value).split("|").map(x => x.trim()).filter(x => x !== "");
+}
+
+function joinGambarUrls(urls){
+  return urls.map(x => String(x || "").trim()).filter(x => x !== "").join(" | ");
+}
+
+function updateGambarPreview(){
+  const urls = parseGambarUrls(gambarEl.value);
+
+  if(urls.length === 0){
+    gambarPreviewEl.innerHTML = "";
+    return;
+  }
+
+  gambarPreviewEl.innerHTML = urls.map((url,index) => {
+    return `<a href="${escapeAttr(url)}" target="_blank">Gambar ${index + 1}</a>`;
+  }).join("");
+}
+
+function collectPayload(){
+  let lokasiFinal = lokasiEl.value;
+
+  if(lokasiEl.value === "Lain-lain"){
+    lokasiFinal = lokasiLainEl.value.trim();
+  }
+
+  return {
+    row: editingRowEl.value,
+    tahun: tahunEl.value,
+    noInventori: noInventoriEl.value,
+    nama: namaEl.value,
+    kategori: kategoriEl.value,
+    jenama: jenamaEl.value,
+    model: modelEl.value,
+    noSiri: noSiriEl.value,
+    tagAset: tagAsetEl.value,
+    kuantiti: kuantitiEl.value,
+    lokasi: lokasiFinal,
+    status: statusEl.value,
+    tarikh: tarikhEl.value,
+    pembekal: pembekalEl.value,
+    gambar: gambarEl.value,
+    catatan: catatanEl.value
+  };
+}
+
+async function simpan(){
+  if(isSaving) return;
+
+  if(isUploading){
+    alert("Tunggu upload gambar siap dahulu sebelum simpan.");
+    return;
+  }
+
+  if(namaEl.value.trim() === ""){
+    alert("Sila masukkan nama inventori.");
+    namaEl.focus();
+    return;
+  }
+
+  if(kategoriEl.value.trim() === ""){
+    alert("Sila pilih kategori.");
+    kategoriEl.focus();
+    return;
+  }
+
+  if(statusEl.value.trim() === ""){
+    alert("Sila pilih status.");
+    statusEl.focus();
+    return;
+  }
+
+  if(lokasiEl.value === "Lain-lain" && lokasiLainEl.value.trim() === ""){
+    alert("Sila masukkan lokasi lain-lain.");
+    lokasiLainEl.focus();
+    return;
+  }
+
+  if(!checkApiUrl()) return;
+
+  if(selectedFiles.length > 0){
+    const uploaded = await uploadImage(false);
+
+    if(!uploaded){
+      alert("Gambar gagal upload. Data belum disimpan.");
+      return;
     }
+  }
 
-    function editRecord(row) {
-      const item = allData.find(function (x) {
-        return Number(x.row) === Number(row);
-      });
+  const isEdit = editingRowEl.value !== "";
+  const beforeCount = allData.length;
 
-      if (!item) {
-        showNotice("error", "Data tidak dijumpai.");
-        return;
+  isSaving = true;
+  saveBtn.disabled = true;
+  saveText.innerText = isEdit ? "Sedang kemaskini..." : "Sedang simpan...";
+  setStatus("Sedang simpan data...");
+
+  const payload = collectPayload();
+  payload.action = isEdit ? "update" : "simpan";
+
+  submitHiddenForm(payload);
+
+  setTimeout(async () => {
+    try{
+      await load();
+      const afterCount = allData.length;
+
+      if(isEdit){
+        alert("BERJAYA DIKEMASKINI");
+      }else if(afterCount > beforeCount){
+        alert("BERJAYA DISIMPAN");
+      }else{
+        alert("Arahan simpan sudah dihantar. Sila semak senarai inventori / Google Sheet.");
       }
 
-      document.getElementById("editRow").value = item.row || "";
-      document.getElementById("tahun").value = item.tahun || new Date().getFullYear();
-      document.getElementById("noInventori").value = item.noInventori || "";
-      document.getElementById("nama").value = item.nama || "";
-      document.getElementById("kategori").value = item.kategori || "";
-      document.getElementById("jenama").value = item.jenama || "";
-      document.getElementById("model").value = item.model || "";
-      document.getElementById("noSiri").value = item.noSiri || "";
-      document.getElementById("tagAset").value = item.tagAset || "";
-      document.getElementById("kuantiti").value = item.kuantiti || "";
-      document.getElementById("lokasi").value = item.lokasi || "";
-      document.getElementById("status").value = item.status || "";
-      document.getElementById("tarikh").value = normalizeDate(item.tarikh);
-      document.getElementById("pembekal").value = item.pembekal || "";
-      document.getElementById("gambarUrl").value = item.gambar || "";
-      document.getElementById("catatan").value = item.catatan || "";
-
-      document.getElementById("gambarInput").value = "";
-      showPreviewUrl(item.gambar);
-
-      document.getElementById("formTitle").textContent = "Kemaskini Maklumat Inventori";
-      document.getElementById("saveBtn").textContent = "Update";
-
-      showSection("form");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      clearForm();
+      tableBaseData = [...allData];
+      applyTableView();
+      goPage("tablePage");
+    }catch(err){
+      alert("Data dihantar, tetapi gagal refresh senarai: " + err.message);
+    }finally{
+      isSaving = false;
+      saveBtn.disabled = false;
+      saveText.innerText = isEdit ? "Kemaskini" : "Simpan";
+      setStatus("");
     }
+  }, 3000);
+}
 
-    async function deleteRecord(row) {
-      const confirmDelete = confirm("Padam rekod ini?");
+function editData(row){
+  const data = allData.find(x => x.row == row);
 
-      if (!confirmDelete) {
-        return;
-      }
+  if(!data){
+    alert("Data tidak dijumpai");
+    return;
+  }
 
-      try {
-        document.body.classList.add("loading");
+  editingRowEl.value = data.row || "";
+  tahunEl.value = data.tahun || new Date().getFullYear();
+  noInventoriEl.value = data.noInventori || "";
+  namaEl.value = data.nama || "";
+  kategoriEl.value = data.kategori || "";
+  jenamaEl.value = data.jenama || "";
+  modelEl.value = data.model || "";
+  noSiriEl.value = data.noSiri || "";
+  tagAsetEl.value = data.tagAset || "";
+  kuantitiEl.value = data.kuantiti || "1";
+  statusEl.value = data.status || "";
+  tarikhEl.value = formatDateForInput(data.tarikh);
+  pembekalEl.value = data.pembekal || "";
+  gambarEl.value = data.gambar || "";
+  catatanEl.value = data.catatan || "";
+  updateGambarPreview();
 
-        const res = await jsonp("delete", {
-          row: row
-        });
+  if(data.lokasi === "Stor PKPJ" || data.lokasi === "Pejabat PKPJ" || data.lokasi === ""){
+    lokasiEl.value = data.lokasi || "";
+    lokasiLainEl.style.display = "none";
+    lokasiLainEl.value = "";
+  }else{
+    lokasiEl.value = "Lain-lain";
+    lokasiLainEl.style.display = "block";
+    lokasiLainEl.value = data.lokasi || "";
+  }
 
-        if (res && res.status === "OK") {
-          showNotice("ok", "Data berjaya dipadam.");
-          await loadData();
-        } else {
-          showNotice("error", res.message || "Gagal padam data.");
-        }
-      } catch (err) {
-        showNotice("error", "Gagal padam data.");
-      } finally {
-        document.body.classList.remove("loading");
-      }
+  saveBtn.classList.remove("btn-save");
+  saveBtn.classList.add("btn-update");
+  saveText.innerText = "Kemaskini";
+  cancelBtn.style.display = "inline-block";
+  goPage("formPage");
+}
+
+function cancelEdit(){
+  clearForm();
+}
+
+function clearForm(){
+  editingRowEl.value = "";
+  noInventoriEl.value = "";
+  namaEl.value = "";
+  kategoriEl.value = "";
+  jenamaEl.value = "";
+  modelEl.value = "";
+  noSiriEl.value = "";
+  tagAsetEl.value = "";
+  kuantitiEl.value = "1";
+  lokasiEl.value = "";
+  lokasiLainEl.style.display = "none";
+  lokasiLainEl.value = "";
+  statusEl.value = "";
+  pembekalEl.value = "";
+  gambarEl.value = "";
+  catatanEl.value = "";
+  gambarPreviewEl.innerHTML = "";
+
+  tahunEl.value = new Date().getFullYear();
+  setTodayDate();
+  clearSelectedImages();
+
+  saveBtn.classList.remove("btn-update");
+  saveBtn.classList.add("btn-save");
+  saveText.innerText = "Simpan";
+  cancelBtn.style.display = "none";
+  setStatus("");
+}
+
+function formatDateForInput(value){
+  if(!value) return "";
+
+  if(String(value).includes("T")){
+    return String(value).split("T")[0];
+  }
+
+  if(String(value).match(/^\d{4}-\d{2}-\d{2}$/)){
+    return String(value);
+  }
+
+  const d = new Date(value);
+
+  if(!isNaN(d)){
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  }
+
+  return "";
+}
+
+async function del(id){
+  if(!confirm("Delete data ini?")) return;
+
+  try{
+    const res = await jsonp({action:"delete", row:id});
+
+    if(res && res.status === "OK"){
+      await load();
+      alert("BERJAYA DELETE");
+    }else{
+      alert((res && res.message) ? res.message : "Gagal delete data");
     }
+  }catch(err){
+    alert("Ralat delete data: " + err.message);
+  }
+}
 
-    function resetForm() {
-      document.getElementById("inventoryForm").reset();
-      document.getElementById("editRow").value = "";
-      document.getElementById("gambarUrl").value = "";
+function searchTable(){
+  tableBaseData = [...allData];
+  applyTableView();
+}
 
-      const currentYear = new Date().getFullYear();
-      document.getElementById("tahun").value = currentYear;
-      document.getElementById("tarikh").value = new Date().toISOString().slice(0, 10);
+function sideSearchTable(){
+  const keyword = document.getElementById("sideSearch").value;
+  document.getElementById("searchInput").value = keyword;
+  tableBaseData = [...allData];
+  applyTableView();
+  goPage("tablePage");
+}
 
-      document.getElementById("formTitle").textContent = "Tambah Maklumat Inventori";
-      document.getElementById("saveBtn").textContent = "Simpan";
+function sortTableBy(key){
+  if(sortKey === key){
+    sortAsc = !sortAsc;
+  }else{
+    sortKey = key;
+    sortAsc = true;
+  }
 
-      clearPreviewOnly();
-    }
+  applyTableView();
+  updateSortIcons();
+}
 
-    function previewSelectedImage() {
-      const file = document.getElementById("gambarInput").files[0];
+function applyTableView(){
+  const searchInput = document.getElementById("searchInput");
+  const keyword = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-      if (!file) {
-        clearPreviewOnly();
-        return;
-      }
+  let data = tableBaseData.length ? [...tableBaseData] : [...allData];
 
-      const reader = new FileReader();
+  if(keyword){
+    data = data.filter(v =>
+      String(v.row || "").toLowerCase().includes(keyword) ||
+      String(v.tahun || "").toLowerCase().includes(keyword) ||
+      String(v.noInventori || "").toLowerCase().includes(keyword) ||
+      String(v.nama || "").toLowerCase().includes(keyword) ||
+      String(v.kategori || "").toLowerCase().includes(keyword) ||
+      String(v.jenama || "").toLowerCase().includes(keyword) ||
+      String(v.model || "").toLowerCase().includes(keyword) ||
+      String(v.noSiri || "").toLowerCase().includes(keyword) ||
+      String(v.tagAset || "").toLowerCase().includes(keyword) ||
+      String(v.kuantiti || "").toLowerCase().includes(keyword) ||
+      String(v.lokasi || "").toLowerCase().includes(keyword) ||
+      String(v.status || "").toLowerCase().includes(keyword) ||
+      String(v.tarikh || "").toLowerCase().includes(keyword) ||
+      String(v.pembekal || "").toLowerCase().includes(keyword) ||
+      String(v.catatan || "").toLowerCase().includes(keyword)
+    );
+  }
 
-      reader.onload = function (event) {
-        showPreviewUrl(event.target.result);
-      };
+  if(sortKey){
+    data.sort((a,b) => compareValues(a[sortKey], b[sortKey]));
+  }
 
-      reader.readAsDataURL(file);
-    }
+  renderTable(data);
+  document.getElementById("recordCount").innerText = data.length;
+}
 
-    function showPreviewUrl(url) {
-      const img = document.getElementById("imagePreview");
+function compareValues(a,b){
+  a = a == null ? "" : a;
+  b = b == null ? "" : b;
 
-      if (url) {
-        img.src = url;
-        img.style.display = "block";
-      } else {
-        clearPreviewOnly();
-      }
-    }
+  const numA = parseFloat(a);
+  const numB = parseFloat(b);
 
-    function clearPreviewOnly() {
-      const img = document.getElementById("imagePreview");
-      img.src = "";
-      img.style.display = "none";
-    }
+  if(!isNaN(numA) && !isNaN(numB)){
+    return sortAsc ? numA - numB : numB - numA;
+  }
 
-    function clearImage() {
-      document.getElementById("gambarInput").value = "";
-      document.getElementById("gambarUrl").value = "";
-      clearPreviewOnly();
-    }
+  a = String(a).toLowerCase();
+  b = String(b).toLowerCase();
 
-    function openImage(url) {
-      if (url) {
-        window.open(url, "_blank");
-      }
-    }
+  if(a < b) return sortAsc ? -1 : 1;
+  if(a > b) return sortAsc ? 1 : -1;
+  return 0;
+}
 
-    function normalizeDate(value) {
-      if (!value) return "";
+function updateSortIcons(){
+  const keys = [
+    "row","tahun","noInventori","nama","kategori","jenama","model","noSiri",
+    "tagAset","kuantiti","lokasi","status","tarikh","pembekal","catatan"
+  ];
 
-      const text = String(value);
+  keys.forEach(k => {
+    const el = document.getElementById("sort-" + k);
+    if(el){el.innerText = "↕"}
+  });
 
-      if (/^\d{4}-\d{2}-\d{2}$/.test(text)) {
-        return text;
-      }
+  const active = document.getElementById("sort-" + sortKey);
+  if(active){active.innerText = sortAsc ? "↑" : "↓"}
+}
 
-      const date = new Date(text);
+function exportExcel(){
+  let csv = "No,Tahun,No Inventori,Nama,Kategori,Jenama,Model,No Siri,Tag Aset,Kuantiti,Lokasi,Status,Tarikh,Pembekal,Catatan,Gambar\n";
 
-      if (isNaN(date.getTime())) {
-        return "";
-      }
+  allData.forEach((v,index) => {
+    csv += [
+      index + 1,
+      v.tahun || "",
+      v.noInventori || "",
+      v.nama || "",
+      v.kategori || "",
+      v.jenama || "",
+      v.model || "",
+      v.noSiri || "",
+      v.tagAset || "",
+      v.kuantiti || "",
+      v.lokasi || "",
+      v.status || "",
+      v.tarikh || "",
+      v.pembekal || "",
+      v.catatan || "",
+      v.gambar || ""
+    ].map(x => `"${String(x).replace(/"/g,'""')}"`).join(",") + "\n";
+  });
 
-      return date.toISOString().slice(0, 10);
-    }
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
 
-    function escapeHtml(value) {
-      if (value === null || value === undefined) return "";
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "Senarai_Inventori_PKPJ.csv";
+  a.click();
 
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
+  URL.revokeObjectURL(url);
+}
 
-    function escapeForAttr(value) {
-      if (value === null || value === undefined) return "";
+function escapeHtml(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 
-      return String(value)
-        .replaceAll("\\", "\\\\")
-        .replaceAll("'", "\\'")
-        .replaceAll('"', "&quot;");
-    }
-  </script>
+function escapeAttr(value){
+  return escapeHtml(value);
+}
+</script>
+
 </body>
 </html>

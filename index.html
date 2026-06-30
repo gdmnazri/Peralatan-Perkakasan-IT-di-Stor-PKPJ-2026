@@ -7,41 +7,55 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
+:root{
+  --main-blue:#0d6efd;
+  --dark-blue:#0b1f3a;
+  --border:#d7dde5;
+  --page-bg:#f3f4f6;
+  --text:#222;
+}
 
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:#eef3f8;
-  color:#0b1f3a;
-  font-size:18px;
+  background:var(--page-bg);
+  color:var(--text);
+  font-size:13px;
+  line-height:1.35;
 }
 
 .top-header{
   background:white;
-  padding:24px 35px;
+  padding:12px 22px;
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap:20px;
-  box-shadow:0 2px 10px rgba(0,0,0,.10);
+  justify-content:flex-start;
+  gap:15px;
+  border-top:2px solid #1d4ed8;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
 
-.top-header img{width:90px}
+.top-header img{
+  width:52px;
+}
 
 .top-header h1{
   margin:0;
-  font-size:46px;
-  font-weight:900;
-  letter-spacing:1px;
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:0;
 }
 
 .nav-menu{
-  background:#0b1f3a;
+  background:#243447;
   display:flex;
-  justify-content:center;
-  gap:22px;
-  padding:22px;
+  justify-content:flex-start;
+  gap:10px;
+  padding:10px 16px;
   flex-wrap:wrap;
 }
 
@@ -49,17 +63,17 @@ body{
   background:#0d6efd;
   color:white;
   border:none;
-  border-radius:8px;
-  padding:18px 36px;
-  font-size:21px;
-  font-weight:900;
+  border-radius:3px;
+  padding:9px 14px;
+  font-size:13px;
+  font-weight:600;
   cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,.25);
-  min-width:230px;
+  box-shadow:none;
+  min-width:160px;
 }
 
 .nav-menu button.active{
-  background:#ffc107;
+  background:#f59e0b;
   color:#111;
 }
 
@@ -67,68 +81,80 @@ body{
   width:100%;
   max-width:100%;
   margin:0;
-  padding:34px 45px;
+  padding:18px 20px;
 }
 
-.page{display:none}
-.page.active{display:block}
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
 
 .dashboard-title{
-  font-size:24px;
-  font-weight:900;
-  margin:24px 0 18px;
+  font-size:16px;
+  font-weight:600;
+  margin:14px 0 10px;
+  border-bottom:1px solid #2196f3;
+  padding-bottom:8px;
 }
 
 .dashboard-grid{
   display:grid;
-  gap:28px;
-  margin-bottom:30px;
+  gap:16px;
+  margin-bottom:18px;
 }
 
-.status-grid{grid-template-columns:repeat(3,1fr)}
-.kategori-grid{grid-template-columns:repeat(5,1fr)}
+.status-grid{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.kategori-grid{
+  grid-template-columns:repeat(5,1fr);
+}
 
 .info-card{
-  min-height:190px;
+  min-height:105px;
   color:white;
-  border-radius:8px;
+  border-radius:2px;
   overflow:hidden;
   position:relative;
-  box-shadow:0 6px 16px rgba(0,0,0,.24);
+  box-shadow:0 1px 4px rgba(0,0,0,.16);
 }
 
 .info-card-content{
-  padding:28px;
+  padding:14px 16px;
   position:relative;
   z-index:2;
 }
 
 .info-number{
-  font-size:68px;
-  font-weight:900;
+  font-size:30px;
+  font-weight:700;
   line-height:1;
-  margin-bottom:14px;
+  margin-bottom:10px;
 }
 
 .info-label{
-  font-size:25px;
-  font-weight:900;
+  font-size:13px;
+  font-weight:500;
 }
 
 .info-icon{
   position:absolute;
-  right:28px;
-  top:30px;
-  font-size:115px;
-  opacity:.23;
+  right:18px;
+  top:18px;
+  font-size:58px;
+  opacity:.20;
 }
 
 .info-card-footer{
   background:rgba(0,0,0,.16);
   text-align:center;
-  padding:15px;
-  font-size:19px;
-  font-weight:900;
+  padding:8px;
+  font-size:12px;
+  font-weight:600;
   position:absolute;
   bottom:0;
   width:100%;
@@ -137,26 +163,26 @@ body{
 
 .pk-logo-card{
   position:absolute;
-  right:32px;
-  top:32px;
-  width:110px;
-  opacity:.30;
+  right:18px;
+  top:18px;
+  width:58px;
+  opacity:.25;
 }
 
-.bg-blue{background:#17a2d4}
-.bg-green{background:#28a745}
-.bg-red{background:#dc3545}
-.bg-orange{background:#fd7e14}
-.bg-purple{background:#6f42c1}
-.bg-dark{background:#263342}
-.bg-yellow{background:#ffc107}
-.bg-teal{background:#20c997}
+.bg-blue{background:#17a2d4;}
+.bg-green{background:#28a745;}
+.bg-red{background:#dc3545;}
+.bg-orange{background:#fd7e14;}
+.bg-purple{background:#6f42c1;}
+.bg-dark{background:#263342;}
+.bg-yellow{background:#ffc107;}
+.bg-teal{background:#20c997;}
 
 .section-box{
   background:white;
-  border-radius:10px;
-  box-shadow:0 5px 18px rgba(0,0,0,.16);
-  margin-bottom:34px;
+  border-radius:3px;
+  box-shadow:0 1px 4px rgba(0,0,0,.14);
+  margin-bottom:20px;
   overflow:hidden;
   width:100%;
 }
@@ -164,72 +190,79 @@ body{
 .section-title{
   background:#0d6efd;
   color:white;
-  padding:22px 30px;
-  font-size:25px;
-  font-weight:900;
+  padding:12px 16px;
+  font-size:16px;
+  font-weight:600;
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:8px;
 }
 
-.form-area{padding:36px}
+.form-area{
+  padding:18px;
+}
 
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  gap:30px 42px;
+  gap:14px 18px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:5px;
 }
 
 label{
-  font-weight:900;
-  font-size:19px;
+  font-weight:600;
+  font-size:13px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
-  padding:18px;
-  border:1px solid #cbd5e1;
-  border-radius:6px;
-  font-size:18px;
+  padding:8px 10px;
+  border:1px solid var(--border);
+  border-radius:3px;
+  font-size:13px;
   background:white;
+  min-height:36px;
 }
 
 textarea{
-  height:125px;
+  height:80px;
   resize:vertical;
 }
 
 .gambar-url-box{
-  height:92px;
-  font-size:14px;
+  height:72px;
+  font-size:12px;
 }
 
-.full-width{grid-column:1 / span 3}
+.full-width{
+  grid-column:1 / span 3;
+}
 
 .form-buttons{
   text-align:center;
-  margin-top:34px;
+  margin-top:20px;
 }
 
 button{
   border:none;
   cursor:pointer;
-  border-radius:6px;
-  padding:14px 24px;
-  font-size:18px;
-  font-weight:900;
+  border-radius:3px;
+  padding:8px 13px;
+  font-size:13px;
+  font-weight:600;
 }
 
 .btn-save{
   background:#0d6efd;
   color:white;
-  min-width:240px;
+  min-width:170px;
 }
 
 .btn-update{
@@ -239,7 +272,7 @@ button{
 
 .upload-row{
   display:flex;
-  gap:10px;
+  gap:8px;
   align-items:center;
   flex-wrap:wrap;
 }
@@ -247,46 +280,81 @@ button{
 .btn-add-upload{
   background:#0d6efd;
   color:white;
-  width:220px;
-  margin-top:10px;
+  width:165px;
+  margin-top:6px;
 }
 
 .btn-upload{
   background:#198754;
   color:white;
-  width:240px;
-  margin-top:10px;
-}
-
-.upload-file-name{
-  margin-top:8px;
-  font-size:15px;
-  font-weight:800;
-  color:#198754;
-  line-height:1.5;
+  width:185px;
+  margin-top:6px;
 }
 
 .upload-hint{
-  font-size:14px;
+  font-size:12px;
   color:#6c757d;
-  font-weight:700;
+  font-weight:500;
   line-height:1.5;
 }
 
-.gambar-preview{
-  margin-top:8px;
+.upload-file-name{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:600;
+  color:#198754;
+  line-height:1.5;
+  white-space:normal;
+}
+
+.selected-file-list{
+  margin-top:6px;
   display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.selected-file-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   gap:8px;
+  background:#f8fafc;
+  border:1px solid #dbe2ea;
+  border-radius:3px;
+  padding:6px 8px;
+  color:#198754;
+}
+
+.selected-file-item span{
+  font-size:12px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.btn-remove-file{
+  background:#dc3545;
+  color:white;
+  font-size:11px;
+  padding:5px 8px;
+  border-radius:3px;
+  min-width:58px;
+}
+
+.gambar-preview{
+  margin-top:6px;
+  display:flex;
+  gap:6px;
   flex-wrap:wrap;
 }
 
 .gambar-preview a{
   background:#0d6efd;
   color:white;
-  padding:8px 12px;
-  border-radius:6px;
-  font-size:14px;
-  font-weight:900;
+  padding:5px 8px;
+  border-radius:3px;
+  font-size:12px;
+  font-weight:600;
   text-decoration:none;
 }
 
@@ -303,390 +371,26 @@ button{
 }
 
 .table-toolbar{
-  padding:26px;
+  padding:14px 16px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:22px;
+  gap:12px;
   flex-wrap:wrap;
 }
 
 .search-box{
   position:relative;
-  width:560px;
+  width:420px;
   max-width:100%;
 }
 
 .search-box i{
   position:absolute;
-  left:18px;
+  left:12px;
   top:50%;
   transform:translateY(-50%);
   color:#6c757d;
-}
-
-.search-box input{
-  padding-left:52px;
-}
-
-.table-count{
-  font-size:20px;
-  font-weight:900;
-}
-
-.table-wrap{overflow-x:auto}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:white;
-}
-
-th{
-  background:#0d6efd;
-  color:white;
-  padding:16px;
-  border:1px solid #0b5ed7;
-  font-size:16px;
-}
-
-td{
-  padding:15px;
-  border:1px solid #dbe2ea;
-  text-align:center;
-  font-size:16px;
-  vertical-align:middle;
-}
-
-td:nth-child(2){
-  text-align:left;
-  font-weight:800;
-}
-
-.badge{
-  display:inline-block;
-  padding:8px 18px;
-  border-radius:22px;
-  font-size:15px;
-  color:white;
-  font-weight:900;
-}
-
-.badge-baik{background:#198754}
-.badge-rosak{background:#dc3545}
-.badge-pelupusan{background:#fd7e14}
-
-.btn-delete{
-  background:#dc3545;
-  color:white;
-  font-size:15px;
-  padding:9px 13px;
-}
-
-.btn-edit{
-  background:#ffc107;
-  color:#111;
-  font-size:15px;
-  padding:9px 13px;
-  margin-right:6px;
-}
-
-.btn-image{
-  background:#0d6efd;
-  color:white;
-  font-size:15px;
-  padding:9px 13px;
-  margin:3px;
-  text-decoration:none;
-  display:inline-block;
-  border-radius:6px;
-}
-
-.btn-no-image{
-  background:#6c757d;
-  color:white;
-  font-size:15px;
-  padding:9px 13px;
-  margin:3px;
-  display:inline-block;
-  border-radius:6px;
-}
-
-
-.selected-file-list{
-  margin-top:6px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.selected-file-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  background:#f8fafc;
-  border:1px solid #dbe2ea;
-  border-radius:3px;
-  padding:6px 8px;
-  color:#198754;
-}
-
-.selected-file-item span{
-  font-size:12px;
-  font-weight:600;
-  word-break:break-word;
-}
-
-.btn-remove-file{
-  background:#dc3545;
-  color:white;
-  font-size:11px;
-  padding:5px 8px;
-  border-radius:3px;
-  min-width:58px;
-}
-
-@media(max-width:1200px){
-  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
-  .form-grid{grid-template-columns:1fr 1fr}
-  .full-width{grid-column:1 / span 2}
-}
-
-@media(max-width:700px){
-  .top-header h1{font-size:22px}
-  .top-header img{width:55px}
-  .nav-menu button{width:100%;min-width:0;font-size:17px}
-  .container{padding:16px}
-  .status-grid,.kategori-grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .full-width{grid-column:1}
-  .upload-row button{width:100%}
-}
-
-/* ===== ADMIN SYSTEM STYLE - STANDARD COMPACT ===== */
-:root{
-  --main-blue:#0d6efd;
-  --dark-blue:#0b1f3a;
-  --border:#d7dde5;
-  --page-bg:#f3f4f6;
-  --text:#222;
-}
-
-body{
-  background:var(--page-bg);
-  color:var(--text);
-  font-size:13px;
-  line-height:1.35;
-}
-
-.top-header{
-  padding:12px 22px;
-  justify-content:flex-start;
-  border-top:2px solid #1d4ed8;
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
-}
-
-.top-header img{
-  width:52px;
-}
-
-.top-header h1{
-  font-size:24px;
-  font-weight:600;
-  letter-spacing:0;
-}
-
-.nav-menu{
-  padding:10px 16px;
-  gap:10px;
-  justify-content:flex-start;
-  background:#243447;
-}
-
-.nav-menu button{
-  min-width:160px;
-  padding:9px 14px;
-  font-size:13px;
-  font-weight:600;
-  border-radius:3px;
-  box-shadow:none;
-}
-
-.nav-menu button.active{
-  background:#f59e0b;
-  color:#111;
-}
-
-.container{
-  padding:18px 20px;
-}
-
-.dashboard-title{
-  font-size:16px;
-  font-weight:600;
-  margin:14px 0 10px;
-  border-bottom:1px solid #2196f3;
-  padding-bottom:8px;
-}
-
-.dashboard-grid{
-  gap:16px;
-  margin-bottom:18px;
-}
-
-.info-card{
-  min-height:105px;
-  border-radius:2px;
-  box-shadow:0 1px 4px rgba(0,0,0,.16);
-}
-
-.info-card-content{
-  padding:14px 16px;
-}
-
-.info-number{
-  font-size:30px;
-  font-weight:700;
-  margin-bottom:10px;
-}
-
-.info-label{
-  font-size:13px;
-  font-weight:500;
-}
-
-.info-icon{
-  right:18px;
-  top:18px;
-  font-size:58px;
-  opacity:.20;
-}
-
-.pk-logo-card{
-  right:18px;
-  top:18px;
-  width:58px;
-  opacity:.25;
-}
-
-.info-card-footer{
-  padding:8px;
-  font-size:12px;
-  font-weight:600;
-}
-
-.section-box{
-  border-radius:3px;
-  box-shadow:0 1px 4px rgba(0,0,0,.14);
-  margin-bottom:20px;
-}
-
-.section-title{
-  padding:12px 16px;
-  font-size:16px;
-  font-weight:600;
-  gap:8px;
-}
-
-.form-area{
-  padding:18px;
-}
-
-.form-grid{
-  gap:14px 18px;
-}
-
-.field{
-  gap:5px;
-}
-
-label{
-  font-size:13px;
-  font-weight:600;
-}
-
-input,
-select,
-textarea{
-  padding:8px 10px;
-  font-size:13px;
-  border:1px solid var(--border);
-  border-radius:3px;
-  min-height:36px;
-}
-
-textarea{
-  height:80px;
-}
-
-.gambar-url-box{
-  height:72px;
-  font-size:12px;
-}
-
-button{
-  padding:8px 13px;
-  font-size:13px;
-  font-weight:600;
-  border-radius:3px;
-}
-
-.btn-save{
-  min-width:170px;
-}
-
-.btn-add-upload{
-  width:165px;
-  margin-top:6px;
-}
-
-.btn-upload{
-  width:185px;
-  margin-top:6px;
-}
-
-.upload-row{
-  gap:8px;
-}
-
-.upload-hint{
-  font-size:12px;
-  font-weight:500;
-}
-
-.upload-file-name{
-  margin-top:4px;
-  font-size:12px;
-  font-weight:600;
-}
-
-.gambar-preview{
-  margin-top:6px;
-  gap:6px;
-}
-
-.gambar-preview a{
-  padding:5px 8px;
-  font-size:12px;
-  border-radius:3px;
-}
-
-.form-buttons{
-  margin-top:20px;
-}
-
-.table-toolbar{
-  padding:14px 16px;
-  gap:12px;
-}
-
-.search-box{
-  width:420px;
-}
-
-.search-box i{
-  left:12px;
   font-size:13px;
 }
 
@@ -699,97 +403,158 @@ button{
   font-weight:600;
 }
 
+.table-wrap{
+  overflow-x:auto;
+}
+
 table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
   font-size:12px;
 }
 
 th{
+  background:#0d6efd;
+  color:white;
   padding:9px 8px;
+  border:1px solid #0b5ed7;
   font-size:12px;
   font-weight:600;
 }
 
 td{
   padding:8px;
+  border:1px solid #dbe2ea;
+  text-align:center;
   font-size:12px;
+  vertical-align:middle;
+}
+
+td:nth-child(2){
+  text-align:left;
+  font-weight:600;
 }
 
 .badge{
+  display:inline-block;
   padding:5px 10px;
-  font-size:11px;
   border-radius:14px;
+  font-size:11px;
+  color:white;
+  font-weight:600;
 }
 
-.btn-edit,
-.btn-delete,
-.btn-image,
-.btn-no-image{
+.badge-baik{
+  background:#198754;
+}
+
+.badge-rosak{
+  background:#dc3545;
+}
+
+.badge-pelupusan{
+  background:#fd7e14;
+}
+
+.btn-delete{
+  background:#dc3545;
+  color:white;
   font-size:11px;
   padding:6px 8px;
+  border-radius:3px;
+}
+
+.btn-edit{
+  background:#ffc107;
+  color:#111;
+  font-size:11px;
+  padding:6px 8px;
+  margin-right:6px;
   border-radius:3px;
 }
 
 .btn-image{
-  margin:2px;
-}
-
-
-.selected-file-list{
-  margin-top:6px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.selected-file-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  background:#f8fafc;
-  border:1px solid #dbe2ea;
-  border-radius:3px;
-  padding:6px 8px;
-  color:#198754;
-}
-
-.selected-file-item span{
-  font-size:12px;
-  font-weight:600;
-  word-break:break-word;
-}
-
-.btn-remove-file{
-  background:#dc3545;
+  background:#0d6efd;
   color:white;
   font-size:11px;
-  padding:5px 8px;
+  padding:6px 8px;
+  margin:2px;
+  text-decoration:none;
+  display:inline-block;
   border-radius:3px;
-  min-width:58px;
+}
+
+.btn-no-image{
+  background:#6c757d;
+  color:white;
+  font-size:11px;
+  padding:6px 8px;
+  margin:2px;
+  display:inline-block;
+  border-radius:3px;
 }
 
 @media(max-width:1200px){
-  .status-grid,.kategori-grid{grid-template-columns:repeat(2,1fr)}
-  .form-grid{grid-template-columns:1fr 1fr}
-  .full-width{grid-column:1 / span 2}
+  .status-grid,
+  .kategori-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .full-width{
+    grid-column:1 / span 2;
+  }
 }
 
 @media(max-width:700px){
-  body{font-size:13px}
+  body{
+    font-size:13px;
+  }
+
   .top-header{
     justify-content:center;
     padding:10px;
   }
-  .top-header h1{font-size:18px}
-  .top-header img{width:42px}
-  .nav-menu button{width:100%;min-width:0;font-size:13px}
-  .container{padding:12px}
-  .status-grid,.kategori-grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .full-width{grid-column:1}
-  .upload-row button{width:100%}
-}
 
+  .top-header h1{
+    font-size:18px;
+  }
+
+  .top-header img{
+    width:42px;
+  }
+
+  .nav-menu button{
+    width:100%;
+    min-width:0;
+    font-size:13px;
+  }
+
+  .container{
+    padding:12px;
+  }
+
+  .status-grid,
+  .kategori-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full-width{
+    grid-column:1;
+  }
+
+  .upload-row button{
+    width:100%;
+  }
+}
 </style>
 </head>
 
@@ -828,7 +593,9 @@ td{
         <div class="info-label">Baik</div>
       </div>
       <i class="fa-solid fa-circle-check info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Baik')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
     <div class="info-card bg-red">
@@ -837,7 +604,9 @@ td{
         <div class="info-label">Rosak</div>
       </div>
       <i class="fa-solid fa-screwdriver-wrench info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Rosak')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
     <div class="info-card bg-orange">
@@ -846,7 +615,9 @@ td{
         <div class="info-label">Pelupusan</div>
       </div>
       <i class="fa-solid fa-trash info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('status','Pelupusan')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
   </div>
@@ -861,7 +632,9 @@ td{
         <div class="info-label">Jumlah Inventori</div>
       </div>
       <i class="fa-solid fa-boxes-stacked info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('all','')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('all','')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
     <div class="info-card bg-purple">
@@ -870,7 +643,9 @@ td{
         <div class="info-label">ICT</div>
       </div>
       <i class="fa-solid fa-computer info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','ICT')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
     <div class="info-card bg-dark">
@@ -879,7 +654,9 @@ td{
         <div class="info-label">Sewaan</div>
       </div>
       <i class="fa-solid fa-building info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Sewaan')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
     <div class="info-card bg-yellow">
@@ -888,7 +665,9 @@ td{
         <div class="info-label">PKPJ</div>
       </div>
       <img class="pk-logo-card" src="https://raw.githubusercontent.com/gdmnazri/Peralatan-Perkakasan-IT-di-Stor-PKPJ-2026/main/pkpj.png">
-      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','PKPJ')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
     <div class="info-card bg-teal">
@@ -897,7 +676,9 @@ td{
         <div class="info-label">Proses Pemulangan ke ICT</div>
       </div>
       <i class="fa-solid fa-rotate-left info-icon"></i>
-      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">Lihat <i class="fa-solid fa-circle-arrow-right"></i></div>
+      <div class="info-card-footer" onclick="filterDashboard('kategori','Dalam Proses Pemulangan ke ICT')">
+        Lihat <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
 
   </div>
@@ -969,7 +750,7 @@ td{
           </div>
 
           <div class="upload-hint">
-            Boleh pilih lebih dari satu gambar. Contoh: gambar depan, belakang, serial number.
+            Boleh pilih lebih dari satu gambar. Kalau tersalah pilih, tekan butang Batal pada gambar tersebut.
           </div>
 
           <div id="namaFailGambar" class="upload-file-name">
@@ -1105,8 +886,6 @@ td{
 </div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbxua6jCAaUJ5J5pDtJrk2WC_e5TboxPxXdhkfzZw-fVRsflS_9ej3FsWH2rOK0Nm68K/exec";
-
 let allData = [];
 let selectedFiles = [];
 
@@ -1134,8 +913,16 @@ const saveBtn = document.getElementById("saveBtn");
 const saveText = document.getElementById("saveText");
 const cancelBtn = document.getElementById("cancelBtn");
 
-for(let y=2010; y<=2035; y++){
-  tahunEl.innerHTML += `<option ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
+for(let y = 2010; y <= 2035; y++){
+  tahunEl.innerHTML += `<option value="${y}" ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
+}
+
+function serverRun(functionName, ...args){
+  return new Promise((resolve, reject) => {
+    google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(reject)[functionName](...args);
+  });
 }
 
 function showPage(pageId, btn){
@@ -1147,10 +934,11 @@ function showPage(pageId, btn){
 
 function goPage(pageId){
   const btnMap = {
-    dashboardPage:document.getElementById("btnDashboard"),
-    formPage:document.getElementById("btnForm"),
-    tablePage:document.getElementById("btnTable")
+    dashboardPage: document.getElementById("btnDashboard"),
+    formPage: document.getElementById("btnForm"),
+    tablePage: document.getElementById("btnTable")
   };
+
   showPage(pageId, btnMap[pageId]);
 }
 
@@ -1164,26 +952,25 @@ function checkLokasi(){
   }
 }
 
-function load(){
-  fetch(API)
-  .then(r => r.json())
-  .then(d => {
+async function load(){
+  try{
+    const d = await serverRun("getDataClient");
     allData = Array.isArray(d) ? d : [];
     renderTable(allData);
     document.getElementById("recordCount").innerText = allData.length;
     stats();
-  })
-  .catch(err => {
-    alert("Gagal load data. Sila semak API Web App.");
+  }catch(err){
+    alert("Gagal load data: " + err.message);
     console.error(err);
-  });
+  }
 }
 
 function renderTable(data){
   tableEl.innerHTML = "";
 
-  data.forEach((v,index) => {
+  data.forEach((v, index) => {
     let badgeClass = "";
+
     if(v.status === "Baik") badgeClass = "badge-baik";
     if(v.status === "Rosak") badgeClass = "badge-rosak";
     if(v.status === "Pelupusan") badgeClass = "badge-pelupusan";
@@ -1370,9 +1157,11 @@ function editData(row){
   saveBtn.classList.add("btn-update");
   saveText.innerText = "KEMASKINI DATA";
   cancelBtn.style.display = "inline-block";
+
   selectedFiles = [];
   imageInputEl.value = "";
   renderSelectedFiles();
+
   goPage("formPage");
 }
 
@@ -1412,7 +1201,7 @@ function searchTable(){
   document.getElementById("recordCount").innerText = filtered.length;
 }
 
-function simpan(){
+async function simpan(){
   let lokasiFinal = lokasiEl.value;
 
   if(lokasiEl.value === "Lain-lain"){
@@ -1429,58 +1218,45 @@ function simpan(){
   saveBtn.disabled = true;
   saveText.innerText = isEdit ? "SEDANG KEMASKINI..." : "SEDANG SIMPAN...";
 
-  fetch(API,{
-    method:"POST",
-    headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify({
-      action:isEdit ? "update" : "simpan",
-      row:editingRowEl.value,
-      tahun:tahunEl.value,
-      noInventori:noInventoriEl.value,
-      nama:namaEl.value,
-      kategori:kategoriEl.value,
-      jenama:jenamaEl.value,
-      model:modelEl.value,
-      noSiri:noSiriEl.value,
-      tagAset:tagAsetEl.value,
-      kuantiti:kuantitiEl.value,
-      lokasi:lokasiFinal,
-      status:statusEl.value,
-      tarikh:tarikhEl.value,
-      pembekal:pembekalEl.value,
-      gambar:gambarEl.value,
-      catatan:catatanEl.value
-    })
-  })
-  .then(async r => {
-    const text = await r.text();
+  const payload = {
+    row: editingRowEl.value,
+    tahun: tahunEl.value,
+    noInventori: noInventoriEl.value,
+    nama: namaEl.value,
+    kategori: kategoriEl.value,
+    jenama: jenamaEl.value,
+    model: modelEl.value,
+    noSiri: noSiriEl.value,
+    tagAset: tagAsetEl.value,
+    kuantiti: kuantitiEl.value,
+    lokasi: lokasiFinal,
+    status: statusEl.value,
+    tarikh: tarikhEl.value,
+    pembekal: pembekalEl.value,
+    gambar: gambarEl.value,
+    catatan: catatanEl.value
+  };
 
-    try{
-      return JSON.parse(text);
-    }catch(e){
-      throw new Error("API tidak pulangkan JSON. Semak URL API / deployment. Response: " + text.substring(0,150));
-    }
-  })
-  .then(res => {
-    console.log(res);
+  try{
+    const res = isEdit
+      ? await serverRun("updateData", payload)
+      : await serverRun("simpanData", payload);
 
     if(res.status === "OK"){
       alert(isEdit ? "BERJAYA DIKEMASKINI" : "BERJAYA DISIMPAN");
       clearForm();
-      load();
+      await load();
       goPage("tablePage");
     }else{
       alert(res.message || "Gagal simpan data");
     }
-  })
-  .catch(err => {
+  }catch(err){
     alert("Ralat simpan data: " + err.message);
     console.error(err);
-  })
-  .finally(() => {
+  }finally{
     saveBtn.disabled = false;
     saveText.innerText = isEdit ? "KEMASKINI DATA" : "SIMPAN DATA";
-  });
+  }
 }
 
 function pilihGambar(){
@@ -1507,18 +1283,7 @@ function paparNamaFail(){
     }
   });
 
-  syncSelectedFiles();
   renderSelectedFiles();
-}
-
-function syncSelectedFiles(){
-  const dataTransfer = new DataTransfer();
-
-  selectedFiles.forEach(file => {
-    dataTransfer.items.add(file);
-  });
-
-  imageInputEl.files = dataTransfer.files;
 }
 
 function renderSelectedFiles(){
@@ -1548,7 +1313,6 @@ function renderSelectedFiles(){
 
 function buangGambarDipilih(index){
   selectedFiles.splice(index, 1);
-  syncSelectedFiles();
   renderSelectedFiles();
 }
 
@@ -1575,31 +1339,24 @@ async function uploadImage(){
     const existingUrls = parseGambarUrls(gambarEl.value);
     const uploadedUrls = [];
 
-    for(let i=0; i<files.length; i++){
+    for(let i = 0; i < files.length; i++){
       const file = files[i];
 
       namaFailGambarEl.innerText = `Sedang upload ${i + 1}/${files.length}: ${file.name}`;
 
       const base64 = await fileToBase64(file);
 
-      const res = await fetch(API,{
-        method:"POST",
-        headers:{"Content-Type":"text/plain"},
-        body:JSON.stringify({
-          action:"upload",
-          image:base64.split(",")[1],
-          mimeType:file.type,
-          fileName:file.name
-        })
+      const res = await serverRun("uploadFile", {
+        image: base64.split(",")[1],
+        mimeType: file.type,
+        fileName: file.name
       });
 
-      const json = await res.json();
-
-      if(json.status !== "OK"){
-        throw new Error(json.message || "Upload gagal: " + file.name);
+      if(res.status !== "OK"){
+        throw new Error(res.message || "Upload gagal: " + file.name);
       }
 
-      uploadedUrls.push(json.url);
+      uploadedUrls.push(res.url);
     }
 
     gambarEl.value = joinGambarUrls(existingUrls.concat(uploadedUrls));
@@ -1636,24 +1393,21 @@ function fileToBase64(file){
   });
 }
 
-function del(id){
+async function del(id){
   if(!confirm("Delete data ini?")) return;
 
-  fetch(API,{
-    method:"POST",
-    headers:{"Content-Type":"text/plain"},
-    body:JSON.stringify({
-      action:"delete",
-      row:id
-    })
-  })
-  .then(() => {
-    load();
-  })
-  .catch(err => {
-    alert("Ralat semasa delete data");
+  try{
+    const res = await serverRun("deleteData", {row:id});
+
+    if(res.status === "OK"){
+      await load();
+    }else{
+      alert(res.message || "Gagal delete data");
+    }
+  }catch(err){
+    alert("Ralat delete data: " + err.message);
     console.error(err);
-  });
+  }
 }
 
 function exportExcel(){
@@ -1705,6 +1459,7 @@ function clearForm(){
   selectedFiles = [];
   imageInputEl.value = "";
   renderSelectedFiles();
+
   gambarPreviewEl.innerHTML = "";
 
   saveBtn.classList.remove("btn-update");

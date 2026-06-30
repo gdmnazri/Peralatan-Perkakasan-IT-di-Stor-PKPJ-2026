@@ -668,6 +668,225 @@ td:nth-child(4){
   background:#1d4ed8;
 }
 
+
+/* ===== MOBILE VIEW KEMAS - TABLE JADI CARD ===== */
+@media(max-width:760px){
+
+  body{
+    font-size:12px;
+  }
+
+  .topbar{
+    min-height:58px !important;
+    height:auto !important;
+    padding:8px 12px !important;
+  }
+
+  .header-title h1{
+    font-size:16px !important;
+    line-height:1.2 !important;
+  }
+
+  .header-title img{
+    width:38px !important;
+    height:38px !important;
+  }
+
+  .sidebar{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    width:100% !important;
+    height:auto !important;
+    margin-top:58px !important;
+    border-right:none !important;
+    border-bottom:1px solid #cbd5e1 !important;
+  }
+
+  .datetime{
+    display:none !important;
+  }
+
+  .side-search{
+    padding:8px !important;
+  }
+
+  .side-menu{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important;
+  }
+
+  .side-menu button{
+    font-size:12px !important;
+    padding:10px 8px !important;
+    text-align:center !important;
+  }
+
+  .main{
+    margin-left:0 !important;
+    padding:14px 10px 20px !important;
+  }
+
+  .page-title{
+    font-size:18px !important;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .full-width{
+    grid-column:1 !important;
+  }
+
+  .table-toolbar{
+    flex-direction:column !important;
+    align-items:stretch !important;
+  }
+
+  .search-box{
+    width:100% !important;
+  }
+
+  .table-count{
+    text-align:center !important;
+  }
+
+  .btn-reset-filter,
+  .btn-excel{
+    width:100% !important;
+  }
+
+  .table-wrap{
+    overflow:visible !important;
+  }
+
+  table{
+    min-width:0 !important;
+    width:100% !important;
+    border-collapse:separate !important;
+    border-spacing:0 !important;
+    background:transparent !important;
+  }
+
+  thead{
+    display:none !important;
+  }
+
+  tbody{
+    display:block !important;
+    width:100% !important;
+  }
+
+  tr{
+    display:block !important;
+    width:100% !important;
+    background:white !important;
+    margin-bottom:14px !important;
+    border:1px solid #dbe2ea !important;
+    border-radius:10px !important;
+    box-shadow:0 1px 5px rgba(0,0,0,.12) !important;
+    overflow:hidden !important;
+  }
+
+  td{
+    display:flex !important;
+    justify-content:space-between !important;
+    align-items:flex-start !important;
+    gap:10px !important;
+    width:100% !important;
+    border:none !important;
+    border-bottom:1px solid #eef2f7 !important;
+    padding:10px 12px !important;
+    text-align:right !important;
+    white-space:normal !important;
+    word-break:break-word !important;
+  }
+
+  td:last-child{
+    border-bottom:none !important;
+  }
+
+  td:nth-child(4){
+    background:#eff6ff !important;
+    color:#1d4ed8 !important;
+    font-weight:900 !important;
+    font-size:14px !important;
+  }
+
+  td::before{
+    font-weight:800 !important;
+    color:#475569 !important;
+    text-align:left !important;
+    flex:0 0 42% !important;
+    content:"";
+  }
+
+  td:nth-child(1)::before{content:"No";}
+  td:nth-child(2)::before{content:"Tahun";}
+  td:nth-child(3)::before{content:"No Inventori";}
+  td:nth-child(4)::before{content:"Nama";}
+  td:nth-child(5)::before{content:"Kategori";}
+  td:nth-child(6)::before{content:"Jenama";}
+  td:nth-child(7)::before{content:"Model";}
+  td:nth-child(8)::before{content:"No Siri";}
+  td:nth-child(9)::before{content:"Tag Aset";}
+  td:nth-child(10)::before{content:"Kuantiti";}
+  td:nth-child(11)::before{content:"Lokasi";}
+  td:nth-child(12)::before{content:"Status";}
+  td:nth-child(13)::before{content:"Tarikh";}
+  td:nth-child(14)::before{content:"Pembekal";}
+  td:nth-child(15)::before{content:"Catatan";}
+  td:nth-child(16)::before{content:"Gambar";}
+  td:nth-child(17)::before{content:"Action";}
+
+  .btn-image,
+  .btn-edit,
+  .btn-delete,
+  .btn-no-image{
+    margin:2px !important;
+  }
+
+  td:nth-child(16),
+  td:nth-child(17){
+    flex-wrap:wrap !important;
+  }
+
+  td:nth-child(16)::before,
+  td:nth-child(17)::before{
+    flex:0 0 100% !important;
+    margin-bottom:4px !important;
+  }
+}
+
+
+/* ===== FOOTER COPYRIGHT ===== */
+.site-footer{
+  margin-top:24px;
+  padding:14px 12px;
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:#475569;
+  background:white;
+  border-top:1px solid #dbe2ea;
+  border-radius:6px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+
+@media(max-width:760px){
+  .site-footer{
+    margin-top:16px;
+    font-size:11px;
+    padding:12px 8px;
+  }
+}
+
 </style>
 </head>
 
@@ -980,6 +1199,11 @@ td:nth-child(4){
         </div>
       </div>
     </div>
+
+
+    <footer class="site-footer">
+      © 2026 Unit IT PKPJ | Sistem Inventori
+    </footer>
 
   </main>
 </div>

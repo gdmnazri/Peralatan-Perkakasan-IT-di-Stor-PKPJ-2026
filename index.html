@@ -215,6 +215,11 @@ button{
   font-weight:700;
 }
 
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
 .form-buttons{
   text-align:center;
   margin-top:20px;
@@ -238,6 +243,21 @@ button{
   display:none;
 }
 
+.note{
+  font-size:12px;
+  color:#6c757d;
+  font-weight:500;
+}
+
+.status-line{
+  margin-top:10px;
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:#0d6efd;
+  min-height:18px;
+}
+
 .upload-row{
   display:flex;
   gap:8px;
@@ -259,14 +279,8 @@ button{
   margin-top:6px;
 }
 
-.upload-hint{
-  font-size:12px;
-  color:#6c757d;
-  font-weight:500;
-}
-
 .upload-file-name{
-  margin-top:4px;
+  margin-top:6px;
   font-size:12px;
   font-weight:700;
   color:#198754;
@@ -580,7 +594,7 @@ td:nth-child(2){
 
         <div class="field">
           <label>Gambar URL</label>
-          <textarea id="gambar" class="gambar-url-box" readonly></textarea>
+          <textarea id="gambar" class="gambar-url-box" placeholder="Link gambar akan masuk di sini selepas upload. Boleh juga paste manual. Jika lebih dari satu, asingkan dengan simbol |"></textarea>
           <div id="gambarPreview" class="gambar-preview"></div>
         </div>
 
@@ -614,8 +628,8 @@ td:nth-child(2){
             </button>
           </div>
 
-          <div class="upload-hint">
-            Boleh pilih lebih dari satu gambar. Tekan Batal kalau tersalah pilih.
+          <div class="note">
+            Upload akan auto masukkan link ke ruangan Gambar URL.
           </div>
 
           <div id="namaFailGambar" class="upload-file-name">
@@ -693,6 +707,8 @@ td:nth-child(2){
         <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">
           <i class="fa-solid fa-xmark"></i> BATAL EDIT
         </button>
+
+        <div id="statusLine" class="status-line"></div>
       </div>
     </div>
   </div>
@@ -745,10 +761,14 @@ td:nth-child(2){
 
 </div>
 
+<iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
+
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbz8T40QL4qgt0usJJgall2fhDCgp-6OQwCghomctXWmDQa15ozxc8YxUd5b2LWrNABl/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzBVDLjQlNCvGaQV5Q_XPcESs2leDbktETwetLEfX34DwJapUiAIG1booBzV5OqDY229Q/exec";
 
 let allData = [];
+let isSaving = false;
+let isUploading = false;
 let selectedFiles = [];
 
 const tahunEl = document.getElementById("tahun");
@@ -774,39 +794,14 @@ const editingRowEl = document.getElementById("editingRow");
 const saveBtn = document.getElementById("saveBtn");
 const saveText = document.getElementById("saveText");
 const cancelBtn = document.getElementById("cancelBtn");
+const statusLineEl = document.getElementById("statusLine");
 
 for(let y=2010; y<=2035; y++){
   tahunEl.innerHTML += `<option value="${y}" ${y === new Date().getFullYear() ? "selected" : ""}>${y}</option>`;
 }
 
-function apiPost(payload){
-  return fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    body: JSON.stringify(payload)
-  })
-  .then(r => r.text())
-  .then(text => {
-    try {
-      return JSON.parse(text);
-    } catch(e) {
-      throw new Error("API tidak pulangkan JSON. Response: " + text.substring(0,200));
-    }
-  });
-}
-
-function apiGet(){
-  return fetch(API_URL)
-  .then(r => r.text())
-  .then(text => {
-    try {
-      return JSON.parse(text);
-    } catch(e) {
-      throw new Error("API tidak pulangkan JSON. Response: " + text.substring(0,200));
-    }
-  });
+function setStatus(text){
+  statusLineEl.innerText = text || "";
 }
 
 function showPage(pageId, btn){
@@ -835,16 +830,97 @@ function checkLokasi(){
   }
 }
 
-function load(){
-  if(API_URL === "PASTE_WEB_APP_URL_AWAK_DI_SINI"){
+function checkApiUrl(){
+  if(API_URL === "PASTE_WEB_APP_URL_AWAK_DI_SINI" || !API_URL){
     alert("Sila masukkan Web App URL dalam API_URL dahulu.");
+    return false;
+  }
+
+  return true;
+}
+
+function jsonp(params){
+  return new Promise((resolve, reject) => {
+    if(!checkApiUrl()){
+      reject(new Error("API_URL belum dimasukkan"));
+      return;
+    }
+
+    const callbackName = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+
+    params = params || {};
+    params.callback = callbackName;
+
+    const query = Object.keys(params)
+      .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(params[k] == null ? "" : params[k]))
+      .join("&");
+
+    const script = document.createElement("script");
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error("Timeout baca data daripada Apps Script"));
+    }, 20000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      delete window[callbackName];
+      if(script.parentNode){
+        script.parentNode.removeChild(script);
+      }
+    }
+
+    window[callbackName] = function(data){
+      cleanup();
+      resolve(data);
+    };
+
+    script.onerror = function(){
+      cleanup();
+      reject(new Error("Gagal hubungi Apps Script API"));
+    };
+
+    script.src = API_URL + "?" + query;
+    document.body.appendChild(script);
+  });
+}
+
+function submitHiddenForm(payload){
+  if(!checkApiUrl()){
     return;
   }
 
-  apiGet()
-  .then(d => {
-    if(d.status === "ERROR"){
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = API_URL;
+  form.target = "hiddenFrame";
+  form.style.display = "none";
+
+  Object.keys(payload).forEach(key => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = key;
+    input.value = payload[key] == null ? "" : payload[key];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => {
+    if(form.parentNode){
+      form.parentNode.removeChild(form);
+    }
+  }, 3000);
+}
+
+async function load(){
+  try{
+    setStatus("Sedang load data...");
+    const d = await jsonp({action:"list"});
+
+    if(d && d.status === "ERROR"){
       alert(d.message);
+      setStatus("");
       return;
     }
 
@@ -852,11 +928,13 @@ function load(){
     renderTable(allData);
     document.getElementById("recordCount").innerText = allData.length;
     stats();
-  })
-  .catch(err => {
+    setStatus("");
+
+  }catch(err){
+    setStatus("");
     alert("Gagal load data: " + err.message);
     console.error(err);
-  });
+  }
 }
 
 function renderTable(data){
@@ -984,6 +1062,256 @@ function filterDashboard(type,value){
   goPage("tablePage");
 }
 
+function collectPayload(){
+  let lokasiFinal = lokasiEl.value;
+
+  if(lokasiEl.value === "Lain-lain"){
+    lokasiFinal = lokasiLainEl.value.trim();
+  }
+
+  return {
+    row: editingRowEl.value,
+    tahun: tahunEl.value,
+    noInventori: noInventoriEl.value,
+    nama: namaEl.value,
+    kategori: kategoriEl.value,
+    jenama: jenamaEl.value,
+    model: modelEl.value,
+    noSiri: noSiriEl.value,
+    tagAset: tagAsetEl.value,
+    kuantiti: kuantitiEl.value,
+    lokasi: lokasiFinal,
+    status: statusEl.value,
+    tarikh: tarikhEl.value,
+    pembekal: pembekalEl.value,
+    gambar: gambarEl.value,
+    catatan: catatanEl.value
+  };
+}
+
+async function simpan(){
+  if(isSaving) return;
+
+  if(isUploading){
+    alert("Tunggu upload gambar siap dahulu sebelum simpan.");
+    return;
+  }
+
+  if(lokasiEl.value === "Lain-lain" && lokasiLainEl.value.trim() === ""){
+    alert("Sila masukkan lokasi lain-lain");
+    lokasiLainEl.focus();
+    return;
+  }
+
+  if(!checkApiUrl()) return;
+
+  const isEdit = editingRowEl.value !== "";
+  const beforeCount = allData.length;
+
+  isSaving = true;
+  saveBtn.disabled = true;
+  saveText.innerText = isEdit ? "SEDANG KEMASKINI..." : "SEDANG SIMPAN...";
+  setStatus("Sedang simpan data...");
+
+  const payload = collectPayload();
+  payload.action = isEdit ? "update" : "simpan";
+
+  submitHiddenForm(payload);
+
+  setTimeout(async () => {
+    try{
+      await load();
+
+      const afterCount = allData.length;
+
+      if(isEdit){
+        alert("BERJAYA DIKEMASKINI");
+      }else if(afterCount > beforeCount){
+        alert("BERJAYA DISIMPAN");
+      }else{
+        alert("Arahan simpan sudah dihantar. Sila semak senarai inventori / Google Sheet.");
+      }
+
+      clearForm();
+      goPage("tablePage");
+
+    }catch(err){
+      alert("Data dihantar, tetapi gagal refresh senarai: " + err.message);
+    }finally{
+      isSaving = false;
+      saveBtn.disabled = false;
+      saveText.innerText = isEdit ? "KEMASKINI DATA" : "SIMPAN DATA";
+      setStatus("");
+    }
+  }, 3000);
+}
+
+function pilihGambar(){
+  imageInputEl.click();
+}
+
+function paparNamaFail(){
+  const files = Array.from(imageInputEl.files || []);
+
+  files.forEach(file => {
+    const exists = selectedFiles.some(existing =>
+      existing.name === file.name &&
+      existing.size === file.size &&
+      existing.lastModified === file.lastModified
+    );
+
+    if(!exists){
+      selectedFiles.push(file);
+    }
+  });
+
+  renderSelectedFiles();
+}
+
+function renderSelectedFiles(){
+  if(selectedFiles.length === 0){
+    namaFailGambarEl.innerHTML = "Tiada gambar dipilih";
+    return;
+  }
+
+  let html = `<div>Jumlah gambar dipilih: ${selectedFiles.length}</div>`;
+  html += `<div class="selected-file-list">`;
+
+  selectedFiles.forEach((file,index) => {
+    html += `
+      <div class="selected-file-item">
+        <span>${index + 1}. ${escapeHtml(file.name)}</span>
+        <button type="button" class="btn-remove-file" onclick="buangGambarDipilih(${index})">Batal</button>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  namaFailGambarEl.innerHTML = html;
+}
+
+function buangGambarDipilih(index){
+  selectedFiles.splice(index,1);
+  renderSelectedFiles();
+}
+
+async function uploadImage(){
+  if(selectedFiles.length === 0){
+    alert("Sila tekan TAMBAH GAMBAR dan pilih gambar dahulu.");
+    return;
+  }
+
+  if(isUploading) return;
+  if(!checkApiUrl()) return;
+
+  for(const file of selectedFiles){
+    if(!file.type.startsWith("image/")){
+      alert("Fail mesti gambar sahaja: " + file.name);
+      return;
+    }
+  }
+
+  const uploadBtn = document.querySelector(".btn-upload");
+  const addBtn = document.querySelector(".btn-add-upload");
+
+  isUploading = true;
+  uploadBtn.disabled = true;
+  addBtn.disabled = true;
+  saveBtn.disabled = true;
+  uploadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SEDANG UPLOAD...`;
+  setStatus("Sedang upload gambar...");
+
+  try{
+    const existingUrls = parseGambarUrls(gambarEl.value);
+    const uploadedUrls = [];
+
+    for(let i = 0; i < selectedFiles.length; i++){
+      const file = selectedFiles[i];
+
+      namaFailGambarEl.innerText = `Sedang upload ${i + 1}/${selectedFiles.length}: ${file.name}`;
+
+      const base64 = await fileToBase64(file);
+      const uploadId = "u" + Date.now() + "_" + i + "_" + Math.floor(Math.random() * 100000);
+
+      submitHiddenForm({
+        action:"uploadForm",
+        uploadId:uploadId,
+        fileName:file.name,
+        mimeType:file.type,
+        image:base64.split(",")[1]
+      });
+
+      const res = await waitUploadResult(uploadId);
+
+      if(!res || res.status !== "OK"){
+        throw new Error((res && res.message) ? res.message : "Upload gagal: " + file.name);
+      }
+
+      uploadedUrls.push(res.url || res.directUrl);
+    }
+
+    gambarEl.value = joinGambarUrls(existingUrls.concat(uploadedUrls));
+    updateGambarPreview();
+
+    alert("UPLOAD OK. Link gambar sudah masuk dalam ruangan Gambar URL.");
+
+    selectedFiles = [];
+    imageInputEl.value = "";
+    renderSelectedFiles();
+
+  }catch(err){
+    alert("Ralat upload gambar: " + err.message);
+    console.error(err);
+  }finally{
+    isUploading = false;
+    uploadBtn.disabled = false;
+    addBtn.disabled = false;
+    saveBtn.disabled = false;
+    uploadBtn.innerHTML = `<i class="fa-solid fa-upload"></i> UPLOAD SEMUA GAMBAR`;
+    setStatus("");
+  }
+}
+
+async function waitUploadResult(uploadId){
+  for(let i = 0; i < 40; i++){
+    await sleep(1500);
+
+    const res = await jsonp({
+      action:"uploadResult",
+      uploadId:uploadId
+    });
+
+    if(res && res.status !== "PENDING"){
+      return res;
+    }
+  }
+
+  return {
+    status:"ERROR",
+    message:"Timeout menunggu upload siap"
+  };
+}
+
+function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function fileToBase64(file){
+  return new Promise((resolve,reject) => {
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+      resolve(e.target.result);
+    };
+
+    reader.onerror = function(){
+      reject(new Error("Gagal baca fail: " + file.name));
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
 function editData(row){
   const data = allData.find(x => x.row == row);
 
@@ -1023,10 +1351,6 @@ function editData(row){
   saveText.innerText = "KEMASKINI DATA";
   cancelBtn.style.display = "inline-block";
 
-  selectedFiles = [];
-  imageInputEl.value = "";
-  renderSelectedFiles();
-
   goPage("formPage");
 }
 
@@ -1062,209 +1386,23 @@ function searchTable(){
   document.getElementById("recordCount").innerText = filtered.length;
 }
 
-function simpan(){
-  let lokasiFinal = lokasiEl.value;
-
-  if(lokasiEl.value === "Lain-lain"){
-    if(lokasiLainEl.value.trim() === ""){
-      alert("Sila masukkan lokasi lain-lain");
-      lokasiLainEl.focus();
-      return;
-    }
-    lokasiFinal = lokasiLainEl.value.trim();
-  }
-
-  const isEdit = editingRowEl.value !== "";
-
-  saveBtn.disabled = true;
-  saveText.innerText = isEdit ? "SEDANG KEMASKINI..." : "SEDANG SIMPAN...";
-
-  apiPost({
-    action:isEdit ? "update" : "simpan",
-    row:editingRowEl.value,
-    tahun:tahunEl.value,
-    noInventori:noInventoriEl.value,
-    nama:namaEl.value,
-    kategori:kategoriEl.value,
-    jenama:jenamaEl.value,
-    model:modelEl.value,
-    noSiri:noSiriEl.value,
-    tagAset:tagAsetEl.value,
-    kuantiti:kuantitiEl.value,
-    lokasi:lokasiFinal,
-    status:statusEl.value,
-    tarikh:tarikhEl.value,
-    pembekal:pembekalEl.value,
-    gambar:gambarEl.value,
-    catatan:catatanEl.value
-  })
-  .then(res => {
-    if(res.status === "OK"){
-      alert(isEdit ? "BERJAYA DIKEMASKINI" : "BERJAYA DISIMPAN");
-      clearForm();
-      load();
-      goPage("tablePage");
-    }else{
-      alert(res.message || "Gagal simpan data");
-    }
-  })
-  .catch(err => {
-    alert("Ralat simpan data: " + err.message);
-    console.error(err);
-  })
-  .finally(() => {
-    saveBtn.disabled = false;
-    saveText.innerText = isEdit ? "KEMASKINI DATA" : "SIMPAN DATA";
-  });
-}
-
-function pilihGambar(){
-  imageInputEl.click();
-}
-
-function paparNamaFail(){
-  const files = Array.from(imageInputEl.files || []);
-
-  files.forEach(file => {
-    const exists = selectedFiles.some(existing =>
-      existing.name === file.name &&
-      existing.size === file.size &&
-      existing.lastModified === file.lastModified
-    );
-
-    if(!exists) selectedFiles.push(file);
-  });
-
-  renderSelectedFiles();
-}
-
-function renderSelectedFiles(){
-  if(selectedFiles.length === 0){
-    namaFailGambarEl.innerHTML = "Tiada gambar dipilih";
-    return;
-  }
-
-  let html = `<div>Jumlah gambar dipilih: ${selectedFiles.length}</div>`;
-  html += `<div class="selected-file-list">`;
-
-  selectedFiles.forEach((file,index) => {
-    html += `
-      <div class="selected-file-item">
-        <span>${index + 1}. ${escapeHtml(file.name)}</span>
-        <button type="button" class="btn-remove-file" onclick="buangGambarDipilih(${index})">Batal</button>
-      </div>
-    `;
-  });
-
-  html += `</div>`;
-  namaFailGambarEl.innerHTML = html;
-}
-
-function buangGambarDipilih(index){
-  selectedFiles.splice(index,1);
-  renderSelectedFiles();
-}
-
-function uploadImage(){
-  const files = selectedFiles;
-
-  if(files.length === 0){
-    alert("Sila tekan TAMBAH GAMBAR dan pilih gambar dahulu");
-    return;
-  }
-
-  for(const file of files){
-    if(!file.type.startsWith("image/")){
-      alert("Fail mesti gambar sahaja: " + file.name);
-      return;
-    }
-  }
-
-  const uploadBtn = document.querySelector(".btn-upload");
-  uploadBtn.disabled = true;
-  uploadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SEDANG UPLOAD...`;
-
-  const existingUrls = parseGambarUrls(gambarEl.value);
-  const uploadedUrls = [];
-
-  let chain = Promise.resolve();
-
-  files.forEach((file,index) => {
-    chain = chain.then(() => {
-      namaFailGambarEl.innerText = `Sedang upload ${index + 1}/${files.length}: ${file.name}`;
-      return fileToBase64(file);
-    })
-    .then(base64 => {
-      return apiPost({
-        action:"upload",
-        image:base64.split(",")[1],
-        mimeType:file.type,
-        fileName:file.name
-      });
-    })
-    .then(res => {
-      if(res.status !== "OK"){
-        throw new Error(res.message || "Upload gagal: " + file.name);
-      }
-      uploadedUrls.push(res.url);
-    });
-  });
-
-  chain
-  .then(() => {
-    gambarEl.value = joinGambarUrls(existingUrls.concat(uploadedUrls));
-    updateGambarPreview();
-
-    alert("UPLOAD OK. Semua link gambar sudah masuk dalam ruangan Gambar URL.");
-
-    selectedFiles = [];
-    imageInputEl.value = "";
-    renderSelectedFiles();
-  })
-  .catch(err => {
-    alert("Ralat upload gambar: " + err.message);
-    console.error(err);
-  })
-  .finally(() => {
-    uploadBtn.disabled = false;
-    uploadBtn.innerHTML = `<i class="fa-solid fa-upload"></i> UPLOAD SEMUA GAMBAR`;
-  });
-}
-
-function fileToBase64(file){
-  return new Promise((resolve,reject) => {
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-      resolve(e.target.result);
-    };
-
-    reader.onerror = function(){
-      reject(new Error("Gagal baca fail: " + file.name));
-    };
-
-    reader.readAsDataURL(file);
-  });
-}
-
-function del(id){
+async function del(id){
   if(!confirm("Delete data ini?")) return;
 
-  apiPost({
-    action:"delete",
-    row:id
-  })
-  .then(res => {
-    if(res.status === "OK"){
-      load();
+  try{
+    const res = await jsonp({
+      action:"delete",
+      row:id
+    });
+
+    if(res && res.status === "OK"){
+      await load();
     }else{
-      alert(res.message || "Gagal delete data");
+      alert((res && res.message) ? res.message : "Gagal delete data");
     }
-  })
-  .catch(err => {
+  }catch(err){
     alert("Ralat delete data: " + err.message);
-    console.error(err);
-  });
+  }
 }
 
 function exportExcel(){
@@ -1322,6 +1460,7 @@ function clearForm(){
   saveBtn.classList.remove("btn-update");
   saveText.innerText = "SIMPAN DATA";
   cancelBtn.style.display = "none";
+  setStatus("");
 }
 
 function escapeHtml(value){
@@ -1344,3 +1483,4 @@ window.onload = function(){
 
 </body>
 </html>
+
